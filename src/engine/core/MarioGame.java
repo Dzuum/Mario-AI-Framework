@@ -208,8 +208,8 @@ public class MarioGame {
             this.window = new JFrame("Mario AI Framework");
             this.render = new MarioRender(scale);
             this.window.setContentPane(this.render);
-            this.window.pack();
             this.window.setResizable(false);
+            this.window.pack();
             this.window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.render.init();
             this.window.setVisible(true);
