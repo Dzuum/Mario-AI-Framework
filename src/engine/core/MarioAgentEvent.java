@@ -1,22 +1,32 @@
 package engine.core;
 
 public class MarioAgentEvent {
-    private boolean[] actions;
-    private float marioX;
-    private float marioY;
-    private int marioState;
-    private boolean marioOnGround;
-    private int time;
+    protected boolean[] actions;
+    protected float marioX;
+    protected float marioY;
+    protected int marioState;
+    protected boolean marioOnGround;
+    protected int timeTicks;
+    protected long timeMillis;
 
-    public MarioAgentEvent(boolean[] actions, float marioX, float marioY, int marioState, boolean marioOnGround, int time) {
+    public MarioAgentEvent(boolean[] actions, float marioX, float marioY, int marioState, boolean marioOnGround, int timeTicks) {
         this.actions = actions;
         this.marioX = marioX;
         this.marioY = marioY;
         this.marioState = marioState;
         this.marioOnGround = marioOnGround;
-        this.time = time;
+        this.timeTicks = timeTicks;
+        this.timeMillis = System.currentTimeMillis();
     }
 
+    /**
+     * <pre>
+     * Boolean representation of the input.
+     * 
+     * Indices for the input:
+     *   0: Left, 1: Right, 2: Down, 3: Speed, 4: Jump
+     * </pre>
+     */
     public boolean[] getActions() {
         return this.actions;
     }
@@ -29,6 +39,9 @@ public class MarioAgentEvent {
         return this.marioY;
     }
 
+    /**
+     *  0 = small, 1 = large, 2 = fire power-up.
+     */
     public int getMarioState() {
         return this.marioState;
     }
@@ -37,7 +50,17 @@ public class MarioAgentEvent {
         return this.marioOnGround;
     }
 
-    public int getTime() {
-        return this.time;
+    /**
+     * Total amount of update ticks at the time of this event.
+     */
+    public int getTimeTicks() {
+        return this.timeTicks;
+    }
+    
+    /**
+     * Current time in milliseconds from epoch at the time of this event.
+     */
+    public long getTimeMillis() {
+        return this.timeMillis;
     }
 }
