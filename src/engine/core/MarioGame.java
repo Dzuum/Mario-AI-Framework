@@ -11,6 +11,8 @@ import agents.human.Agent;
 import engine.helper.GameStatus;
 import engine.helper.MarioActions;
 
+import custom.CameraController;
+
 public class MarioGame {
     /**
      * the maximum time that agent takes for each step
@@ -229,6 +231,12 @@ public class MarioGame {
         this.world.mario.isFire = marioState > 1;
         this.world.update(new boolean[MarioActions.numberOfActions()]);
         long currentTime = System.currentTimeMillis();
+
+        // Free camera movement
+        CameraController cameraController = new CameraController(this, world);
+        if (cameraController instanceof KeyAdapter) {
+            this.render.addKeyListener((KeyAdapter) cameraController);
+        }
 
         //initialize graphics
         VolatileImage renderTarget = null;
