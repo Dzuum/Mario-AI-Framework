@@ -4,8 +4,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import engine.core.MarioAgentEvent;
 import engine.core.MarioResult;
@@ -14,7 +16,7 @@ public class DataCollection {
 
     public static void findPatterns(String levelName, boolean writeFiles, MarioResult result) {
         List<String> lines = new ArrayList<String>();
-        List<EventRange> eventRanges = getEventRanges(result);
+        List<EventRange> eventRanges = getStates(result);
 
         calculateDistances(eventRanges);
         if (writeFiles) {
@@ -22,11 +24,11 @@ public class DataCollection {
                 lines.add("" + eventRanges.get(i).getDistance() + " ( " + eventRanges.get(i).getString() + ")");
             }
 
-            writeFile(levelName + "-distances.txt", lines);
+            writeFile(levelName + "-A_distances.txt", lines);
             lines.clear();
         }
 
-        setBoundaries(eventRanges);
+        determineGestaltBoundaries(eventRanges);
         if (writeFiles) {
             String line = "";
 
@@ -41,28 +43,73 @@ public class DataCollection {
                 }
             }
 
-            writeFile(levelName + "-boundaries.txt", lines);
+            writeFile(levelName + "-B_boundaries.txt", lines);
             lines.clear();
         }
 
+        LinkedHashMap<Integer, Integer> patterns = getGestaltPatterns(levelName, eventRanges);
         if (writeFiles) {
-            writeBoundaryTiles(levelName, eventRanges);
+            for (Entry<Integer, Integer> entry : patterns.entrySet()){    
+                lines.add("[" + entry.getKey() + " .. " + entry.getValue() + "]");
+            }
+
+            writeFile(levelName + "-C_patterns.txt", lines);
         }
     }
 
     // #region Pattern Calculation
 
-    private static void calculateDistances(List<EventRange> events) {
-        for (int i = 1; i < events.size(); i++) {
-            EventRange first = events.get(i - 1);
-            EventRange second = events.get(i);
+    /**
+     * Join identical sequential events into one state.
+     */
+    private static List<EventRange> getStates(MarioResult result) {
+        List<EventRange> states = new ArrayList<EventRange>();
+        
+        List<MarioAgentEvent> allEvents = result.getAgentEvents();
+        MarioAgentEvent startEvent = allEvents.get(0);
+        MarioAgentEvent currEvent;
+
+        for (int i = 1; i < allEvents.size(); i++) {
+            currEvent = allEvents.get(i);
+
+            if (!isSameEvent(startEvent, currEvent)) {
+                // The previous one was the end for this range
+                MarioAgentEvent endEvent = allEvents.get(i - 1);
+
+                EventRange state = new EventRange(startEvent, endEvent);
+                states.add(state);
+
+                // Start new range
+                startEvent = currEvent;
+            }
+
+            // Make sure to record the last range of events as well
+            if (i == (allEvents.size() - 1)) {
+                EventRange state = new EventRange(startEvent, currEvent);
+                states.add(state);
+            }
+        }
+
+        return states;
+    }
+
+    /**
+     * Calculate the distances to previous state for each entry.
+     */
+    private static void calculateDistances(List<EventRange> states) {
+        for (int i = 1; i < states.size(); i++) {
+            EventRange first = states.get(i - 1);
+            EventRange second = states.get(i);
 
             int distance = calculateDistance(first, second);
             second.setDistance(distance);
         }
     }
 
-    private static void setBoundaries(List<EventRange> events) {
+    /**
+     * Determine the gestalt boundaries based on the distances.
+     */
+    private static void determineGestaltBoundaries(List<EventRange> events) {
         events.get(0).setStartBoundary();
 
         for (int i = 1; i < events.size() - 1; i++) {
@@ -81,8 +128,8 @@ public class DataCollection {
         events.get(events.size() - 1).setEndBoundary();
     }
 
-    private static void writeBoundaryTiles(String levelName, List<EventRange> events) {
-        List<String> lines = new ArrayList<String>();
+    private static LinkedHashMap<Integer, Integer> getGestaltPatterns(String levelName, List<EventRange> events) {
+        LinkedHashMap<Integer, Integer> gestalts = new LinkedHashMap<Integer, Integer>();
 
         int startX = 0, endX = 0;
         boolean foundStart = false, foundEnd = false;
@@ -99,13 +146,19 @@ public class DataCollection {
             }
 
             if (foundStart && foundEnd) {
-                lines.add("[" + startX + " .. " + endX + "]");
+                if (gestalts.containsKey(startX)) {
+                    // TODO: ??
+                    System.out.println("getGestaltPatterns: Warning! Pattern start '" + startX + "' already exists!");
+                }
+
+                gestalts.put(startX, endX);
+
                 foundStart = false;
                 foundEnd = false;
             }
         }
 
-        writeFile(levelName + "-positions.txt", lines);
+        return gestalts;
     }
 
     // #endregion
@@ -148,37 +201,6 @@ public class DataCollection {
     // #endregion
 
     // #region Utility Functions
-
-    private static List<EventRange> getEventRanges(MarioResult result) {
-        List<EventRange> eventRanges = new ArrayList<EventRange>();
-        
-        List<MarioAgentEvent> allEvents = result.getAgentEvents();
-        MarioAgentEvent startEvent = allEvents.get(0);
-        MarioAgentEvent currEvent;
-
-        for (int i = 1; i < allEvents.size(); i++) {
-            currEvent = allEvents.get(i);
-
-            if (!isSameEvent(startEvent, currEvent)) {
-                // The previous one was the end for this range
-                MarioAgentEvent endEvent = allEvents.get(i - 1);
-
-                EventRange range = new EventRange(startEvent, endEvent);
-                eventRanges.add(range);
-
-                // Start new range
-                startEvent = currEvent;
-            }
-
-            // Make sure to record the last range of events as well
-            if (i == (allEvents.size() - 1)) {
-                EventRange range = new EventRange(startEvent, currEvent);
-                eventRanges.add(range);
-            }
-        }
-
-        return eventRanges;
-    }
 
     private static void writeFile(String fileName, List<String> lines) {
         String folderName = "results";
