@@ -67,7 +67,7 @@ public class MarioRender extends JComponent implements FocusListener {
         drawString(g, text, x * 8 + 4, y * 8 + 4, c);
     }
 
-    private void drawString(Graphics g, String text, int x, int y, int c) {
+    public static void drawString(Graphics g, String text, int x, int y, int c) {
         char[] ch = text.toCharArray();
         for (int i = 0; i < ch.length; i++) {
             g.drawImage(Assets.font[ch[i] - 32][c], x + i * 8, y, null);

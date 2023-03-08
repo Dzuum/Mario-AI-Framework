@@ -5,7 +5,11 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 import engine.core.MarioGame;
+import engine.core.MarioRender;
 import engine.helper.TileFeature;
+
+import custom.DataCollection;
+import custom.DataCollection.LaunchMode;
 
 public class MarioTilemap extends MarioGraphics {
     public Image[][] sheet;
@@ -54,8 +58,18 @@ public class MarioTilemap extends MarioGraphics {
                 int move = (int) moveShift[xTile][yTile];
                 Image img = sheet[index % 8][index / 8];
                 og.drawImage(img, xTile * 16 - x, yTile * 16 - y - move, null);
+
+                
+                if (DataCollection.LAUNCH_MODE == LaunchMode.Results) {
+                    if (yTile == 2 && (xTile % 2) == 0) {
+                        MarioRender.drawString(og, "" + xTile, xTile * 16 - x + 4, yTile * 16 - y + 4, 0);
+                        MarioRender.drawString(og, "" + xTile, xTile * 16 - x + 3, yTile * 16 - y + 3, 7);
+                    } else if (yTile == 3 && (xTile % 2) == 1) {
+                        MarioRender.drawString(og, "" + xTile, xTile * 16 - x + 4, yTile * 16 - y + 4, 0);
+                        MarioRender.drawString(og, "" + xTile, xTile * 16 - x + 3, yTile * 16 - y + 3, 7);
+                    }
+                }
             }
         }
     }
-
 }
