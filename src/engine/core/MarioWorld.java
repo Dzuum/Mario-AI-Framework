@@ -12,6 +12,8 @@ import engine.helper.SpriteType;
 import engine.helper.TileFeature;
 import engine.sprites.*;
 
+import custom.GestaltSprite;
+
 public class MarioWorld {
     public GameStatus gameStatus;
     public int pauseTimer = 0;
@@ -334,7 +336,10 @@ public class MarioWorld {
                 if (sprite.type == SpriteType.MARIO) {
                     this.lose();
                 }
-                this.removeSprite(sprite);
+
+                if (!(sprite instanceof GestaltSprite))
+                    this.removeSprite(sprite);
+
                 if (this.isEnemy(sprite) && sprite.y > MarioGame.height + 32) {
                     this.addEvent(EventType.FALL_KILL, sprite.type.getValue());
                 }

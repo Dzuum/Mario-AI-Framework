@@ -13,6 +13,12 @@ import engine.core.MarioAgentEvent;
 import engine.core.MarioResult;
 
 public class DataCollection {
+    private static final String FOLDER_NAME = "results";
+    private static final String FILE_EXTENSION = ".txt";
+    private static final String DISTANCES_FILE_SUFFIX = "-A_distances";
+    private static final String BOUNDARIES_FILE_SUFFIX = "-B_boundaries";
+    private static final String PATTERNS_FILE_SUFFIX = "-C_patterns";
+
 
     public static void findPatterns(String levelName, boolean writeFiles, MarioResult result) {
         List<String> lines = new ArrayList<String>();
@@ -24,7 +30,7 @@ public class DataCollection {
                 lines.add("" + eventRanges.get(i).getDistance() + " ( " + eventRanges.get(i).getString() + ")");
             }
 
-            writeFile(levelName + "-A_distances.txt", lines);
+            writeFile(levelName + DISTANCES_FILE_SUFFIX + FILE_EXTENSION, lines);
             lines.clear();
         }
 
@@ -43,7 +49,7 @@ public class DataCollection {
                 }
             }
 
-            writeFile(levelName + "-B_boundaries.txt", lines);
+            writeFile(levelName + BOUNDARIES_FILE_SUFFIX + FILE_EXTENSION, lines);
             lines.clear();
         }
 
@@ -53,7 +59,7 @@ public class DataCollection {
                 lines.add("[" + entry.getKey() + " .. " + entry.getValue() + "]");
             }
 
-            writeFile(levelName + "-C_patterns.txt", lines);
+            writeFile(levelName + PATTERNS_FILE_SUFFIX + FILE_EXTENSION, lines);
         }
     }
 
@@ -202,10 +208,35 @@ public class DataCollection {
 
     // #region Utility Functions
 
-    private static void writeFile(String fileName, List<String> lines) {
-        String folderName = "results";
+    public static LinkedHashMap<Integer, Integer> loadGestaltPatterns(String levelName) {
+        // Load
+        List<String> lines = null;
+        Path file = Paths.get(DataCollection.FOLDER_NAME, levelName + PATTERNS_FILE_SUFFIX + FILE_EXTENSION);
+        try {
+            lines = Files.readAllLines(file);
+        } catch (Exception ex) {
+            System.out.println("loadGestaltPatterns: Error reading file for " + levelName + "!");
+        }
 
-        Path file = Paths.get(folderName, fileName);
+        // Parse
+        LinkedHashMap<Integer, Integer> gestalts = new LinkedHashMap<Integer, Integer>();
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            line = line.replace("[", "");
+            line = line.replace("]", "");
+
+            String[] split = line.split(" .. ");
+            int startTile = Integer.parseInt(split[0]);
+            int endTile = Integer.parseInt(split[1]);
+
+            gestalts.put(startTile, endTile);
+        }
+
+        return gestalts;
+    }
+
+    private static void writeFile(String fileName, List<String> lines) {
+        Path file = Paths.get(FOLDER_NAME, fileName);
 
         try {
             Files.write(file, lines, StandardCharsets.UTF_8);

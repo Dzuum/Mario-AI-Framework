@@ -2,6 +2,8 @@ package engine.core;
 
 import java.awt.image.VolatileImage;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 
@@ -11,6 +13,7 @@ import agents.human.Agent;
 import engine.helper.GameStatus;
 import engine.helper.MarioActions;
 
+import custom.GestaltSprite;
 import custom.CameraController;
 
 public class MarioGame {
@@ -220,6 +223,17 @@ public class MarioGame {
         return this.gameLoop(level, timer, marioState, visuals, fps);
     }
 
+
+    
+    private LinkedHashMap<Integer, Integer> gestalts = new LinkedHashMap<>();
+
+    public MarioResult viewResults(LinkedHashMap<Integer, Integer> gestalts, String level, int timer, int marioState, boolean visuals) {
+        this.gestalts = gestalts;
+        return this.runGame(new agents.human.Agent(), level, timer, marioState, visuals, visuals ? 30 : 0, 2);
+    }
+
+    
+
     private MarioResult gameLoop(String level, int timer, int marioState, boolean visual, int fps) {
         this.world = new MarioWorld(this.killEvents);
         this.world.visuals = visual;
@@ -251,6 +265,18 @@ public class MarioGame {
 
         MarioTimer agentTimer = new MarioTimer(MarioGame.maxTime);
         this.agent.initialize(new MarioForwardModel(this.world.clone()), agentTimer);
+
+
+        // Custom indicators for gestalt patterns
+        for (Entry<Integer, Integer> entry : gestalts.entrySet()) {
+            int startX = entry.getKey();
+            int endX = entry.getValue();
+            int y = 1;
+
+            GestaltSprite startSprite = new GestaltSprite(startX * 16, endX * 16, y * 16);
+            this.world.addSprite(startSprite);
+            startSprite.alive = false;
+        }
 
         ArrayList<MarioEvent> gameEvents = new ArrayList<>();
         ArrayList<MarioAgentEvent> agentEvents = new ArrayList<>();

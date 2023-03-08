@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.LinkedHashMap;
 
 import engine.core.MarioGame;
 import engine.core.MarioResult;
@@ -33,7 +34,18 @@ public class PlayLevel {
 
     public static void main(String[] args) {
         MarioGame game = new MarioGame();
-        // printResults(game.playGame(getLevel("../levels/original/lvl-1.txt"), 200, 0));
-        printResults(game.runGame(new agents.robinBaumgarten.Agent(), getLevel("./levels/original/lvl-1.txt"), 20, 0, true));
+
+        String levelName = "lvl-1";
+        boolean viewResults = true;
+
+        if (viewResults) {
+            LinkedHashMap<Integer, Integer> gestalts = DataCollection.loadGestaltPatterns(levelName);
+            game.viewResults(gestalts, getLevel("./levels/original/" + levelName + ".txt"), 200, 0, true);
+        } else {
+            DataCollection.findPatterns(levelName, true,
+                game.runGame(new agents.robinBaumgarten.Agent(),
+                             getLevel("./levels/original/" + levelName + ".txt"),
+                             20, 0, true));
+        }
     }
 }
