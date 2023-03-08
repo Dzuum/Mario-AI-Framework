@@ -15,6 +15,10 @@ import engine.core.MarioAgentEvent;
 import engine.core.MarioResult;
 
 public class DataCollection {
+    public enum LaunchMode { Agent, Player, Results }
+
+    public static LaunchMode LAUNCH_MODE = LaunchMode.Results;
+
     private static final String FOLDER_NAME = "results";
     private static final String FILE_EXTENSION = ".txt";
     private static final String DISTANCES_FILE_SUFFIX = "-A_distances";

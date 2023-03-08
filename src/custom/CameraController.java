@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 
 import engine.core.MarioGame;
 import engine.core.MarioWorld;
-import engine.helper.GameStatus;
 
 public class CameraController extends KeyAdapter {
     private MarioGame game;

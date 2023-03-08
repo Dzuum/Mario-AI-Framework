@@ -7,6 +7,7 @@ import engine.core.MarioGame;
 import engine.core.MarioResult;
 
 import custom.DataCollection;
+import custom.DataCollection.LaunchMode;
 
 public class PlayLevel {
     public static void printResults(MarioResult result) {
@@ -38,16 +39,19 @@ public class PlayLevel {
         MarioGame game = new MarioGame();
 
         String levelName = "lvl-1";
-        boolean viewResults = true;
 
-        if (viewResults) {
-            LinkedHashMap<Integer, Integer> gestalts = DataCollection.loadGestaltPatterns(levelName);
-            game.viewResults(gestalts, getLevel("./levels/original/" + levelName + ".txt"), 200, 0, true);
-        } else {
+        if (DataCollection.LAUNCH_MODE == LaunchMode.Agent) {
             DataCollection.findPatterns(levelName, true,
                 game.runGame(new agents.robinBaumgarten.Agent(),
                              getLevel("./levels/original/" + levelName + ".txt"),
                              20, 0, true));
+        } else if (DataCollection.LAUNCH_MODE == LaunchMode.Player) {
+            printResults(game.runGame(new agents.human.Agent(),
+                             getLevel("./levels/original/" + levelName + ".txt"),
+                             200, 0, true));
+        } else if (DataCollection.LAUNCH_MODE == LaunchMode.Results) {
+            LinkedHashMap<Integer, Integer> gestalts = DataCollection.loadGestaltPatterns(levelName);
+            game.viewResults(gestalts, getLevel("./levels/original/" + levelName + ".txt"), 200, 0, true);
         }
     }
 }
