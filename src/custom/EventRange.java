@@ -1,3 +1,5 @@
+package custom;
+
 import java.util.ArrayList;
 
 import engine.core.MarioAgentEvent;
