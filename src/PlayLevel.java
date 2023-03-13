@@ -43,15 +43,15 @@ public class PlayLevel {
         if (DataCollection.LAUNCH_MODE == LaunchMode.Agent) {
             DataCollection.findPatterns(levelName, true,
                 game.runGame(new agents.robinBaumgarten.Agent(),
-                             getLevel("./levels/original/" + levelName + ".txt"),
+                             getLevel(DataCollection.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
                              20, 0, true));
         } else if (DataCollection.LAUNCH_MODE == LaunchMode.Player) {
             printResults(game.runGame(new agents.human.Agent(),
-                             getLevel("./levels/original/" + levelName + ".txt"),
+                             getLevel(DataCollection.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
                              200, 0, true));
         } else if (DataCollection.LAUNCH_MODE == LaunchMode.Results) {
-            LinkedHashMap<Integer, Integer> gestalts = DataCollection.loadGestaltPatterns(levelName);
-            game.viewResults(gestalts, getLevel("./levels/original/" + levelName + ".txt"), 200, 0, true);
+            LinkedHashMap<Integer, Integer> gestalts = DataCollection.loadGestaltTileRanges(levelName);
+            game.viewResults(gestalts, getLevel(DataCollection.ORIGINAL_LEVELS_PATH + levelName + ".txt"), 200, 0, true);
         }
     }
 }

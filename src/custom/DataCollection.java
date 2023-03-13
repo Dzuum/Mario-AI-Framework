@@ -19,12 +19,14 @@ public class DataCollection {
 
     public static LaunchMode LAUNCH_MODE = LaunchMode.Results;
 
-    private static final String FOLDER_NAME = "results";
-    private static final String FILE_EXTENSION = ".txt";
-    private static final String DISTANCES_FILE_SUFFIX = "-A_distances";
-    private static final String BOUNDARIES_FILE_SUFFIX = "-B_boundaries";
-    private static final String PATTERNS_FILE_SUFFIX = "-C_patterns";
+    public static final String ORIGINAL_LEVELS_PATH = "./levels/original/";
+    public static final String RESULTS_FOLDER_NAME = "results";
 
+    public static final String RESULTS_FILE_EXTENSION = ".txt";
+    public static final String DISTANCES_FILE_SUFFIX = "-A_distances";
+    public static final String BOUNDARIES_FILE_SUFFIX = "-B_boundaries";
+    public static final String TILE_RANGES_FILE_SUFFIX = "-C_tiles";
+    public static final String PATTERNS_FILE_SUFFIX = "_pattern_{i}";
 
     public static void findPatterns(String levelName, boolean writeFiles, MarioResult result) {
         List<String> lines = new ArrayList<String>();
@@ -36,7 +38,7 @@ public class DataCollection {
                 lines.add("" + eventRanges.get(i).getDistance() + " ( " + eventRanges.get(i).getString() + ")");
             }
 
-            writeFile(levelName + DISTANCES_FILE_SUFFIX + FILE_EXTENSION, lines);
+            writeResultsFile(levelName + DISTANCES_FILE_SUFFIX + RESULTS_FILE_EXTENSION, lines);
             lines.clear();
         }
 
@@ -55,17 +57,21 @@ public class DataCollection {
                 }
             }
 
-            writeFile(levelName + BOUNDARIES_FILE_SUFFIX + FILE_EXTENSION, lines);
+            writeResultsFile(levelName + BOUNDARIES_FILE_SUFFIX + RESULTS_FILE_EXTENSION, lines);
             lines.clear();
         }
 
-        LinkedHashMap<Integer, Integer> patterns = getGestaltPatterns(levelName, eventRanges);
+        LinkedHashMap<Integer, Integer> patterns = getGestaltTileRanges(levelName, eventRanges);
         if (writeFiles) {
             for (Entry<Integer, Integer> entry : patterns.entrySet()){    
                 lines.add("[" + entry.getKey() + " .. " + entry.getValue() + "]");
             }
 
-            writeFile(levelName + PATTERNS_FILE_SUFFIX + FILE_EXTENSION, lines);
+            writeResultsFile(levelName + TILE_RANGES_FILE_SUFFIX + RESULTS_FILE_EXTENSION, lines);
+        }
+
+        if (writeFiles) {
+            writeGestaltPatterns(levelName, patterns);
         }
     }
 
@@ -140,7 +146,7 @@ public class DataCollection {
         events.get(events.size() - 1).setEndBoundary();
     }
 
-    private static LinkedHashMap<Integer, Integer> getGestaltPatterns(String levelName, List<EventRange> events) {
+    private static LinkedHashMap<Integer, Integer> getGestaltTileRanges(String levelName, List<EventRange> events) {
         LinkedHashMap<Integer, Integer> gestalts = new LinkedHashMap<Integer, Integer>();
 
         int startX = 0, endX = 0;
@@ -159,8 +165,7 @@ public class DataCollection {
 
             if (foundStart && foundEnd) {
                 if (gestalts.containsKey(startX)) {
-                    // TODO: ??
-                    System.out.println("getGestaltPatterns: Warning! Pattern start '" + startX + "' already exists!");
+                    System.out.println("getGestaltTileRanges: Warning! Pattern start '" + startX + "' already exists!");
                 }
 
                 gestalts.put(startX, endX);
@@ -171,6 +176,33 @@ public class DataCollection {
         }
 
         return gestalts;
+    }
+
+    /**
+     * Write the found patterns as text files. 
+     */
+    private static void writeGestaltPatterns(String levelName, LinkedHashMap<Integer, Integer> patterns) {
+        Path path = Paths.get(ORIGINAL_LEVELS_PATH, levelName + ".txt");
+        List<String> levelLines = readAllLines(path);
+
+        int patternIndex = 0;
+        List<String> result = new ArrayList<String>();
+
+        for (Entry<Integer, Integer> entry : patterns.entrySet()) {
+            result.clear();
+            int start = entry.getKey();
+            int end = entry.getValue();
+
+            for (int i = 0; i < levelLines.size(); i++) {
+                // The end is exclusive so add 1
+                result.add(levelLines.get(i).substring(start, end + 1));
+            }
+
+            // Write each pattern to their own file
+            String suffix = PATTERNS_FILE_SUFFIX.replace("{i}", "" + patternIndex);
+            writeResultsFile(levelName + suffix + RESULTS_FILE_EXTENSION, result);
+            patternIndex += 1;
+        }
     }
 
     // #endregion
@@ -214,15 +246,10 @@ public class DataCollection {
 
     // #region Utility Functions
 
-    public static LinkedHashMap<Integer, Integer> loadGestaltPatterns(String levelName) {
+    public static LinkedHashMap<Integer, Integer> loadGestaltTileRanges(String levelName) {
         // Load
-        List<String> lines = null;
-        Path file = Paths.get(DataCollection.FOLDER_NAME, levelName + PATTERNS_FILE_SUFFIX + FILE_EXTENSION);
-        try {
-            lines = Files.readAllLines(file);
-        } catch (Exception ex) {
-            System.out.println("loadGestaltPatterns: Error reading file for " + levelName + "!");
-        }
+        Path path = Paths.get(DataCollection.RESULTS_FOLDER_NAME, levelName + TILE_RANGES_FILE_SUFFIX + RESULTS_FILE_EXTENSION);
+        List<String> lines = readAllLines(path);
 
         // Parse
         LinkedHashMap<Integer, Integer> gestalts = new LinkedHashMap<Integer, Integer>();
@@ -241,8 +268,20 @@ public class DataCollection {
         return gestalts;
     }
 
-    private static void writeFile(String fileName, List<String> lines) {
-        Path file = Paths.get(FOLDER_NAME, fileName);
+    private static List<String> readAllLines(Path path) {
+        List<String> lines = new ArrayList<String>();
+
+        try {
+            lines = Files.readAllLines(path);
+        } catch (Exception ex) {
+            System.out.println("readLines: Error reading file for " + path.toString() + "!");
+        }
+
+        return lines;
+    }
+
+    private static void writeResultsFile(String fileName, List<String> lines) {
+        Path file = Paths.get(RESULTS_FOLDER_NAME, fileName);
 
         try {
             Files.write(file, lines, StandardCharsets.UTF_8);
