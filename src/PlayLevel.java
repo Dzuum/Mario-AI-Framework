@@ -4,7 +4,10 @@ import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 
 import engine.core.MarioGame;
+import engine.core.MarioLevelGenerator;
+import engine.core.MarioLevelModel;
 import engine.core.MarioResult;
+import engine.core.MarioTimer;
 
 import custom.DataCollection;
 import custom.DataCollection.LaunchMode;
@@ -41,17 +44,30 @@ public class PlayLevel {
         String levelName = "lvl-1";
 
         if (DataCollection.LAUNCH_MODE == LaunchMode.Agent) {
+
             DataCollection.findPatterns(levelName, true,
                 game.runGame(new agents.robinBaumgarten.Agent(),
                              getLevel(DataCollection.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
                              20, 0, true));
+
         } else if (DataCollection.LAUNCH_MODE == LaunchMode.Player) {
+
             printResults(game.runGame(new agents.human.Agent(),
                              getLevel(DataCollection.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
                              200, 0, true));
+
         } else if (DataCollection.LAUNCH_MODE == LaunchMode.Results) {
+
             LinkedHashMap<Integer, Integer> gestalts = DataCollection.loadGestaltTileRanges(levelName);
             game.viewResults(gestalts, getLevel(DataCollection.ORIGINAL_LEVELS_PATH + levelName + ".txt"), 200, 0, true);
+
+        } else if (DataCollection.LAUNCH_MODE == LaunchMode.LevelGenerator) {
+
+            MarioLevelGenerator generator = new custom.LevelGenerator(10);
+            String level = generator.getGeneratedLevel(new MarioLevelModel(150, 16), new MarioTimer(5 * 60 * 60 * 1000));
+            
+            printResults(game.runGame(new agents.robinBaumgarten.Agent(), level, 20, 0, true));
+
         }
     }
 }

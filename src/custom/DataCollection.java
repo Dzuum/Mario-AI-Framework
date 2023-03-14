@@ -16,9 +16,9 @@ import engine.core.MarioAgentEvent;
 import engine.core.MarioResult;
 
 public class DataCollection {
-    public enum LaunchMode { Agent, Player, Results }
+    public enum LaunchMode { Agent, Player, Results, LevelGenerator }
 
-    public static LaunchMode LAUNCH_MODE = LaunchMode.Results;
+    public static LaunchMode LAUNCH_MODE = LaunchMode.LevelGenerator;
 
     public static final String ORIGINAL_LEVELS_PATH = "./levels/original/";
     public static final String RESULTS_FOLDER_NAME = "results";
@@ -198,6 +198,7 @@ public class DataCollection {
             }
         } catch (Exception ex) {
             System.out.println("writeGestaltPatterns: Error deleting existing directory!");
+            ex.printStackTrace();
         }
 
         int patternIndex = 0;
@@ -292,6 +293,7 @@ public class DataCollection {
             lines = Files.readAllLines(path);
         } catch (Exception ex) {
             System.out.println("readLines: Error reading file for " + path.toString() + "!");
+            ex.printStackTrace();
         }
 
         return lines;
@@ -311,6 +313,7 @@ public class DataCollection {
             Files.write(filePath, lines, StandardCharsets.UTF_8);
         } catch (IOException ioe) {
             System.out.println("Error writing file " + filePath.toString());
+            ioe.printStackTrace();
         }
     }
 
