@@ -2,6 +2,7 @@ package custom;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,7 +27,7 @@ public class DataCollection {
     public static final String DISTANCES_FILE_SUFFIX = "-A_distances";
     public static final String BOUNDARIES_FILE_SUFFIX = "-B_boundaries";
     public static final String TILE_RANGES_FILE_SUFFIX = "-C_tiles";
-    public static final String PATTERNS_FILE_SUFFIX = "_pattern_{i}";
+    public static final String PATTERNS_FILE_NAME = "Pattern_{i}";
 
     public static void findPatterns(String levelName, boolean writeFiles, MarioResult result) {
         List<String> lines = new ArrayList<String>();
@@ -182,8 +183,22 @@ public class DataCollection {
      * Write the found patterns as text files. 
      */
     private static void writeGestaltPatterns(String levelName, LinkedHashMap<Integer, Integer> patterns) {
-        Path path = Paths.get(ORIGINAL_LEVELS_PATH, levelName + ".txt");
-        List<String> levelLines = readAllLines(path);
+        Path originalLevelPath = Paths.get(ORIGINAL_LEVELS_PATH, levelName + ".txt");
+        List<String> levelLines = readAllLines(originalLevelPath);
+
+        // Empty the results from last run
+        try {
+            Path folderPath = Paths.get(RESULTS_FOLDER_NAME, levelName);
+            if (Files.exists(folderPath)) {
+                try (DirectoryStream<Path> entries = Files.newDirectoryStream(folderPath)) {
+                    for (Path entry : entries) {
+                        Files.delete(entry);
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println("writeGestaltPatterns: Error deleting existing directory!");
+        }
 
         int patternIndex = 0;
         List<String> result = new ArrayList<String>();
@@ -198,9 +213,11 @@ public class DataCollection {
                 result.add(levelLines.get(i).substring(start, end + 1));
             }
 
-            // Write each pattern to their own file
-            String suffix = PATTERNS_FILE_SUFFIX.replace("{i}", "" + patternIndex);
-            writeResultsFile(levelName + suffix + RESULTS_FILE_EXTENSION, result);
+            // Write each pattern to their own file, and each level's patterns in its own folder
+            String fileName = PATTERNS_FILE_NAME.replace("{i}", "" + patternIndex) + RESULTS_FILE_EXTENSION;
+            Path newPath = Paths.get(RESULTS_FOLDER_NAME, levelName, fileName);
+
+            writeResultsFile(newPath, result);
             patternIndex += 1;
         }
     }
@@ -281,12 +298,19 @@ public class DataCollection {
     }
 
     private static void writeResultsFile(String fileName, List<String> lines) {
-        Path file = Paths.get(RESULTS_FOLDER_NAME, fileName);
+        Path path = Paths.get(RESULTS_FOLDER_NAME, fileName);
+        writeResultsFile(path, lines);
+    }
 
+    private static void writeResultsFile(Path filePath, List<String> lines) {
         try {
-            Files.write(file, lines, StandardCharsets.UTF_8);
+            if (!Files.exists(filePath.getParent())) {
+                Files.createDirectory(filePath.getParent());
+            }
+            
+            Files.write(filePath, lines, StandardCharsets.UTF_8);
         } catch (IOException ioe) {
-            System.out.println("Error writing file " + fileName);
+            System.out.println("Error writing file " + filePath.toString());
         }
     }
 
