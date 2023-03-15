@@ -10,7 +10,8 @@ import engine.core.MarioResult;
 import engine.core.MarioTimer;
 
 import custom.DataCollection;
-import custom.DataCollection.LaunchMode;
+import custom.Settings;
+import custom.Settings.LaunchMode;
 
 public class PlayLevel {
     public static void printResults(MarioResult result) {
@@ -43,25 +44,25 @@ public class PlayLevel {
 
         String levelName = "lvl-1";
 
-        if (DataCollection.LAUNCH_MODE == LaunchMode.Agent) {
+        if (Settings.LAUNCH_MODE == LaunchMode.Agent) {
 
             DataCollection.findPatterns(levelName, true,
                 game.runGame(new agents.robinBaumgarten.Agent(),
-                             getLevel(DataCollection.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
+                             getLevel(Settings.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
                              20, 0, true));
 
-        } else if (DataCollection.LAUNCH_MODE == LaunchMode.Player) {
+        } else if (Settings.LAUNCH_MODE == LaunchMode.Player) {
 
             printResults(game.runGame(new agents.human.Agent(),
-                             getLevel(DataCollection.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
+                             getLevel(Settings.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
                              200, 0, true));
 
-        } else if (DataCollection.LAUNCH_MODE == LaunchMode.Results) {
+        } else if (Settings.LAUNCH_MODE == LaunchMode.Results) {
 
             LinkedHashMap<Integer, Integer> gestalts = DataCollection.loadGestaltTileRanges(levelName);
-            game.viewResults(gestalts, getLevel(DataCollection.ORIGINAL_LEVELS_PATH + levelName + ".txt"), 200, 0, true);
+            game.viewResults(gestalts, getLevel(Settings.ORIGINAL_LEVELS_PATH + levelName + ".txt"), 200, 0, true);
 
-        } else if (DataCollection.LAUNCH_MODE == LaunchMode.LevelGenerator) {
+        } else if (Settings.LAUNCH_MODE == LaunchMode.LevelGenerator) {
 
             MarioLevelGenerator generator = new custom.LevelGenerator(10);
             String level = generator.getGeneratedLevel(new MarioLevelModel(150, 16), new MarioTimer(5 * 60 * 60 * 1000));

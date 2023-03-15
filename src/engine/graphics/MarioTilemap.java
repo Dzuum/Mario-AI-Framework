@@ -8,8 +8,8 @@ import engine.core.MarioGame;
 import engine.core.MarioRender;
 import engine.helper.TileFeature;
 
-import custom.DataCollection;
-import custom.DataCollection.LaunchMode;
+import custom.Settings;
+import custom.Settings.LaunchMode;
 
 public class MarioTilemap extends MarioGraphics {
     public Image[][] sheet;
@@ -60,7 +60,7 @@ public class MarioTilemap extends MarioGraphics {
                 og.drawImage(img, xTile * 16 - x, yTile * 16 - y - move, null);
 
                 
-                if (DataCollection.LAUNCH_MODE == LaunchMode.Results) {
+                if (Settings.LAUNCH_MODE == LaunchMode.Results) {
                     if (yTile == 2 && (xTile % 2) == 0) {
                         MarioRender.drawString(og, "" + xTile, xTile * 16 - x + 4, yTile * 16 - y + 4, 0);
                         MarioRender.drawString(og, "" + xTile, xTile * 16 - x + 3, yTile * 16 - y + 3, 7);

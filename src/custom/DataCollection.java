@@ -16,18 +16,7 @@ import engine.core.MarioAgentEvent;
 import engine.core.MarioResult;
 
 public class DataCollection {
-    public enum LaunchMode { Agent, Player, Results, LevelGenerator }
 
-    public static LaunchMode LAUNCH_MODE = LaunchMode.LevelGenerator;
-
-    public static final String ORIGINAL_LEVELS_PATH = "./levels/original/";
-    public static final String RESULTS_FOLDER_NAME = "results";
-
-    public static final String RESULTS_FILE_EXTENSION = ".txt";
-    public static final String DISTANCES_FILE_SUFFIX = "-A_distances";
-    public static final String BOUNDARIES_FILE_SUFFIX = "-B_boundaries";
-    public static final String TILE_RANGES_FILE_SUFFIX = "-C_tiles";
-    public static final String PATTERNS_FILE_NAME = "Pattern_{i}";
 
     public static void findPatterns(String levelName, boolean writeFiles, MarioResult result) {
         List<String> lines = new ArrayList<String>();
@@ -39,7 +28,7 @@ public class DataCollection {
                 lines.add("" + eventRanges.get(i).getDistance() + " ( " + eventRanges.get(i).getString() + ")");
             }
 
-            writeResultsFile(levelName + DISTANCES_FILE_SUFFIX + RESULTS_FILE_EXTENSION, lines);
+            writeResultsFile(levelName + Settings.DISTANCES_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION, lines);
             lines.clear();
         }
 
@@ -58,7 +47,7 @@ public class DataCollection {
                 }
             }
 
-            writeResultsFile(levelName + BOUNDARIES_FILE_SUFFIX + RESULTS_FILE_EXTENSION, lines);
+            writeResultsFile(levelName + Settings.BOUNDARIES_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION, lines);
             lines.clear();
         }
 
@@ -68,7 +57,7 @@ public class DataCollection {
                 lines.add("[" + entry.getKey() + " .. " + entry.getValue() + "]");
             }
 
-            writeResultsFile(levelName + TILE_RANGES_FILE_SUFFIX + RESULTS_FILE_EXTENSION, lines);
+            writeResultsFile(levelName + Settings.TILE_RANGES_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION, lines);
         }
 
         if (writeFiles) {
@@ -183,12 +172,12 @@ public class DataCollection {
      * Write the found patterns as text files. 
      */
     private static void writeGestaltPatterns(String levelName, LinkedHashMap<Integer, Integer> patterns) {
-        Path originalLevelPath = Paths.get(ORIGINAL_LEVELS_PATH, levelName + ".txt");
+        Path originalLevelPath = Paths.get(Settings.ORIGINAL_LEVELS_PATH, levelName + ".txt");
         List<String> levelLines = readAllLines(originalLevelPath);
 
         // Empty the results from last run
         try {
-            Path folderPath = Paths.get(RESULTS_FOLDER_NAME, levelName);
+            Path folderPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName);
             if (Files.exists(folderPath)) {
                 try (DirectoryStream<Path> entries = Files.newDirectoryStream(folderPath)) {
                     for (Path entry : entries) {
@@ -215,8 +204,8 @@ public class DataCollection {
             }
 
             // Write each pattern to their own file, and each level's patterns in its own folder
-            String fileName = PATTERNS_FILE_NAME.replace("{i}", "" + patternIndex) + RESULTS_FILE_EXTENSION;
-            Path newPath = Paths.get(RESULTS_FOLDER_NAME, levelName, fileName);
+            String fileName = Settings.PATTERNS_FILE_NAME.replace("{i}", "" + patternIndex) + Settings.RESULTS_FILE_EXTENSION;
+            Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
 
             writeResultsFile(newPath, result);
             patternIndex += 1;
@@ -266,7 +255,7 @@ public class DataCollection {
 
     public static LinkedHashMap<Integer, Integer> loadGestaltTileRanges(String levelName) {
         // Load
-        Path path = Paths.get(DataCollection.RESULTS_FOLDER_NAME, levelName + TILE_RANGES_FILE_SUFFIX + RESULTS_FILE_EXTENSION);
+        Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName + Settings.TILE_RANGES_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION);
         List<String> lines = readAllLines(path);
 
         // Parse
@@ -300,7 +289,7 @@ public class DataCollection {
     }
 
     private static void writeResultsFile(String fileName, List<String> lines) {
-        Path path = Paths.get(RESULTS_FOLDER_NAME, fileName);
+        Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, fileName);
         writeResultsFile(path, lines);
     }
 
