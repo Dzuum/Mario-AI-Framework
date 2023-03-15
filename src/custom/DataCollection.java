@@ -205,6 +205,9 @@ public class DataCollection {
                 // Remove start point; otherwise the start point may be at the middle of the level
                 line = line.replace('M', '-');
 
+                // Remove the goal; otherwise the goal may be at the middle of the level
+                line = line.replace('F', '-');
+
                 result.add(line);
             }
 
