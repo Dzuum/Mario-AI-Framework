@@ -200,7 +200,12 @@ public class DataCollection {
 
             for (int i = 0; i < levelLines.size(); i++) {
                 // The end is exclusive so add 1
-                result.add(levelLines.get(i).substring(start, end + 1));
+                String line = levelLines.get(i).substring(start, end + 1);
+
+                // Remove start point; otherwise the start point may be at the middle of the level
+                line = line.replace('M', '-');
+
+                result.add(line);
             }
 
             // Write each pattern to their own file, and each level's patterns in its own folder
