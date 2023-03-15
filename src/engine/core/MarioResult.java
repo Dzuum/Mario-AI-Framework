@@ -245,6 +245,7 @@ public class MarioResult {
      * @return the maximum x distance traversed mario
      */
     public float getMaxXJump() {
+// TODO: yes ideaa tällasessa analysoinnissa
         float maxXJump = 0;
         float startX = -100;
         for (MarioEvent e : this.gameEvents) {

@@ -44,6 +44,7 @@ public class MarioGame {
     /**
      * print debug details
      */
+// TODO: printtailu ehkä hiastaa fugisti
     public static final boolean verbose = false;
 
     /**
@@ -278,31 +279,77 @@ public class MarioGame {
             startSprite.alive = false;
         }
 
+
+
+long targetFrameTime = 1000 / fps;
+long startTime = 0;
+long loopLength = 0;
+
+long taskTimer = 0;
+
         ArrayList<MarioEvent> gameEvents = new ArrayList<>();
         ArrayList<MarioAgentEvent> agentEvents = new ArrayList<>();
         while (this.world.gameStatus == GameStatus.RUNNING) {
+
+startTime = System.currentTimeMillis();
+taskTimer = System.currentTimeMillis();
+
             if (!this.pause) {
                 //get actions
+// TODO: wadap
                 agentTimer = new MarioTimer(MarioGame.maxTime);
+// 5 muilleki toiminnoille, oisko liikaa
+// TODO: Näitäki pitää testata sit ku saa GMA toimiin
+                // agentTimer = new MarioTimer((1000 / fps) - 5);
                 boolean[] actions = this.agent.getActions(new MarioForwardModel(this.world.clone()), agentTimer);
+
+
+// System.out.println("AGENT: " + (System.currentTimeMillis() - taskTimer) + "ms");
+
+
                 if (MarioGame.verbose) {
-                    if (agentTimer.getRemainingTime() < 0 && Math.abs(agentTimer.getRemainingTime()) > MarioGame.graceTime) {
+// TODO: tää if oli väärin vai oliko
+                    if (agentTimer.getRemainingTime() < MarioGame.graceTime) { // || Math.abs(agentTimer.getRemainingTime()) < MarioGame.graceTime) {
                         System.out.println("The Agent is slowing down the game by: "
                                 + Math.abs(agentTimer.getRemainingTime()) + " msec.");
                     }
                 }
                 // update world
                 this.world.update(actions);
+
                 gameEvents.addAll(this.world.lastFrameEvents);
-                agentEvents.add(new MarioAgentEvent(actions, this.world.mario.x,
-                        this.world.mario.y, (this.world.mario.isLarge ? 1 : 0) + (this.world.mario.isFire ? 1 : 0),
+                agentEvents.add(new MarioAgentEvent(actions,
+                        this.world.mario.getMapX(), this.world.mario.getMapY(),
+                        // this.world.mario.x, this.world.mario.y,
+                        (this.world.mario.isLarge ? 1 : 0) + (this.world.mario.isFire ? 1 : 0),
                         this.world.mario.onGround, this.world.currentTick));
             }
 
             //render world
             if (visual) {
                 this.render.renderWorld(this.world, renderTarget, backBuffer, currentBuffer);
+
+                // if (boundaries != null) {
+                //     for (int i = 0; i < boundaries.size(); i++) {
+                //         String[] splitLine = boundaries.get(i).split(",");
+                //         int start = Integer.parseInt(splitLine[0]);
+                //         int end = Integer.parseInt(splitLine[1]);
+
+                //         this.world.addSprite(new LifeMushroom(visual, start * 16 + 9, 5 * 16 + 8));
+                //         this.world.addSprite(new LifeMushroom(visual, end * 16 + 9, 5 * 16 + 8));
+                //     }
+                // }
             }
+
+// TODO: jos kesti kauemmin kuin FPS niin QC kaikki
+// -> Pitäskö raportoida ainakin että kävikö näin?
+loopLength = System.currentTimeMillis() - startTime;
+// System.out.println("Loop took: " + loopLength + " / " + targetFrameTime + "ms");
+// if (MarioGame.verbose) {
+if (loopLength > targetFrameTime)
+    System.out.println("BIG PROBLEM");
+// }
+
             //check if delay needed
             if (this.getDelay(fps) > 0) {
                 try {

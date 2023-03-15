@@ -1,0 +1,159 @@
+
+**********************************************
+NEXT UP:
+- (Säädettävä) GMA analysointi systeemi oikein implementoitu
+  - Nykyisellään backtracking aiheuttaa ongelmallisia patternei:
+    [184 .. 197]
+    [197 .. 195]
+    [194 .. 198]
+- Extract patternit
+
+- Extract inputit semmoses muodos et voi tehä vaikka jonku kaavion jossa näkee input eventit
+- Extract myös Mario float position x ja y ja siitä piirtää kans kaavio sillä Processingilla 
+- NESMaps avulla sopivat kentät
+  - Jo mapatut kentät myös tarkistaa
+  - Meibi keino piirtää tile grid niihin kuviin automaattisesti että ez
+- Jos goal alla on block ja sen block vasen ja oikea on tyhjä (tai end of map) niin poistaa se block?
+  - Tehä ehkä manuaalisesti koska tosi vähän kenttiä jotka otetaan mukaan?
+- Spawn point
+  - Tyhjää aluetta vasemmalle lisätä jos kaikis kentis on semmonen ja sen loppuun M?
+  - Menis helposti premade pattern tiedostolla, joka aina mukana alussa
+- Goal
+  - Kattoa tekeekö ite manuaalisesti, tästä oli ehkä jossain
+  - Meibi premade pattern taas?
+    - Riippuu miten menee oikeat kentät ku voi tulla hassui
+    - Eli tsek kaik kentät onko esmes x määrä tyhjää vasemmalla niin varmistaa aina että on sillä patternilla?
+
+- TODO Jokin tapa luokitella patterneihin tiettyi tilei samoiksi
+  - VAI TARVIIKO, jos liian erilaisii kentät emt jos riittäis vaa mennä minimiseteillä
+  - NES Maps näkee meibi että on eri kentillä eri tilesetit (onko vai onko yhistelty?)
+  - Miettii miten tekee ite että abstraktoiko extracted patternit omalle kielelle (solid, etc)
+    - Ja sitte generoidessa randomilla käytettävä tileset
+- EventRange distance laskenta GMA tyyliin (euclidean distance)
+  - isSameState huomioi kanssa pitää implementoida oikein
+    - Tsekata ehkä STATE eikä input? hmmhmm niin ainaki GMA mutta onko OK omaan graduun
+    - EventRange periaatteessa vois rename joksiki stateksikin
+  - Also jotenki helpommin testattavaks eri jutut
+  - Esmes oma func joka propertyn laskemiselle, joita sit comment uncomment tyylil sisällyttää summaan
+  - Crouching (Down input?) jne kans?
+  - Jokin sanity checker joka tsek esmes onko left ja right molemmat päällä ja raportoida vähintään
+  - Pyöristykset GMA time scoringiin?
+- Tilemapista extract current kentästä start ja end tile X perusteella patternit
+  - Esmes eri tiedostoihin jokanen pattern
+  - Tällein jokanen pattern on kyl uniikki ja 1 esiintymiskerta per pattern, onko ongelma?
+    - Periaatteessa vois tehä jonku läheisyysanalyysin joka patternista joko statejen tai inputtien perusteella
+      - Jos on lähellä toisiaan nii kohdella samana
+      - Esmes se distance mitä ne jotku PCG validaattorit teki
+      - Toinen on että XY viivan piirtää että kui lähellä on että kulkee saman shapen
+      - Entä patternien eri lengthit, jos joku ois vaik sama pattern mut hitaampana
+  - Sit start ja end y perusteella vois joko adjust kun niitä ketjuttaa
+    - TAI valitaan vaan patternei jotka ns tasasia että aina voi ketjuttaa
+    - TBD tuleeko impossible patternei
+- writeGestaltPatterns tuli index out of bounds siinä "end + 1" sillon ku AI ei päässy hyppään lipulle suoraan
+  - Olikohan tilet silleen että start > end?
+- Tapa luoda ja ladata kenttiä yhistämällä patterneja
+- TODO: Confirm onko kaikki kentät sama korkeus, tarviiko ottaa huomioon patternei yhistäessä
+- TODO: LevelGenerator samplettämään kaikist lvl kansioist mebe
+- Jokin master file jossa listattu kaikki patternit ja niiden attribuutit jos tarvitaan level generaattorissa
+- TBD miten viimeinen pattern eli flagin sijainti eroaa?
+  - Miten ottaa huomioon generaattorissa?
+  - Atm tää lisää automaattisesti vimppaan tileen flägin, onko se siis mukana ollenkaan siinä level datassa?
+- TBD miten Marion initial position
+  - Aina 4. tile? Onko näin OG kentissä?
+  - Ekaan pattern aina ne tyhjät tilet vasemmalta mukaan VAI aina joka kentän alkuun lisätä pari tyhjää mutta ei patterniin mukaan?
+    - Huom myös lopussa on tyhjää
+- GMA TBD
+  - Miten se löys ne statet?
+    - Saisko sen paprun analysoimaa dataa jostain?
+    - Onko siellä SPEED käytetty?
+      - Voisko ottaa pois AI:lta, pärjäiskö viel?
+      - Vois selitellä että vähempi variablei analysoinnissa
+    - ONKO SPEED EES OG MARIO FEATURE
+  - Iteki state based jaottelu?
+  - Gradussa tarkkaan selittää GMA miten statet datat jne sai että voi selittää miten ite teki stateja
+TODO: Gradus kertoa että keräs jo valmiiks tietyt tiedot ja extended tietyl tapaa
+TODO: Gradus selityksis esimerkkikuva vaik koko kenttä zoomed out ja siinä boundaryt punasella
+      TAI pienempi osio kentästä josta näkyy selvästi ne patternit
+TODO: Ja sit kertoa miten parsed for dat GMA (statet tjsp) ja miten analysoitiin
+TODO: State -based tsekkaus kans
+TODO: Ja sit kaiken komboa testailla GMA:ssa, tick-based time, milliseconds-based time
+      Tick-based time oisko järkevin, oisko se vähä proofimpi lag spikei vastaan ku eihän vihutkaan päivity
+- Selvitellä jotenkin paremmin toi boundary ettei end ja seukin start oo sama tile
+- Eka tick on yksinään event joten wat do, infinite sille arvoks?
+  - Paitti että ei ehkä menekään näin?
+   - Siinä ekassa rangessa on 15+ tileä mutta vain yks EventRange, onko tää OK?
+   - Ehkä viel yks writeFile ihan alkuun joka kirjottaa kaikki MarioAgentEventit nii voi manuaalisesti konfirmoida
+- Joskus end ja start tilet on sama; sille jotain doings mut mitä
+- Miten ne ekat pari tileä vasemmalla? Joka kenttään static semmonen?
+**********************************************
+
+
+/***************
+ ** MAIN TODO **
+ ***************
+
+0. Huomioi myös OG branch ja STASH erityisesti
+1. printResults sijaan (tai lisäks) formatointi ja tallentaminen tiedostoon GMA analyysiä varten
+2. Setup jokin skripti joka tekee sen analyysin
+   - Esmes output tile cutoffit
+3. Tapa visualisoida patternit
+   - Tallentaa se tulos
+   - runGame sijaan moodi jossa vain kameraa voi liikuttaa
+   - Piirretään jotku viivat missä kohtaa katkeaa patternit
+4. Kattella mitä tuloksia tulee kaikenlaisilla komboilla:
+   - Eri kentillä
+   - Eri pelin asetuksilla (paljon eri kommenttei koodissa)
+   - Eri GMA asetuksilla
+   - TODO: Ottiko GMA huomioon "speed" inputin; pitäskö se poistaa
+5. Yksinkertaisuuden nimissä ottaa ne kokonaiset slicet kentästä ja niitä yhistellä?
+   - Eli tile x start ja end ja siinä on yks pattern
+   - Plussaa ois että tässä tulis maholliset secondary routet
+   - Miinusta että voiko olla vaikea yhistää
+   - Ehkä pitäs kattoa tileset kans yhtenäiseks, ellei käytä vain above ground kenttii
+
+
+TODO: Graduun et runs 30 fps by default eri every x millisecond on update. jos state sama ni emt gej
+Mikä SNES versiossa FPS
+Tsek captured gameplay kulkeeko yhtä nopeaa (tää ei oo ehkä framerate-independent)
+
+
+
+
+
+##############
+## PREVIOUS ##
+##############
+
+- Tsek onko Github og branch päivityksiä
+
+- Tuki datan keräämiselle
+  - Mikä input valittiin
+  - State
+    - Jos tosi lyhyt state change niin onko error, poistaako datasta?
+  - Nykyinen frame, aika edellisestä framesta, aika pelin alusta
+  - x ja y tile position tai jotain muuta dataa jonka perusteella kattoa syy eri inputeille? Tsek mitä Bach paperis tehtiin
+  - Lisätä rivi vasta kun state vaihtuu
+  - Output .csv ja test Excelissä esmes joitain kaavioita
+  - HUOM! Jos pienii hetkittäisii suunnanvaihoksii niin disregard
+
+- FPS vaikuttaa suoraan siihen kuin nopeaa agentit liikkuu. Pitäs ehkä jotenki saaha FPS independent movement?
+  - Myös pelaajahahmolla vaikuttaa asd
+  - Pitäs kattoo myös että liikkuu samalla tavalla about kui oikeas pelis
+
+- Mikä oikea timer tasojen suorittamiseen vai jättääkö pois?
+
+- Datan keruu ja analyysi
+  - Kattoa onko consistent framet, tuleeko 30 päätöstä per sekuntti
+  - Eli kerätä tieto mones frame, ja kui monta millisekunttia kulunu alusta
+  - Sitte miettiä tätä vähän, ehkä käyttää millisekunttei kuites emt
+  - GMA:lla patterneja
+    - Patterneille intensiteetti (input count per kesto?)
+  - Oleassa oleville kentille interest curve
+
+
+
+VS Code Java support:
+- Install Coding Pack for Java
+  https://code.visualstudio.com/docs/languages/java
+- Restart VS Code että path menee oikein
+- Sit vaan Open Folder ja F5 compilee

@@ -15,8 +15,23 @@ import java.util.Map.Entry;
 import engine.core.MarioAgentEvent;
 import engine.core.MarioResult;
 
-public class DataCollection {
+import custom.Settings.StateComparison;
+import custom.Settings.TimeScoring;;
 
+/*
+Enum state vs input based analys
+Input joka (muutos vai objective input?) kombinaatio pisteytys ite ja also timing miettiä
+Tiheät inputit suurel todnäk yks pattern eli aika iso painotus?
+Vai jopa pelkästään aikaan perustuvat patterns
+
+State-based tehä GMA paprun mukaan, incl. painotukset
+Kattoa tuleeko samantyylistä juttuja emt
+
+MarioEventit mukaan, lyk siel on event JUMP ja LAND
+Iso painotus sille että pattern sisältää nää molemmat, tai jopa pakotus
+ */
+
+public class DataCollection {
 
     public static void findPatterns(String levelName, boolean writeFiles, MarioResult result) {
         List<String> lines = new ArrayList<String>();
@@ -61,6 +76,7 @@ public class DataCollection {
         }
 
         if (writeFiles) {
+// TODO: meneehän varmasti oikein
             writeGestaltPatterns(levelName, patterns);
         }
     }
@@ -80,7 +96,7 @@ public class DataCollection {
         for (int i = 1; i < allEvents.size(); i++) {
             currEvent = allEvents.get(i);
 
-            if (!isSameEvent(startEvent, currEvent)) {
+            if (!isSameState(startEvent, currEvent)) {
                 // The previous one was the end for this range
                 MarioAgentEvent endEvent = allEvents.get(i - 1);
 
@@ -144,17 +160,20 @@ public class DataCollection {
 
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).isStartBoundary()) {
+System.out.println("Start is at " + events.get(i).getMarioX());
                 startX = (int)events.get(i).getMarioX();
                 foundStart = true;
             }
 
             if (events.get(i).isEndBoundary()) {
+System.out.println("End is at " + events.get(i).getEndX());
                 endX = (int)events.get(i).getEndX();
                 foundEnd = true;
             }
 
             if (foundStart && foundEnd) {
                 if (gestalts.containsKey(startX)) {
+// TODO: Tää laukes kerran arvolla '185' wut, mut ei ainakaa resultseissa näkyny
                     System.out.println("getGestaltTileRanges: Warning! Pattern start '" + startX + "' already exists!");
                 }
 
@@ -224,37 +243,82 @@ public class DataCollection {
 
     // #region GMA
 
-    private static boolean isSameEvent(MarioAgentEvent event, MarioAgentEvent otherEvent) {
-        return Arrays.equals(event.getActions(), otherEvent.getActions());
+    private static boolean isSameState(MarioAgentEvent event, MarioAgentEvent otherEvent) {
+        if (Settings.ComparisonStrategy == StateComparison.Input) {
+            return Arrays.equals(event.getActions(), otherEvent.getActions());
+        } else if (Settings.ComparisonStrategy == StateComparison.State) {
+// TODO: GMA:sta mallia miten se teki
+            return Arrays.equals(event.getActions(), otherEvent.getActions());
+        }
+        
+        return false;
     }
-
+ 
     private static int calculateDistance(EventRange first, EventRange second) {
         int score = 0;
 
-        // **************
-        // ** MOVEMENT **
+        if (Settings.ComparisonStrategy == StateComparison.Input) {
+// TODO: mikä järkevä tapa
+
+            for (int i = 0; i < first.getActions().length; i++) {
+// TODO: toimiiko
+                boolean wasChanged = (first.getActions()[i] != second.getActions()[i]);
+
+// TODO: eri scoring riippuen mikä input?
+                if (wasChanged) {
+                    score += 1;
+                }
+            }
+
+// TODO: eri tapa score timing tässä casessa?
+// Pitää olla tarkkana, tiheään paljon input pitäs olla pienempi score jotta kuuluu samaan gestalt
+            score += calculateTimeMillisScore(first, second);
+            
+        } else if (Settings.ComparisonStrategy == StateComparison.State) {
+            if (Settings.StateIncludeHorizontalInput)
+                score += calculateHorizontalInputScore(first, second);
+
+            if (Settings.StateIncludeAirborne)
+                score += calculateAirborneStateScore(first, second);
+
+            if (Settings.StateTimeScoring == TimeScoring.Ticks)
+                score += calculateTimeTicksScore(first, second);
+
+            if (Settings.StateTimeScoring == TimeScoring.Millis)
+                score += calculateTimeMillisScore(first, second);
+        }
+
+        return score;
+    }
+
+    private static int calculateHorizontalInputScore(EventRange first, EventRange second) {
         if (first.hasHorizontalInput() != second.hasHorizontalInput()) {
             // Changing between movement and no movement
-            score += 1;
+            return 1;
         } else if (
             (first.isMovingLeft() && second.isMovingRight()) ||
             (first.isMovingRight() && second.isMovingLeft())) {
             // Changing direction
-            score += 2;
+            return 2;
         }
 
-        // ********************
-        // ** AIRBORNE STATE **
-        if (first.getMarioOnGround() != second.getMarioOnGround()) {
-            score += 1;
-        }
+        return 0;
+    }
 
-        // **********
-        // ** TIME **
-        // score += first.getTimeMillis() * 0.01f;
-        score += first.getTimeTicks() * 0.1f;
+    private static int calculateAirborneStateScore(EventRange first, EventRange second) {
+        if (first.getMarioOnGround() != second.getMarioOnGround())
+            return 1;
 
-        return score;
+        return 0;
+    }
+
+    private static int calculateTimeTicksScore(EventRange first, EventRange second) {
+        return (int)(first.getTimeTicks() * 0.1f);
+    }
+
+
+    private static int calculateTimeMillisScore(EventRange first, EventRange second) {
+        return (int)(first.getTimeMillis() * 0.001f);
     }
 
     // #endregion

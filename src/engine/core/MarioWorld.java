@@ -292,10 +292,12 @@ public class MarioWorld {
         return sprite instanceof Enemy || sprite instanceof FlowerEnemy || sprite instanceof BulletBill;
     }
 
+long taskTimer = 0;
     public void update(boolean[] actions) {
         if (this.gameStatus != GameStatus.RUNNING) {
             return;
         }
+
         if (this.pauseTimer > 0) {
             this.pauseTimer -= 1;
             if (this.visuals) {
@@ -305,6 +307,8 @@ public class MarioWorld {
         }
 
         if (this.currentTimer > 0) {
+// TODO: broh eli jos eri FPS kui 30 niin väärässä
+// Pitää varmaan käyä kaikki tiedostot läpi for dem magic numbers
             this.currentTimer -= 30;
             if (this.currentTimer <= 0) {
                 this.currentTimer = 0;
@@ -330,6 +334,8 @@ public class MarioWorld {
 
         this.lastFrameEvents.clear();
 
+taskTimer = System.currentTimeMillis();
+
         this.fireballsOnScreen = 0;
         for (MarioSprite sprite : sprites) {
             if (sprite.x < cameraX - 64 || sprite.x > cameraX + MarioGame.width + 64 || sprite.y > this.level.height + 32) {
@@ -349,8 +355,20 @@ public class MarioWorld {
                 this.fireballsOnScreen += 1;
             }
         }
+
+if (MarioGame.verbose || (System.currentTimeMillis() - taskTimer) > 5) {
+System.out.println("SPRITES: " + (System.currentTimeMillis() - taskTimer) + "ms");
+}
+taskTimer = System.currentTimeMillis();
+
         this.level.update((int) cameraX, (int) cameraY);
 
+if (MarioGame.verbose || (System.currentTimeMillis() - taskTimer) > 5) {
+System.out.println("LEVEL UPDATE: " + (System.currentTimeMillis() - taskTimer) + "ms");
+}
+taskTimer = System.currentTimeMillis();
+
+// TODO: Tää loop voi välil olla hias?
         for (int x = (int) cameraX / 16 - 1; x <= (int) (cameraX + MarioGame.width) / 16 + 1; x++) {
             for (int y = (int) cameraY / 16 - 1; y <= (int) (cameraY + MarioGame.height) / 16 + 1; y++) {
                 int dir = 0;
@@ -389,6 +407,11 @@ public class MarioWorld {
                 }
             }
         }
+
+if (MarioGame.verbose || (System.currentTimeMillis() - taskTimer) > 5) {
+System.out.println("DUNNO: " + (System.currentTimeMillis() - taskTimer) + "ms");
+}
+taskTimer = System.currentTimeMillis();
 
         this.mario.actions = actions;
         for (MarioSprite sprite : sprites) {
@@ -429,6 +452,11 @@ public class MarioWorld {
         }
         fireballsToCheck.clear();
 
+if (MarioGame.verbose || (System.currentTimeMillis() - taskTimer) > 5) {
+System.out.println("DUNNO 2: " + (System.currentTimeMillis() - taskTimer) + "ms");
+}
+taskTimer = System.currentTimeMillis();
+
         sprites.addAll(0, addedSprites);
         sprites.removeAll(removedSprites);
         addedSprites.clear();
@@ -442,6 +470,11 @@ public class MarioWorld {
                 }
             }
         }
+
+if (MarioGame.verbose || (System.currentTimeMillis() - taskTimer) > 5) {
+System.out.println("DUNNO 3: " + (System.currentTimeMillis() - taskTimer) + "ms");
+}
+taskTimer = System.currentTimeMillis();
     }
 
     public void bump(int xTile, int yTile, boolean canBreakBricks) {

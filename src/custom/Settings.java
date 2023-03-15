@@ -2,8 +2,15 @@ package custom;
 
 public class Settings {
     public enum LaunchMode { Agent, Player, Results, LevelGenerator }
+    public enum StateComparison { Input, State }
+    public enum TimeScoring { None, Ticks, Millis }
 
-    public static LaunchMode LAUNCH_MODE = LaunchMode.LevelGenerator;
+    public static LaunchMode LAUNCH_MODE = LaunchMode.Agent;
+
+    public static StateComparison ComparisonStrategy = StateComparison.State;
+    public static boolean StateIncludeHorizontalInput = true;
+    public static boolean StateIncludeAirborne = true;
+    public static TimeScoring StateTimeScoring = TimeScoring.Ticks;
 
     public static final String ORIGINAL_LEVELS_PATH = "./levels/original/";
     public static final String RESULTS_FOLDER_NAME = "results";
