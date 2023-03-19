@@ -46,10 +46,13 @@ public class PlayLevel {
 
         if (Settings.LAUNCH_MODE == LaunchMode.Agent) {
 
-            DataCollection.findPatterns(levelName, true,
-                game.runGame(new agents.robinBaumgarten.Agent(),
-                             getLevel(Settings.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
-                             20, 0, true));
+            MarioResult result = game.runGame(
+                new agents.robinBaumgarten.Agent(),
+                getLevel(Settings.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
+                20, 0, true);
+
+            DataCollection.recordInputs(levelName, result);
+            DataCollection.findPatterns(levelName, true, result);
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.Player) {
 

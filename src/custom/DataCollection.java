@@ -17,6 +17,37 @@ import engine.core.MarioResult;
 
 public class DataCollection {
 
+    // #region Input Analysis
+
+    public static void recordInputs(String levelName, MarioResult result) {
+        List<String> lines = new ArrayList<String>();
+
+        boolean[] prevAction = new boolean[5];
+        for (int i = 0; i < prevAction.length; i++) {
+            prevAction[i] = false;
+        }
+
+        String line;
+        for (int i = 0; i < result.getAgentEvents().size(); i++) {
+            MarioAgentEvent event = result.getAgentEvents().get(i);
+            line = event.getTimeTicks() + ":";
+
+            for (int actionId = 0; actionId < 5; actionId++) {
+                // Check if started a new action during this event (tick)
+                if (event.getActions()[actionId] && !prevAction[actionId]) {
+                    line += " " + MarioActions.getAction(actionId).getString();
+                }
+
+                prevAction[actionId] = event.getActions()[actionId];
+            }
+
+            lines.add(line);
+        }
+
+        writeResultsFile(levelName, Settings.INPUTS_FILE_SUFFIX, lines);
+    }
+
+    // #endregion
 
     public static void findPatterns(String levelName, boolean writeFiles, MarioResult result) {
         List<String> lines = new ArrayList<String>();
