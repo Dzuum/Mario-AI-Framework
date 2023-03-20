@@ -1,13 +1,28 @@
 package custom;
 
 public class Settings {
-    public enum LaunchMode { Agent, Player, Results, LevelGenerator }
 
-    public static LaunchMode LAUNCH_MODE = LaunchMode.LevelGenerator;
+    public enum LaunchMode { Agent, Player, Results, LevelGenerator, LevelConversion }
 
-    public static final String ORIGINAL_LEVELS_PATH = "./levels/original/";
+    public static LaunchMode LAUNCH_MODE = LaunchMode.Agent;
+
+    // #region Global
+
+    public static final String LEVEL_NAME = "World 1-1";
+    public static final String ORIGINAL_LEVELS_PATH = "./levels/smb/";
+
+    public static final boolean WRITE_FILES = false;
     public static final String RESULTS_FOLDER_NAME = "results";
     public static final String RESULTS_FILE_EXTENSION = ".txt";
+
+    // #endregion
+
+    // #region Conversion
+
+    public static final String CONVERT_FROM = "levels/smb/w 3-2.txt";
+    public static final String CONVERT_TO = "levels/smb/World 3-2.txt";
+
+    // #endregion
 
     // #region Input Analysis
 

@@ -12,6 +12,7 @@ import engine.core.MarioTimer;
 import custom.DataCollection;
 import custom.Settings;
 import custom.Settings.LaunchMode;
+import custom.Utils;
 
 public class PlayLevel {
     public static void printResults(MarioResult result) {
@@ -42,28 +43,26 @@ public class PlayLevel {
     public static void main(String[] args) {
         MarioGame game = new MarioGame();
 
-        String levelName = "lvl-1";
-
         if (Settings.LAUNCH_MODE == LaunchMode.Agent) {
 
             MarioResult result = game.runGame(
                 new agents.robinBaumgarten.Agent(),
-                getLevel(Settings.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
+                getLevel(Settings.ORIGINAL_LEVELS_PATH + Settings.LEVEL_NAME + ".txt"),
                 20, 0, true);
 
-            DataCollection.recordInputs(levelName, result);
-            DataCollection.findPatterns(levelName, true, result);
+            DataCollection.recordInputs(Settings.LEVEL_NAME, result);
+            DataCollection.findPatterns(Settings.LEVEL_NAME, result);
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.Player) {
 
             printResults(game.runGame(new agents.human.Agent(),
-                             getLevel(Settings.ORIGINAL_LEVELS_PATH + levelName + ".txt"),
+                             getLevel(Settings.ORIGINAL_LEVELS_PATH + Settings.LEVEL_NAME + ".txt"),
                              200, 0, true));
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.Results) {
 
-            LinkedHashMap<Integer, Integer> gestalts = DataCollection.loadGestaltTileRanges(levelName);
-            game.viewResults(gestalts, getLevel(Settings.ORIGINAL_LEVELS_PATH + levelName + ".txt"), 200, 0, true);
+            LinkedHashMap<Integer, Integer> gestalts = DataCollection.loadGestaltTileRanges(Settings.LEVEL_NAME);
+            game.viewResults(gestalts, getLevel(Settings.ORIGINAL_LEVELS_PATH + Settings.LEVEL_NAME + ".txt"), 200, 0, true);
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.LevelGenerator) {
 
@@ -71,6 +70,10 @@ public class PlayLevel {
             String level = generator.getGeneratedLevel(new MarioLevelModel(150, 16), new MarioTimer(5 * 60 * 60 * 1000));
             
             printResults(game.runGame(new agents.robinBaumgarten.Agent(), level, 20, 0, true));
+
+        } else if (Settings.LAUNCH_MODE == LaunchMode.LevelConversion) {
+
+            Utils.convertLevelMetricsToFramework(Settings.CONVERT_FROM, Settings.CONVERT_TO);
 
         }
     }

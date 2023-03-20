@@ -1,7 +1,5 @@
 package custom;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,6 +12,7 @@ import java.util.Map.Entry;
 
 import engine.core.MarioAgentEvent;
 import engine.core.MarioResult;
+import engine.helper.MarioActions;
 
 public class DataCollection {
 
@@ -44,27 +43,28 @@ public class DataCollection {
             lines.add(line);
         }
 
-        writeResultsFile(levelName, Settings.INPUTS_FILE_SUFFIX, lines);
+        if (Settings.WRITE_FILES)
+            writeResultsFile(levelName, Settings.INPUTS_FILE_SUFFIX, lines);
     }
 
     // #endregion
 
-    public static void findPatterns(String levelName, boolean writeFiles, MarioResult result) {
+    public static void findPatterns(String levelName, MarioResult result) {
         List<String> lines = new ArrayList<String>();
         List<EventRange> eventRanges = getStates(result);
 
         calculateDistances(eventRanges);
-        if (writeFiles) {
+        if (Settings.WRITE_FILES) {
             for (int i = 0; i < eventRanges.size(); i++) {
                 lines.add("" + eventRanges.get(i).getDistance() + " ( " + eventRanges.get(i).getString() + ")");
             }
 
-            writeResultsFile(levelName + Settings.DISTANCES_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION, lines);
+            writeResultsFile(levelName, Settings.DISTANCES_FILE_SUFFIX, lines);
             lines.clear();
         }
 
         determineGestaltBoundaries(eventRanges);
-        if (writeFiles) {
+        if (Settings.WRITE_FILES) {
             String line = "";
 
             for (int i = 0; i < eventRanges.size(); i++) {
@@ -78,20 +78,20 @@ public class DataCollection {
                 }
             }
 
-            writeResultsFile(levelName + Settings.BOUNDARIES_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION, lines);
+            writeResultsFile(levelName, Settings.BOUNDARIES_FILE_SUFFIX, lines);
             lines.clear();
         }
 
         LinkedHashMap<Integer, Integer> patterns = getGestaltTileRanges(levelName, eventRanges);
-        if (writeFiles) {
+        if (Settings.WRITE_FILES) {
             for (Entry<Integer, Integer> entry : patterns.entrySet()){    
                 lines.add("[" + entry.getKey() + " .. " + entry.getValue() + "]");
             }
 
-            writeResultsFile(levelName + Settings.TILE_RANGES_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION, lines);
+            writeResultsFile(levelName, Settings.TILE_RANGES_FILE_SUFFIX, lines);
         }
 
-        if (writeFiles) {
+        if (Settings.WRITE_FILES) {
             writeGestaltPatterns(levelName, patterns);
         }
     }
@@ -204,7 +204,7 @@ public class DataCollection {
      */
     private static void writeGestaltPatterns(String levelName, LinkedHashMap<Integer, Integer> patterns) {
         Path originalLevelPath = Paths.get(Settings.ORIGINAL_LEVELS_PATH, levelName + ".txt");
-        List<String> levelLines = readAllLines(originalLevelPath);
+        List<String> levelLines = Utils.readAllLines(originalLevelPath);
 
         // Empty the results from last run
         try {
@@ -246,7 +246,7 @@ public class DataCollection {
             String fileName = Settings.PATTERNS_FILE_NAME.replace("{i}", "" + patternIndex) + Settings.RESULTS_FILE_EXTENSION;
             Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
 
-            writeResultsFile(newPath, result);
+            Utils.writeAllLines(newPath, result);
             patternIndex += 1;
         }
     }
@@ -290,12 +290,12 @@ public class DataCollection {
 
     // #endregion
 
-    // #region Utility Functions
+    // #region Helpers
 
     public static LinkedHashMap<Integer, Integer> loadGestaltTileRanges(String levelName) {
         // Load
         Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName + Settings.TILE_RANGES_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION);
-        List<String> lines = readAllLines(path);
+        List<String> lines = Utils.readAllLines(path);
 
         // Parse
         LinkedHashMap<Integer, Integer> gestalts = new LinkedHashMap<Integer, Integer>();
@@ -314,35 +314,10 @@ public class DataCollection {
         return gestalts;
     }
 
-    private static List<String> readAllLines(Path path) {
-        List<String> lines = new ArrayList<String>();
-
-        try {
-            lines = Files.readAllLines(path);
-        } catch (Exception ex) {
-            System.out.println("readLines: Error reading file for " + path.toString() + "!");
-            ex.printStackTrace();
-        }
-
-        return lines;
-    }
-
-    private static void writeResultsFile(String fileName, List<String> lines) {
+    private static void writeResultsFile(String levelName, String suffix, List<String> lines) {
+        String fileName = levelName + suffix + Settings.RESULTS_FILE_EXTENSION;
         Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, fileName);
-        writeResultsFile(path, lines);
-    }
-
-    private static void writeResultsFile(Path filePath, List<String> lines) {
-        try {
-            if (!Files.exists(filePath.getParent())) {
-                Files.createDirectory(filePath.getParent());
-            }
-            
-            Files.write(filePath, lines, StandardCharsets.UTF_8);
-        } catch (IOException ioe) {
-            System.out.println("Error writing file " + filePath.toString());
-            ioe.printStackTrace();
-        }
+        Utils.writeAllLines(path, lines);
     }
 
     // #endregion
