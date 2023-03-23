@@ -8,37 +8,35 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 public class Utils {
 
-    private static final Map<String, String> metricsToFramework = new HashMap<String, String>() {{
-        put("[0]", "-");    // Sky
-        put("[a]", "o");    // Coin
-        put("[g]", "X");    // Ground
-        put("[r]", "#");    // Solid block
-        put("[o]", "!");    // Coin block
-        put("[l]", "2");    // Invisible coin block
-        put("[m]", "S");    // Regular brick
-        put("[w]", "@");    // Power-up brick
-        put("[t]", "t");    // Pipe
-        put("[Ft]", "t");   // Piranha pipe         TODO: Enemy pipe?
-        put("[e]", "g");    // Goomba
-        put("[v]", "g");    // Beetle               TODO: Replaced with Goomba
-        put("[k]", "k");    // Green Koopa
-        put("[K]", "K");    // Winged Green Koopa
-        put("[d]", "r");    // Red Koopa
-        put("[Q]", "-");    // Lakitu               TODO: Unsupported?
-        put("[N]", "-");    // Hammer Bro           TODO: Unsupported?
-        put("[ham]", "-");  // Hammer Bro           TODO: Unsupported?
-        put("[c]", "B");    // Bullet Bill head
-        put("[0#]", "S");   // Flag stand
-        put("[[Y]]", "-");  // Trampoline           TODO: Unsupported?
-        put("[Y]", "-");    // Trampoline           TODO: Unsupported?
-    }};
+    private static final String[][] conversionMap = new String[][]
+    {
+        { "[0]",    "-"},   // Sky
+        { "[a]",    "o"},   // Coin
+        { "[g]",    "X"},   // Ground
+        { "[r]",    "#"},   // Solid block
+        { "[o]",    "!"},   // Coin block
+        { "[l]",    "2"},   // Invisible coin block
+        { "[m]",    "S"},   // Reguar brick
+        { "[w]",    "@"},   // Power-up brick
+        { "[t]",    "t"},   // Pipe
+        { "[Ft]",   "t"},   // Piranha pipe             // TODO: framework -> metrics at least, maybe both
+        { "[e]",    "g"},   // Goomba
+        { "[v]",    "g"},   // Beetle (replaced with Goomba)
+        { "[k]",    "k"},   // Green Koopa
+        { "[K]",    "K"},   // Winged Green Koopa
+        { "[d]",    "r"},   // Red Koopa
+        { "[Q]",    "-"},   // Lakitu                   // TODO: Unsupported?
+        { "[N]",    "-"},   // Hammer Bro               // TODO: Unsupported?
+        { "[ham]",  "-"},   // Hammer Bro               // TODO: Unsupported?
+        { "[c]",    "B"},   // Bullet Bill head
+        { "[0]",    "b"},   // Bullet Bill body         // TODO: metrics -> framework at least
+        { "[0#]",   "S"},   // Flag stand
+        { "[Y]",    "-"}    // Trampoline
+    };
 
     public static void convertLevelMetricsToFramework(String source, String target) {
         List<String> lines = readAllLines(Paths.get(source));
@@ -47,12 +45,24 @@ public class Utils {
         lines.remove(0);
 
         for (int i = 0; i < lines.size(); i++) {
-            for (Entry<String, String> entry : metricsToFramework.entrySet()) {
-                String from = entry.getKey();
-                String to = entry.getValue();
+            String line = lines.get(i);
 
-                lines.set(i, lines.get(i).replace(from, to));
+            // At least one level had this issue
+            line = line.replace("[[", "[");
+            line = line.replace("]]", "]");
+
+            for (int k = 0; k < conversionMap.length; k++) {
+                String from = conversionMap[k][0];
+                String to = conversionMap[k][1];
+
+                line = line.replace(from, to);
             }
+
+            if (line.contains("[") || line.contains("]")) {
+                System.out.println("ERROR: Didn't find match for some characters in line '" + line + "'");
+            }
+
+            lines.set(i, line);
         }
 
         // Add empty sky block rows at the start to reach the target 16 tiles height
@@ -62,6 +72,42 @@ public class Utils {
         }
 
         writeAllLines(Paths.get(target), lines);
+    }
+    
+    public static void convertLevelFrameworkToMetrics(String source, String target) {
+        List<String> sourceLines = readAllLines(Paths.get(source));
+        List<String> newLines = new ArrayList<String>();
+
+        for (int lineIdx = 0; lineIdx < sourceLines.size(); lineIdx++) {
+            String sourceLine = sourceLines.get(lineIdx);
+            String newLine = "";
+
+            for (int charIdx = 0; charIdx < sourceLine.length(); charIdx++) {
+                String character = String.valueOf(sourceLine.charAt(charIdx));
+                boolean foundConversion = false;
+
+                for (int i = 0; i < conversionMap.length; i++) {
+                    String from = conversionMap[i][1];
+                    String to = conversionMap[i][0];
+
+                    if (from.equals(character)) {
+                        newLine += to;
+                        foundConversion = true;
+                        break;
+                    }
+                }
+
+                if (!foundConversion) {
+                    System.out.println("ERROR: Didn't find match for character '" + character + "'");
+                }
+            }
+
+            newLines.add(newLine);
+        }
+
+        newLines.add(0, "HEIGHT=" + newLines.size() + ";WIDTH=" + sourceLines.get(0).length() + ";");
+
+        writeAllLines(Paths.get(target), newLines);
     }
 
     public static List<String> readAllLines(Path path) {

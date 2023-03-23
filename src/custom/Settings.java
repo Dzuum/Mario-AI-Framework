@@ -2,7 +2,11 @@ package custom;
 
 public class Settings {
 
-    public enum LaunchMode { Agent, Player, Results, LevelGenerator, LevelConversion }
+    public enum LaunchMode
+    {
+        Agent, Player, Results, LevelGenerator,
+        ConvertMetricsToFramework, ConvertFrameworkToMetrics
+    }
 
     public static LaunchMode LAUNCH_MODE = LaunchMode.Agent;
 
@@ -19,8 +23,8 @@ public class Settings {
 
     // #region Conversion
 
-    public static final String CONVERT_FROM = "levels/smb/w 3-2.txt";
-    public static final String CONVERT_TO = "levels/smb/World 3-2.txt";
+    public static final String CONVERT_METRICS_NAME = "levels/smb/w 3-2.txt";
+    public static final String CONVERT_FRAMEWORK_NAME = "levels/smb/World 3-2.txt";
 
     // #endregion
 

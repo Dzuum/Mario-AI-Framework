@@ -71,9 +71,13 @@ public class PlayLevel {
             
             printResults(game.runGame(new agents.robinBaumgarten.Agent(), level, 20, 0, true));
 
-        } else if (Settings.LAUNCH_MODE == LaunchMode.LevelConversion) {
+        } else if (Settings.LAUNCH_MODE == LaunchMode.ConvertMetricsToFramework) {
 
-            Utils.convertLevelMetricsToFramework(Settings.CONVERT_FROM, Settings.CONVERT_TO);
+            Utils.convertLevelMetricsToFramework(Settings.CONVERT_METRICS_NAME, Settings.CONVERT_FRAMEWORK_NAME);
+            
+        } else if (Settings.LAUNCH_MODE == LaunchMode.ConvertFrameworkToMetrics) {
+        
+            Utils.convertLevelFrameworkToMetrics(Settings.CONVERT_FRAMEWORK_NAME, Settings.CONVERT_METRICS_NAME);
 
         }
     }
