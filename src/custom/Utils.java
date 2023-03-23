@@ -18,24 +18,41 @@ public class Utils {
         { "[a]",    "o"},   // Coin
         { "[g]",    "X"},   // Ground
         { "[r]",    "#"},   // Solid block
-        { "[o]",    "!"},   // Coin block
+        { "[o]",    "U"},   // Power-up block
+        { "[o]",    "!"},   // ? block #1
+        { "[o]",    "Q"},   // ? block #2
+        { "[0]",    "1"},   // Invisible 1-Up block             // TODO: Seems unsupported in metrics
         { "[l]",    "2"},   // Invisible coin block
-        { "[m]",    "S"},   // Reguar brick
-        { "[w]",    "@"},   // Power-up brick
+        { "[m]",    "S"},   // Regular brick
+        { "[w]",    "@"},   // Power-up brick #1
+        { "[w]",    "?"},   // Power-up brick #2
+        { "[m]",    "L"},    // 1-Up brick                      // TODO: Seems unsupported in metrics
+        { "[o]",    "C"},   // Coin brick
+        { "[p]",    "S"},   // Moving platform (replaced with solid block in framework-originals, too)
+        { "[p]",    "%"},   // Mushroom block (jump-through)    //  TODO: Seems unsupported in metrics
+        { "[0]",    "|"},   // Mushroom root body               // TODO: Seems unsupported in metrics
         { "[t]",    "t"},   // Pipe
-        { "[Ft]",   "t"},   // Piranha pipe             // TODO: framework -> metrics at least, maybe both
-        { "[e]",    "g"},   // Goomba
+        { "[Ft]",   "T"},   // Piranha pipe                     // TODO: need special attention in both directions
+        { "[Y]",    "-"},   // Trampoline                       // TODO: Unsupported?
+        { "[e]",    "g"},   // Goomba #1
+        { "[e]",    "E"},   // Goomba #2
         { "[v]",    "g"},   // Beetle (replaced with Goomba)
         { "[k]",    "k"},   // Green Koopa
         { "[K]",    "K"},   // Winged Green Koopa
         { "[d]",    "r"},   // Red Koopa
-        { "[Q]",    "-"},   // Lakitu                   // TODO: Unsupported?
-        { "[N]",    "-"},   // Hammer Bro               // TODO: Unsupported?
-        { "[ham]",  "-"},   // Hammer Bro               // TODO: Unsupported?
+        { "[D]",    "R"},   // Winged Red Koopa
+        { "[s]",    "y"},   // Spiky                            // TODO: Unsure if correct metrics counterpart
+        { "[S]",    "Y"},   // Winged Spiky                     // TODO: Unsure if correct metrics counterpart
+        { "[Q]",    "-"},   // Lakitu                           // TODO: Unsupported?
+        { "[N]",    "-"},   // Hammer Bro                       // TODO: Unsupported?
+        { "[ham]",  "-"},   // Hammer Bro                       // TODO: Unsupported?
         { "[c]",    "B"},   // Bullet Bill head
-        { "[0]",    "b"},   // Bullet Bill body         // TODO: metrics -> framework at least
-        { "[0#]",   "S"},   // Flag stand
-        { "[Y]",    "-"}    // Trampoline
+        { "[0]",    "b"},   // Bullet Bill body                 // TODO: metrics -> framework at least
+        { "[c]",    "*"},   // Bullet Bill body                 // TODO: framework -> metrics at least; see README.md
+        { "[0#]",   "S"},   // Flag stand metrics (e.g. 1-3)
+        { "[g#]",   "X"},   // Flag stand metrics (e.g. 1-1)
+        { "[0]",    "F"},   // Flag stand framework (e.g. 1-1)
+        { "[0]",    "M"}    // Mario start framework (not used in metrics)
     };
 
     public static void convertLevelMetricsToFramework(String source, String target) {

@@ -13,7 +13,7 @@ public class Settings {
     // #region Global
 
     public static final String LEVEL_NAME = "World 1-1";
-    public static final String ORIGINAL_LEVELS_PATH = "./levels/smb/";
+    public static final String ORIGINAL_LEVELS_PATH = "./levels/custom/framework-originals/";
 
     public static final boolean WRITE_FILES = false;
     public static final String RESULTS_FOLDER_NAME = "results";
@@ -23,8 +23,13 @@ public class Settings {
 
     // #region Conversion
 
-    public static final String CONVERT_METRICS_NAME = "levels/smb/w 3-2.txt";
-    public static final String CONVERT_FRAMEWORK_NAME = "levels/smb/World 3-2.txt";
+    public static final String CONVERT_METRICS_SOURCE = "levels/custom/metrics-originals/";
+    public static final String CONVERT_METRICS_TARGET = "levels/custom/metrics-converted/";
+    public static final String CONVERT_METRICS_FILE = "SMB-w1-l1_final.txt";
+
+    public static final String CONVERT_FRAMEWORK_SOURCE = "levels/custom/framework-originals/";
+    public static final String CONVERT_FRAMEWORK_TARGET = "levels/custom/framework-converted/";
+    public static final String CONVERT_FRAMEWORK_FILE = "World 1-1.txt";
 
     // #endregion
 
