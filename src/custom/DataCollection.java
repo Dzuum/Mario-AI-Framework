@@ -43,8 +43,11 @@ public class DataCollection {
             lines.add(line);
         }
 
-        if (Settings.WRITE_FILES)
-            writeResultsFile(levelName, Settings.INPUTS_FILE_SUFFIX, lines);
+        if (Settings.WRITE_FILES) {
+            String fileName = levelName + Settings.INPUTS_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION;
+            Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, Settings.INPUTS_FOLDER_NAME, fileName);
+            Utils.writeAllLines(path, lines);
+        }
     }
 
     // #endregion
@@ -59,7 +62,10 @@ public class DataCollection {
                 lines.add("" + eventRanges.get(i).getDistance() + " ( " + eventRanges.get(i).getString() + ")");
             }
 
-            writeResultsFile(levelName, Settings.DISTANCES_FILE_SUFFIX, lines);
+            String fileName = Settings.DISTANCES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+            Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
+            Utils.writeAllLines(path, lines);
+
             lines.clear();
         }
 
@@ -78,7 +84,10 @@ public class DataCollection {
                 }
             }
 
-            writeResultsFile(levelName, Settings.BOUNDARIES_FILE_SUFFIX, lines);
+            String fileName = Settings.BOUNDARIES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+            Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
+            Utils.writeAllLines(path, lines);
+
             lines.clear();
         }
 
@@ -88,7 +97,9 @@ public class DataCollection {
                 lines.add("[" + entry.getKey() + " .. " + entry.getValue() + "]");
             }
 
-            writeResultsFile(levelName, Settings.TILE_RANGES_FILE_SUFFIX, lines);
+            String fileName = Settings.TILE_RANGES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+            Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
+            Utils.writeAllLines(path, lines);
         }
 
         if (Settings.WRITE_FILES) {
@@ -208,7 +219,7 @@ public class DataCollection {
 
         // Empty the results from last run
         try {
-            Path folderPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName);
+            Path folderPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, Settings.PATTERNS_FOLDER_NAME);
             if (Files.exists(folderPath)) {
                 try (DirectoryStream<Path> entries = Files.newDirectoryStream(folderPath)) {
                     for (Path entry : entries) {
@@ -244,7 +255,7 @@ public class DataCollection {
 
             // Write each pattern to their own file, and each level's patterns in its own folder
             String fileName = Settings.PATTERNS_FILE_NAME.replace("{i}", "" + patternIndex) + Settings.RESULTS_FILE_EXTENSION;
-            Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
+            Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, Settings.PATTERNS_FOLDER_NAME, fileName);
 
             Utils.writeAllLines(newPath, result);
             patternIndex += 1;
@@ -294,7 +305,7 @@ public class DataCollection {
 
     public static LinkedHashMap<Integer, Integer> loadGestaltTileRanges(String levelName) {
         // Load
-        Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName + Settings.TILE_RANGES_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION);
+        Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName + Settings.TILE_RANGES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION);
         List<String> lines = Utils.readAllLines(path);
 
         // Parse
@@ -312,12 +323,6 @@ public class DataCollection {
         }
 
         return gestalts;
-    }
-
-    private static void writeResultsFile(String levelName, String suffix, List<String> lines) {
-        String fileName = levelName + suffix + Settings.RESULTS_FILE_EXTENSION;
-        Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, fileName);
-        Utils.writeAllLines(path, lines);
     }
 
     // #endregion

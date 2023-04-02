@@ -15,7 +15,7 @@ public class Settings {
     public static final String LEVEL_NAME = "World 1-1";
     public static final String ORIGINAL_LEVELS_PATH = "./levels/custom/framework-originals/";
 
-    public static final boolean WRITE_FILES = false;
+    public static final boolean WRITE_FILES = true;
     public static final String RESULTS_FOLDER_NAME = "results";
     public static final String RESULTS_FILE_EXTENSION = ".txt";
 
@@ -35,15 +35,17 @@ public class Settings {
 
     // #region Input Analysis
 
+    public static final String INPUTS_FOLDER_NAME = "inputs";
     public static final String INPUTS_FILE_SUFFIX = "-GraphSource-InputIntensity";
 
     // #endregion
 
     // #region State Analysis
 
-    public static final String DISTANCES_FILE_SUFFIX = "-A_distances";
-    public static final String BOUNDARIES_FILE_SUFFIX = "-B_boundaries";
-    public static final String TILE_RANGES_FILE_SUFFIX = "-C_tiles";
+    public static final String PATTERNS_FOLDER_NAME = "patterns";
+    public static final String DISTANCES_FILE_NAME = "1 - Distances";
+    public static final String BOUNDARIES_FILE_NAME = "2 - Boundaries";
+    public static final String TILE_RANGES_FILE_NAME = "3 - Tiles";
     public static final String PATTERNS_FILE_NAME = "Pattern_{i}";
 
     // #endregion
