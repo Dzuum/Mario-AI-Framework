@@ -1,30 +1,37 @@
 package custom;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import engine.core.MarioAgentEvent;
 import engine.helper.MarioActions;
+
+import custom.Settings.TimeScoring;
 
 public class EventRange extends MarioAgentEvent {
     private float endX;
     private float endY;
 
-    private int distance;
+    private double distance;
 
     private boolean isStart;
     private boolean isEnd;
 
+    private List<MarioAgentEvent> events = new ArrayList<MarioAgentEvent>();
+    
     public EventRange(MarioAgentEvent start, MarioAgentEvent end) {
-        super(start.getActions(), start.getMarioX(), start.getMarioY(), start.getMarioState(), start.getMarioOnGround(), end.getTimeTicks() - start.getTimeTicks());
+        super(start.getActions(), start.getMarioX(), start.getMarioY(),
+            start.getMarioState(), start.getMarioOnGround(),
+            end.getTimeSinceStartTicks() - start.getTimeSinceStartTicks() + 1);
 
-        timeMillis = end.getTimeMillis() - start.getTimeMillis();
+        timeMillis = end.getTimeSinceEpochMillis() - start.getTimeSinceEpochMillis();
         endX = end.getMarioX();
         endY = end.getMarioY();
 
         distance = 0;
 
         isStart = false;
-        isEnd = false;
+        isEnd = false;       
     }
 
     // #region Get/Set
@@ -40,14 +47,14 @@ public class EventRange extends MarioAgentEvent {
     /**
      * Get the distance to the previous EventRange.
      */
-    public int getDistance() {
+    public double getDistanceGMA() {
         return distance;
     }
 
     /**
      * Set the distance to the previous EventRange.
      */
-    public void setDistance(int distance) {
+    public void setDistanceGMA(double distance) {
         this.distance = distance;
     }
 
@@ -65,6 +72,24 @@ public class EventRange extends MarioAgentEvent {
 
     public void setEndBoundary() {
         isEnd = true;
+    }
+
+    public int getDurationTicks() {
+        // Calculated in constructor already
+        return getTimeSinceStartTicks();
+    }
+
+    public long getDurationMillis() {
+        // Calculated in constructor already
+        return getTimeSinceEpochMillis();
+    }
+
+    public List<MarioAgentEvent> getAgentEvents() {
+        return events;
+    }
+
+    public void setAgentEvents(List<MarioAgentEvent> events) {
+        this.events = events;
     }
     
     // #endregion
@@ -89,29 +114,35 @@ public class EventRange extends MarioAgentEvent {
         return String.join(separator, result);
     }
 
-    public String getString() {
-        String fieldSeparator = ";";
-        String actionSeparator = ", ";
+    public String getStateString() {
+        String result = "";
 
-        String result = getActionString(actionSeparator);
-        result += fieldSeparator + " Ticks: " + getTimeTicks();
-        result += fieldSeparator + " Millis: " + getTimeMillis();
+        // 1. Movement Direction
+        if (getMovementDirection() != MovementDirection.None)
+            result += getMovementDirection() + " ";
+
+        // 2. Powerup State
+        if (getMarioState() == 0)
+            result += "Small ";
+        else if (getMarioState() == 1)
+            result += "Large ";
+        else if (getMarioState() == 2)
+            result += "Fire ";
+
+        // 3. Ground State
+        if (getGroundState() != GroundState.None)
+            result += getGroundState().toString() + " ";
+
+        // 4. Airborne State
+        if (!getMarioOnGround())
+            result += "Airborne ";
+
+        // 5. Time
+        if (Settings.StateTimeScoring == TimeScoring.Millis)
+            result += "|| Duration: " + getDurationMillis() + " ms";
+        else
+            result += "|| Duration: " + getDurationTicks() + " ticks";
+
         return result;
     }
-
-    // #region Helper Functions
-
-    public boolean hasHorizontalInput() {
-        return isMovingLeft() || isMovingRight();
-    }
-
-    public boolean isMovingLeft() {
-        return actions[MarioActions.LEFT.getValue()];
-    }
-
-    public boolean isMovingRight() {
-        return actions[MarioActions.RIGHT.getValue()];
-    }
-
-    // #endregion
 }

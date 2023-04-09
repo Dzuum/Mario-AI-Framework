@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import custom.Settings.TimeScoring;
 import engine.core.MarioAgentEvent;
+import engine.core.MarioAgentEvent.GroundState;
+import engine.core.MarioAgentEvent.MovementDirection;
 import engine.core.MarioResult;
 import engine.helper.MarioActions;
 
@@ -64,12 +67,13 @@ public class DataCollection {
 
     public static void findPatterns(String levelName, MarioResult result) {
         List<String> lines = new ArrayList<String>();
-        List<EventRange> eventRanges = getStates(result);
 
-        calculateDistances(eventRanges);
+        List<EventRange> states = getStates(result);
+
+        calculateDistances(states);
         if (Settings.WRITE_FILES) {
-            for (int i = 0; i < eventRanges.size(); i++) {
-                lines.add("" + eventRanges.get(i).getDistance() + " ( " + eventRanges.get(i).getString() + ")");
+            for (int i = 0; i < states.size(); i++) {
+                lines.add("" + states.get(i).getDistanceGMA() + " ( " + states.get(i).getStateString() + ")");
             }
 
             String fileName = Settings.DISTANCES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
@@ -79,16 +83,16 @@ public class DataCollection {
             lines.clear();
         }
 
-        determineGestaltBoundaries(eventRanges);
+        determineGestaltBoundaries(states);
         if (Settings.WRITE_FILES) {
             String line = "";
 
-            for (int i = 0; i < eventRanges.size(); i++) {
-                if (eventRanges.get(i).isStartBoundary()) {
+            for (int i = 0; i < states.size(); i++) {
+                if (states.get(i).isStartBoundary()) {
                     line = "[" + i + " .. ";
                 }
 
-                if (eventRanges.get(i).isEndBoundary()) {
+                if (states.get(i).isEndBoundary()) {
                     line += i + "]";
                     lines.add(line);
                 }
@@ -101,7 +105,7 @@ public class DataCollection {
             lines.clear();
         }
 
-        LinkedHashMap<Integer, Integer> patterns = getGestaltTileRanges(levelName, eventRanges);
+        LinkedHashMap<Integer, Integer> patterns = getGestaltTileRanges(levelName, states);
         if (Settings.WRITE_FILES) {
             for (Entry<Integer, Integer> entry : patterns.entrySet()){    
                 lines.add("[" + entry.getKey() + " .. " + entry.getValue() + "]");
@@ -126,26 +130,31 @@ public class DataCollection {
         List<EventRange> states = new ArrayList<EventRange>();
         
         List<MarioAgentEvent> allEvents = result.getAgentEvents();
+
+        int startIndex = 0;
         MarioAgentEvent startEvent = allEvents.get(0);
         MarioAgentEvent currEvent;
 
         for (int i = 1; i < allEvents.size(); i++) {
             currEvent = allEvents.get(i);
 
-            if (!isSameEvent(startEvent, currEvent)) {
+            if (!isSameState(startEvent, currEvent)) {
                 // The previous one was the end for this range
                 MarioAgentEvent endEvent = allEvents.get(i - 1);
 
                 EventRange state = new EventRange(startEvent, endEvent);
+                state.setAgentEvents(allEvents.subList(startIndex, i));
                 states.add(state);
 
                 // Start new range
                 startEvent = currEvent;
+                startIndex = i;
             }
 
             // Make sure to record the last range of events as well
             if (i == (allEvents.size() - 1)) {
                 EventRange state = new EventRange(startEvent, currEvent);
+                state.setAgentEvents(allEvents.subList(startIndex, i));
                 states.add(state);
             }
         }
@@ -161,8 +170,8 @@ public class DataCollection {
             EventRange first = states.get(i - 1);
             EventRange second = states.get(i);
 
-            int distance = calculateDistance(first, second);
-            second.setDistance(distance);
+            double distance = calculateDistance(first, second);
+            second.setDistanceGMA(distance);
         }
     }
 
@@ -173,9 +182,9 @@ public class DataCollection {
         events.get(0).setStartBoundary();
 
         for (int i = 1; i < events.size() - 1; i++) {
-            int prev = events.get(i - 1).getDistance();
-            int curr = events.get(i).getDistance();
-            int next = events.get(i + 1).getDistance();
+            double prev = events.get(i - 1).getDistanceGMA();
+            double curr = events.get(i).getDistanceGMA();
+            double next = events.get(i + 1).getDistanceGMA();
 
             // If distance to previous is higher than the adjacent two,
             // then this is the start of a new boundary
@@ -196,12 +205,14 @@ public class DataCollection {
 
         for (int i = 0; i < events.size(); i++) {
             if (events.get(i).isStartBoundary()) {
-                startX = (int)events.get(i).getMarioX();
+                // Convert to tile position
+                startX = (int)(events.get(i).getMarioX() / 16);
                 foundStart = true;
             }
 
             if (events.get(i).isEndBoundary()) {
-                endX = (int)events.get(i).getEndX();
+                // Convert to tile position
+                endX = (int)(events.get(i).getEndX() / 16);
                 foundEnd = true;
             }
 
@@ -276,36 +287,118 @@ public class DataCollection {
 
     // #region GMA
 
-    private static boolean isSameEvent(MarioAgentEvent event, MarioAgentEvent otherEvent) {
-        return Arrays.equals(event.getActions(), otherEvent.getActions());
+    private static boolean isSameState(MarioAgentEvent event, MarioAgentEvent otherEvent) {
+        // 1. Movement Direction
+        if (event.getMovementDirection() != otherEvent.getMovementDirection())
+            return false;
+
+        // 2. Powerup State
+        if (event.getMarioState() != otherEvent.getMarioState())
+            return false;
+        
+        // 3. Ground State
+        if (event.getGroundState() != otherEvent.getGroundState())
+            return false;
+
+        // 4. Airborne State
+        if (event.getMarioOnGround() != otherEvent.getMarioOnGround())
+            return false;
+
+        return true;
     }
+ 
+    private static double calculateDistance(EventRange first, EventRange second) {
+        // Pagnutti 0.75
+        double weightDirection = 0.75;
+        // Pagnutti 1
+        double weightPowerup = 1;
+        // Pagnutti 0.25
+        double weightGroundState = 0.25;
+        // Pagnutti 0.5
+        double weightAirborneState = 0.5;
+        // Pagnutti 0.01
+        double weightTime = 0.01;
 
-    private static int calculateDistance(EventRange first, EventRange second) {
-        int score = 0;
+        double scoreSum = 0;
 
-        // **************
-        // ** MOVEMENT **
-        if (first.hasHorizontalInput() != second.hasHorizontalInput()) {
-            // Changing between movement and no movement
-            score += 1;
-        } else if (
-            (first.isMovingLeft() && second.isMovingRight()) ||
-            (first.isMovingRight() && second.isMovingLeft())) {
-            // Changing direction
-            score += 2;
+        // 1. Movement Direction
+        MovementDirection directionPrev = first.getMovementDirection();
+        MovementDirection directionNext = second.getMovementDirection();
+        if (directionPrev != directionNext) {
+            double scoreAdd = 0;
+
+            if (directionPrev == MovementDirection.None || directionNext == MovementDirection.None) {
+                // Left <-> None or Right <-> None
+                // Already verified the directions are different
+                scoreAdd = 1;
+            } else {
+                // Going from left to right or vice versa
+                scoreAdd = 2;
+            }
+
+            scoreAdd = Math.pow(weightDirection * scoreAdd, 2);
+            scoreSum += scoreAdd;
         }
 
-        // ********************
-        // ** AIRBORNE STATE **
-        if (first.getMarioOnGround() != second.getMarioOnGround()) {
-            score += 1;
+        // 2. Powerup State
+        int powerupPrev = first.getMarioState();
+        int powerupNext = second.getMarioState();
+        if (powerupPrev != powerupNext) {
+            double scoreAdd = 0;
+
+            if (powerupPrev == 1 || powerupNext == 1) {
+                // Small <-> Big or Big <-> Fire
+                // Already verified the powerup stat4es are different
+                scoreAdd = 1;
+            } else {
+                // Going from small to fire or vice versa
+                scoreAdd = 2;
+            }
+
+            scoreAdd = Math.pow(weightPowerup * scoreAdd, 2);
+            scoreSum += scoreAdd;
+        }
+        
+        // 3. Ground State
+        GroundState groundPrev = first.getGroundState();
+        GroundState groundNext = second.getGroundState();
+        if (groundPrev != groundNext) {
+            double scoreAdd = 0;
+
+            if (groundPrev == GroundState.None || groundNext == GroundState.None) {
+                // Already verified the ground states are different
+                scoreAdd = 1;
+            } else {
+                // Going from crouching to running or vice versa
+                scoreAdd = 2;
+            }
+
+            scoreAdd = Math.pow(weightGroundState * scoreAdd, 2);
+            scoreSum += scoreAdd;
         }
 
-        // **********
-        // ** TIME **
-        // score += first.getTimeMillis() * 0.01f;
-        score += first.getTimeTicks() * 0.1f;
+        // 4. Airborne State
+        boolean airbornePrev = first.getMarioOnGround();
+        boolean airborneNext = second.getMarioOnGround();
+        if (airbornePrev != airborneNext) {
+            double scoreAdd = 1;
+            scoreAdd = Math.pow(weightAirborneState * scoreAdd, 2);
+            scoreSum += scoreAdd;
+        }
+        
+        // 5. Time
+        long duration = 0;
 
+        if (Settings.StateTimeScoring == TimeScoring.Millis)
+            duration = first.getDurationMillis();
+        else
+            duration = first.getDurationTicks();
+        
+        scoreSum += Math.pow(weightTime * duration, 2);
+
+        // Finalisation
+        scoreSum = Math.sqrt(scoreSum);
+        long score = Math.round(scoreSum * 10);
         return score;
     }
 

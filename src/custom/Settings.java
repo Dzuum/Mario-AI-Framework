@@ -8,7 +8,13 @@ public class Settings {
         ConvertMetricsToFramework, ConvertFrameworkToMetrics
     }
 
+    public enum TimeScoring { Ticks, Millis }
+
     public static LaunchMode LAUNCH_MODE = LaunchMode.Agent;
+
+    public static TimeScoring StateTimeScoring = TimeScoring.Millis;
+    public static int StateCutoffMillis = 50; 
+    public static int StateCutoffTicks = 3; 
 
     // #region Global
 
