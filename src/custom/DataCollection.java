@@ -4,7 +4,6 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,34 +18,45 @@ public class DataCollection {
     // #region Input Analysis
 
     public static void recordInputs(String levelName, MarioResult result) {
-        List<String> lines = new ArrayList<String>();
+        List<String> uniqueInputLines = new ArrayList<String>();
+        List<String> allInputLines = new ArrayList<String>();
 
         boolean[] prevAction = new boolean[5];
         for (int i = 0; i < prevAction.length; i++) {
             prevAction[i] = false;
         }
 
-        String line;
+        String uniqueLine, allLine;
         for (int i = 0; i < result.getAgentEvents().size(); i++) {
             MarioAgentEvent event = result.getAgentEvents().get(i);
-            line = event.getTimeTicks() + ":";
+
+            uniqueLine = event.getTimeSinceStartTicks() + ":";
+            allLine = event.getTimeSinceStartTicks() + ":";
 
             for (int actionId = 0; actionId < 5; actionId++) {
                 // Check if started a new action during this event (tick)
                 if (event.getActions()[actionId] && !prevAction[actionId]) {
-                    line += " " + MarioActions.getAction(actionId).getString();
+                    uniqueLine += " " + MarioActions.getAction(actionId).getString();
                 }
-
+            
                 prevAction[actionId] = event.getActions()[actionId];
+
+                if (event.getActions()[actionId])
+                    allLine += " " + MarioActions.getAction(actionId).getString();
             }
 
-            lines.add(line);
+            uniqueInputLines.add(uniqueLine);
+            allInputLines.add(allLine);
         }
 
         if (Settings.WRITE_FILES) {
-            String fileName = levelName + Settings.INPUTS_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION;
+            String fileName = levelName + Settings.UNIQUE_INPUTS_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION;
             Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, Settings.INPUTS_FOLDER_NAME, fileName);
-            Utils.writeAllLines(path, lines);
+            Utils.writeAllLines(path, uniqueInputLines);
+            
+            fileName = levelName + Settings.ALL_INPUTS_FILE_SUFFIX + Settings.RESULTS_FILE_EXTENSION;
+            path = Paths.get(Settings.RESULTS_FOLDER_NAME, Settings.INPUTS_FOLDER_NAME, fileName);
+            Utils.writeAllLines(path, allInputLines);
         }
     }
 

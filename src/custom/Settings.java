@@ -36,7 +36,8 @@ public class Settings {
     // #region Input Analysis
 
     public static final String INPUTS_FOLDER_NAME = "inputs";
-    public static final String INPUTS_FILE_SUFFIX = "-GraphSource-InputIntensity";
+    public static final String UNIQUE_INPUTS_FILE_SUFFIX = "-GraphSource-UniqueInputs";
+    public static final String ALL_INPUTS_FILE_SUFFIX = "-GraphSource-AllInputs";
 
     // #endregion
 
