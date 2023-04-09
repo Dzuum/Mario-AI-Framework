@@ -94,6 +94,11 @@ public class EventRange extends MarioAgentEvent {
     
     // #endregion
 
+    public void addDuration(int ticks, long millis) {
+        this.timeTicks += ticks;
+        this.timeMillis += millis;
+    }
+
     /**
      * String representation of the input.
      */

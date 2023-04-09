@@ -67,8 +67,21 @@ public class DataCollection {
 
     public static void findPatterns(String levelName, MarioResult result) {
         List<String> lines = new ArrayList<String>();
-
         List<EventRange> states = getStates(result);
+        
+        // Combine states that are too short to the previous ones
+        for (int i = 1; i < states.size(); i++) {
+            int durationTicks = states.get(i).getDurationTicks();
+            long durationMillis = states.get(i).getDurationMillis();
+
+            if ((Settings.StateTimeScoring == TimeScoring.Millis && durationMillis < Settings.StateCutoffMillis) ||
+                (Settings.StateTimeScoring == TimeScoring.Ticks && durationTicks < Settings.StateCutoffTicks)) {
+                // Combine with previous state
+                states.get(i - 1).addDuration(durationTicks, durationMillis);
+                states.remove(i);
+                i--;
+            }
+        }
 
         calculateDistances(states);
         if (Settings.WRITE_FILES) {
