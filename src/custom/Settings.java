@@ -39,7 +39,7 @@ public class Settings {
 
     // #endregion
 
-    // #region Input Analysis
+    // #region Files -- Input Analysis
 
     public static final String INPUTS_FOLDER_NAME = "inputs";
     public static final String UNIQUE_INPUTS_FILE_SUFFIX = "-GraphSource-UniqueInputs";
@@ -47,13 +47,13 @@ public class Settings {
 
     // #endregion
 
-    // #region State Analysis
+    // #region Files -- State Analysis
 
     public static final String PATTERNS_FOLDER_NAME = "patterns";
     public static final String DISTANCES_FILE_NAME = "1 - Distances";
     public static final String BOUNDARIES_FILE_NAME = "2 - Boundaries";
     public static final String TILE_RANGES_FILE_NAME = "3 - Tiles";
-    public static final String PATTERNS_FILE_NAME = "Pattern_{i}";
+    public static final String PATTERNS_FILE_NAME = "Pattern_";
 
     // #endregion
 }

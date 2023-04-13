@@ -66,7 +66,6 @@ public class DataCollection {
     // #endregion
 
     public static void findPatterns(String levelName, MarioResult result) {
-        List<String> lines = new ArrayList<String>();
         List<EventRange> states = getStates(result);
         
         // Combine states that are too short to the previous ones
@@ -83,10 +82,14 @@ public class DataCollection {
             }
         }
 
+
+
+        List<String> lines = new ArrayList<String>();
+
         calculateDistances(states);
         if (Settings.WRITE_FILES) {
             for (int i = 0; i < states.size(); i++) {
-                lines.add("" + states.get(i).getDistanceGMA() + " ( " + states.get(i).getStateString() + ")");
+                lines.add("" + states.get(i).getDistanceGMA() + " ( " + states.get(i).getStateString() + " )");
             }
 
             String fileName = Settings.DISTANCES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
@@ -118,9 +121,9 @@ public class DataCollection {
             lines.clear();
         }
 
-        LinkedHashMap<Integer, Integer> patterns = getGestaltTileRanges(levelName, states);
+        LinkedHashMap<Integer, Integer> tileRanges = getGestaltTileRanges(levelName, states);
         if (Settings.WRITE_FILES) {
-            for (Entry<Integer, Integer> entry : patterns.entrySet()){    
+            for (Entry<Integer, Integer> entry : tileRanges.entrySet()){    
                 lines.add("[" + entry.getKey() + " .. " + entry.getValue() + "]");
             }
 
@@ -129,8 +132,18 @@ public class DataCollection {
             Utils.writeAllLines(path, lines);
         }
 
+        List<Pattern> patterns = null;
+
         if (Settings.WRITE_FILES) {
-            writeGestaltPatterns(levelName, patterns);
+            emptyPatternResults(levelName);
+            patterns = createPatterns(levelName, tileRanges);
+        }
+
+        if (Settings.WRITE_FILES) {
+            for (Pattern pattern : patterns) {
+                pattern.serialize();
+                pattern.writeDebugPatternFile();
+            }
         }
     }
 
@@ -245,15 +258,12 @@ public class DataCollection {
     }
 
     /**
-     * Write the found patterns as text files. 
+     * Empty the results from previous run.
      */
-    private static void writeGestaltPatterns(String levelName, LinkedHashMap<Integer, Integer> patterns) {
-        Path originalLevelPath = Paths.get(Settings.ORIGINAL_LEVELS_PATH, levelName + ".txt");
-        List<String> levelLines = Utils.readAllLines(originalLevelPath);
-
-        // Empty the results from last run
+    private static void emptyPatternResults(String levelName) {
         try {
             Path folderPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, Settings.PATTERNS_FOLDER_NAME);
+
             if (Files.exists(folderPath)) {
                 try (DirectoryStream<Path> entries = Files.newDirectoryStream(folderPath)) {
                     for (Path entry : entries) {
@@ -262,15 +272,24 @@ public class DataCollection {
                 }
             }
         } catch (Exception ex) {
-            System.out.println("writeGestaltPatterns: Error deleting existing directory!");
+            System.out.println("emptyResultFolder: Error deleting existing directory!");
             ex.printStackTrace();
         }
+    }
+
+    /**
+     * Write the found patterns as text files. 
+     */
+    private static List<Pattern> createPatterns(String levelName, LinkedHashMap<Integer, Integer> tileRanges) {
+        Path originalLevelPath = Paths.get(Settings.ORIGINAL_LEVELS_PATH, levelName + ".txt");
+        List<String> levelLines = Utils.readAllLines(originalLevelPath);
 
         int patternIndex = 0;
-        List<String> result = new ArrayList<String>();
+        List<Pattern> patterns = new ArrayList<Pattern>();
+        List<String> geometry = new ArrayList<String>();
 
-        for (Entry<Integer, Integer> entry : patterns.entrySet()) {
-            result.clear();
+        for (Entry<Integer, Integer> entry : tileRanges.entrySet()) {
+            geometry.clear();
             int start = entry.getKey();
             int end = entry.getValue();
 
@@ -284,16 +303,14 @@ public class DataCollection {
                 // Remove the goal; otherwise the goal may be at the middle of the level
                 line = line.replace('F', '-');
 
-                result.add(line);
+                geometry.add(line);
             }
 
-            // Write each pattern to their own file, and each level's patterns in its own folder
-            String fileName = Settings.PATTERNS_FILE_NAME.replace("{i}", "" + patternIndex) + Settings.RESULTS_FILE_EXTENSION;
-            Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, Settings.PATTERNS_FOLDER_NAME, fileName);
-
-            Utils.writeAllLines(newPath, result);
+            patterns.add(new Pattern(levelName, patternIndex, new ArrayList<>(geometry)));
             patternIndex += 1;
         }
+
+        return patterns;
     }
 
     // #endregion
@@ -421,7 +438,7 @@ public class DataCollection {
 
     public static LinkedHashMap<Integer, Integer> loadGestaltTileRanges(String levelName) {
         // Load
-        Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName + Settings.TILE_RANGES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION);
+        Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName + "/" + Settings.TILE_RANGES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION);
         List<String> lines = Utils.readAllLines(path);
 
         // Parse
