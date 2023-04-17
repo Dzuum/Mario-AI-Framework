@@ -51,7 +51,7 @@ public class Settings {
 
     public static final String PATTERNS_FOLDER_NAME = "patterns";
     public static final String DISTANCES_FILE_NAME = "1 - Distances";
-    public static final String BOUNDARIES_FILE_NAME = "2 - Boundaries";
+    public static final String STATES_FILE_NAME = "2 - States";
     public static final String TILE_RANGES_FILE_NAME = "3 - Tiles";
     public static final String PATTERNS_FILE_NAME = "Pattern_";
 

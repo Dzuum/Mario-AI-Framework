@@ -6,8 +6,6 @@ import java.util.List;
 import engine.core.MarioAgentEvent;
 import engine.helper.MarioActions;
 
-import custom.Settings.TimeScoring;
-
 public class EventRange extends MarioAgentEvent {
     private float endX;
     private float endY;
@@ -42,6 +40,14 @@ public class EventRange extends MarioAgentEvent {
 
     public float getEndY() {
         return endY;
+    }
+
+    public int getStartTileX() {
+        return (int)(getMarioX() / 16);
+    }
+
+    public int getEndTileX() {
+        return (int)(getEndX() / 16);
     }
 
     /**

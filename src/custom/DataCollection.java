@@ -7,14 +7,14 @@ import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
-import custom.Settings.TimeScoring;
 import engine.core.MarioAgentEvent;
 import engine.core.MarioAgentEvent.GroundState;
 import engine.core.MarioAgentEvent.MovementDirection;
 import engine.core.MarioResult;
 import engine.helper.MarioActions;
+
+import custom.Settings.TimeScoring;
 
 public class DataCollection {
 
@@ -84,67 +84,67 @@ public class DataCollection {
 
 
 
-        List<String> lines = new ArrayList<String>();
 
         calculateDistances(states);
-        if (Settings.WRITE_FILES) {
-            for (int i = 0; i < states.size(); i++) {
-                lines.add("" + states.get(i).getDistanceGMA() + " ( " + states.get(i).getStateString() + " )");
-            }
-
-            String fileName = Settings.DISTANCES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
-            Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
-            Utils.writeAllLines(path, lines);
-
-            lines.clear();
-        }
-
-        determineGestaltBoundaries(states);
-        if (Settings.WRITE_FILES) {
-            String line = "";
-
-            for (int i = 0; i < states.size(); i++) {
-                if (states.get(i).isStartBoundary()) {
-                    line = "[" + i + " .. ";
-                }
-
-                if (states.get(i).isEndBoundary()) {
-                    line += i + "]";
-                    lines.add(line);
-                }
-            }
-
-            String fileName = Settings.BOUNDARIES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
-            Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
-            Utils.writeAllLines(path, lines);
-
-            lines.clear();
-        }
-
-        LinkedHashMap<Integer, Integer> tileRanges = getGestaltTileRanges(levelName, states);
-        if (Settings.WRITE_FILES) {
-            for (Entry<Integer, Integer> entry : tileRanges.entrySet()){    
-                lines.add("[" + entry.getKey() + " .. " + entry.getValue() + "]");
-            }
-
-            String fileName = Settings.TILE_RANGES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
-            Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
-            Utils.writeAllLines(path, lines);
-        }
-
-        List<Pattern> patterns = null;
+        setBoundaryInfo(states);
+        List<Pattern> patterns = createPatterns(levelName, states);
 
         if (Settings.WRITE_FILES) {
             emptyPatternResults(levelName);
-            patterns = createPatterns(levelName, tileRanges);
-        }
-
-        if (Settings.WRITE_FILES) {
             for (Pattern pattern : patterns) {
                 pattern.serialize();
                 pattern.writeDebugPatternFile();
             }
+            writeFiles(levelName, patterns);
         }
+    }
+
+    private static void writeFiles(String levelName, List<Pattern> patterns) {
+        List<String> lines = new ArrayList<String>();
+
+        /*****************
+         * 1 - Distances */
+        for (int i = 0; i < patterns.size(); i++) {
+            Pattern pattern = patterns.get(i);
+
+            for (int k = 0; k < pattern.getStates().size(); k++) {
+                EventRange state = pattern.getStates().get(k);
+                lines.add("" + state.getDistanceGMA() + " ( " + state.getStateString() + " )");
+            }
+        }
+
+        String fileName = Settings.DISTANCES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+        Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
+        Utils.writeAllLines(path, lines);
+
+        lines.clear();
+        
+        /**************
+         * 2 - States */
+        int index = 0;
+        for (int i = 0; i < patterns.size(); i++) {
+            Pattern pattern = patterns.get(i);
+            lines.add("[" + index + " .. " + (index + pattern.getStates().size() - 1) + "] (event count: " + pattern.getStates().size() + ")");
+            index += pattern.getStates().size();
+        }
+
+        fileName = Settings.STATES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+        path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
+        Utils.writeAllLines(path, lines);
+
+        lines.clear();
+
+
+        /*************
+         * 3 - Tiles */
+        for (int i = 0; i < patterns.size(); i++) {
+            Pattern pattern = patterns.get(i);
+            lines.add("[" + pattern.getStartTileX() + " .. " + pattern.getEndTileX() + "]");
+        }
+
+        fileName = Settings.TILE_RANGES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+        path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
+        Utils.writeAllLines(path, lines);
     }
 
     // #region Pattern Calculation
@@ -169,7 +169,7 @@ public class DataCollection {
                 MarioAgentEvent endEvent = allEvents.get(i - 1);
 
                 EventRange state = new EventRange(startEvent, endEvent);
-                state.setAgentEvents(allEvents.subList(startIndex, i));
+                state.setAgentEvents(new ArrayList<>(allEvents.subList(startIndex, i)));
                 states.add(state);
 
                 // Start new range
@@ -180,7 +180,7 @@ public class DataCollection {
             // Make sure to record the last range of events as well
             if (i == (allEvents.size() - 1)) {
                 EventRange state = new EventRange(startEvent, currEvent);
-                state.setAgentEvents(allEvents.subList(startIndex, i));
+                state.setAgentEvents(new ArrayList<>(allEvents.subList(startIndex, i)));
                 states.add(state);
             }
         }
@@ -204,57 +204,23 @@ public class DataCollection {
     /**
      * Determine the gestalt boundaries based on the distances.
      */
-    private static void determineGestaltBoundaries(List<EventRange> events) {
-        events.get(0).setStartBoundary();
+    private static void setBoundaryInfo(List<EventRange> states) {
+        states.get(0).setStartBoundary();
 
-        for (int i = 1; i < events.size() - 1; i++) {
-            double prev = events.get(i - 1).getDistanceGMA();
-            double curr = events.get(i).getDistanceGMA();
-            double next = events.get(i + 1).getDistanceGMA();
+        for (int i = 1; i < states.size() - 1; i++) {
+            double prev = states.get(i - 1).getDistanceGMA();
+            double curr = states.get(i).getDistanceGMA();
+            double next = states.get(i + 1).getDistanceGMA();
 
             // If distance to previous is higher than the adjacent two,
             // then this is the start of a new boundary
             if (curr > prev && curr > next) {
-                events.get(i - 1).setEndBoundary();
-                events.get(i).setStartBoundary();
+                states.get(i - 1).setEndBoundary();
+                states.get(i).setStartBoundary();
             }
         }
 
-        events.get(events.size() - 1).setEndBoundary();
-    }
-
-    private static LinkedHashMap<Integer, Integer> getGestaltTileRanges(String levelName, List<EventRange> events) {
-        LinkedHashMap<Integer, Integer> gestalts = new LinkedHashMap<Integer, Integer>();
-
-        int startX = 0, endX = 0;
-        boolean foundStart = false, foundEnd = false;
-
-        for (int i = 0; i < events.size(); i++) {
-            if (events.get(i).isStartBoundary()) {
-                // Convert to tile position
-                startX = (int)(events.get(i).getMarioX() / 16);
-                foundStart = true;
-            }
-
-            if (events.get(i).isEndBoundary()) {
-                // Convert to tile position
-                endX = (int)(events.get(i).getEndX() / 16);
-                foundEnd = true;
-            }
-
-            if (foundStart && foundEnd) {
-                if (gestalts.containsKey(startX)) {
-                    System.out.println("getGestaltTileRanges: Warning! Pattern start '" + startX + "' already exists!");
-                }
-
-                gestalts.put(startX, endX);
-
-                foundStart = false;
-                foundEnd = false;
-            }
-        }
-
-        return gestalts;
+        states.get(states.size() - 1).setEndBoundary();
     }
 
     /**
@@ -280,7 +246,7 @@ public class DataCollection {
     /**
      * Write the found patterns as text files. 
      */
-    private static List<Pattern> createPatterns(String levelName, LinkedHashMap<Integer, Integer> tileRanges) {
+    private static List<Pattern> createPatterns(String levelName, List<EventRange> allStates) {
         Path originalLevelPath = Paths.get(Settings.ORIGINAL_LEVELS_PATH, levelName + ".txt");
         List<String> levelLines = Utils.readAllLines(originalLevelPath);
 
@@ -288,26 +254,47 @@ public class DataCollection {
         List<Pattern> patterns = new ArrayList<Pattern>();
         List<String> geometry = new ArrayList<String>();
 
-        for (Entry<Integer, Integer> entry : tileRanges.entrySet()) {
-            geometry.clear();
-            int start = entry.getKey();
-            int end = entry.getValue();
+        int startIndex = -1, endIndex;
+        EventRange state;
+        for (int i = 0; i < allStates.size(); i++) {
+            state = allStates.get(i);
 
-            for (int i = 0; i < levelLines.size(); i++) {
-                // The end is exclusive so add 1
-                String line = levelLines.get(i).substring(start, end + 1);
-
-                // Remove start point; otherwise the start point may be at the middle of the level
-                line = line.replace('M', '-');
-
-                // Remove the goal; otherwise the goal may be at the middle of the level
-                line = line.replace('F', '-');
-
-                geometry.add(line);
+            if (state.isStartBoundary()) {
+                startIndex = i;
             }
 
-            patterns.add(new Pattern(levelName, patternIndex, new ArrayList<>(geometry)));
-            patternIndex += 1;
+            if (state.isEndBoundary()) {
+                endIndex = i;
+
+                int startTileX = allStates.get(startIndex).getStartTileX();
+                int endTileX = allStates.get(endIndex).getEndTileX();
+
+                geometry.clear();
+
+                for (int k = 0; k < levelLines.size(); k++) {
+                    // The end is exclusive so add 1
+                    String line = levelLines.get(k).substring(startTileX, endTileX + 1);
+    
+                    // Remove start point; otherwise the start point may be at the middle of the level
+                    line = line.replace('M', '-');
+    
+                    // Remove the goal; otherwise the goal may be at the middle of the level
+                    line = line.replace('F', '-');
+    
+                    geometry.add(line);
+                }
+    
+                // Sublist end index is exclusive so add 1
+                // Also, the lists are copied using the constructor
+                patterns.add(new Pattern(levelName, patternIndex,
+                    new ArrayList<>(geometry),
+                    new ArrayList<>(allStates.subList(startIndex, endIndex + 1))));
+
+                patternIndex += 1;
+
+                // Reset back to undefined
+                startIndex = -1;
+            }
         }
 
         return patterns;

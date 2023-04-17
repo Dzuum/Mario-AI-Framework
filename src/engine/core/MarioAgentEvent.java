@@ -1,8 +1,10 @@
 package engine.core;
 
+import java.io.Serializable;
+
 import engine.helper.MarioActions;
 
-public class MarioAgentEvent {
+public class MarioAgentEvent implements Serializable {
     public enum MovementDirection { Left, Right, None }
     public enum GroundState { Crouching, Running, None }
     
