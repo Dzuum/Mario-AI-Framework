@@ -95,11 +95,13 @@ public class DataCollection {
                 pattern.serialize();
                 pattern.writeDebugPatternFile();
             }
-            writeFiles(levelName, patterns);
+
+            logResultsToFiles(levelName);
         }
     }
 
-    private static void writeFiles(String levelName, List<Pattern> patterns) {
+    private static void logResultsToFiles(String levelName) {
+        List<Pattern> patterns = Utils.loadPatternsForLevel(levelName);
         List<String> lines = new ArrayList<String>();
 
         /*****************

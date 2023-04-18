@@ -1,10 +1,5 @@
 package custom;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,7 +22,7 @@ public class LevelGenerator implements MarioLevelGenerator {
 
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
-        loadPatterns(sourceLevel);
+        patterns = Utils.loadPatternsForLevel(sourceLevel);
 
         rand = new Random();
         model.clearMap();
@@ -50,29 +45,6 @@ public class LevelGenerator implements MarioLevelGenerator {
         }
 
         return model.getMap();
-    }
-
-    private void loadPatterns(String level) {
-        try {
-            Path directoryPath = Paths.get(Settings.RESULTS_FOLDER_NAME, level, Settings.PATTERNS_FOLDER_NAME);
-            File directory = new File(directoryPath.toString());
-            File[] directoryListing = directory.listFiles();
-
-            for (File file : directoryListing) {
-                if (file.getName().startsWith(Settings.PATTERNS_FILE_NAME)) {
-                    FileInputStream fileStream = new FileInputStream(file.getPath());
-                    ObjectInputStream objectStream = new ObjectInputStream(fileStream);
-                        
-                    patterns.add((Pattern)objectStream.readObject());
-                        
-                    objectStream.close();
-                    fileStream.close();
-                }
-            }
-        } catch (Exception ex) {
-            System.out.println("Error reading patterns for level " + level);
-            ex.printStackTrace();
-        }
     }
 
     @Override

@@ -1,6 +1,9 @@
 package custom;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -125,6 +128,35 @@ public class Utils {
         newLines.add(0, "HEIGHT=" + newLines.size() + ";WIDTH=" + sourceLines.get(0).length() + ";");
 
         writeAllLines(Paths.get(target), newLines);
+    }
+
+    public static List<Pattern> loadPatternsForLevel(String levelName) {
+        List<Pattern> patterns = new ArrayList<Pattern>();
+
+        try {
+            Path directoryPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, Settings.PATTERNS_FOLDER_NAME);
+            File directory = new File(directoryPath.toString());
+            File[] directoryListing = directory.listFiles();
+
+            for (File file : directoryListing) {
+                if (file.getName().startsWith(Settings.PATTERNS_FILE_NAME)) {
+                    FileInputStream fileStream = new FileInputStream(file.getPath());
+                    ObjectInputStream objectStream = new ObjectInputStream(fileStream);
+                        
+                    patterns.add((Pattern)objectStream.readObject());
+                        
+                    objectStream.close();
+                    fileStream.close();
+                }
+            }
+        } catch (Exception ex) {
+            System.out.println("Error reading patterns for level " + levelName);
+            ex.printStackTrace();
+
+            patterns.clear();
+        }
+
+        return patterns;
     }
 
     public static List<String> readAllLines(Path path) {
