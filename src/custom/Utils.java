@@ -149,6 +149,9 @@ public class Utils {
                     fileStream.close();
                 }
             }
+
+            // Sort by pattern index in ascending order
+            patterns.sort((p1, p2) -> p1.getPatternIndex() - p2.getPatternIndex());
         } catch (Exception ex) {
             System.out.println("Error reading patterns for level " + levelName);
             ex.printStackTrace();

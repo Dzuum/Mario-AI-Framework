@@ -25,6 +25,7 @@ public class Pattern implements Serializable {
         this.states = states;
     }
 
+    public int getPatternIndex() { return patternIndex; }
     public List<String> getGeometry() { return geometry; }
     public List<State> getStates() { return states; }
 
