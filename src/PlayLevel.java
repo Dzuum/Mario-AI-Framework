@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import engine.core.MarioGame;
 import engine.core.MarioLevelGenerator;
@@ -10,6 +11,7 @@ import engine.core.MarioResult;
 import engine.core.MarioTimer;
 
 import custom.DataCollection;
+import custom.Pattern;
 import custom.Settings;
 import custom.Settings.LaunchMode;
 import custom.Utils;
@@ -61,7 +63,14 @@ public class PlayLevel {
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.Results) {
 
-            LinkedHashMap<Integer, Integer> gestalts = DataCollection.loadGestaltTileRanges(Settings.LEVEL_NAME);
+            // Load each the patterns' tile start and end positions
+            List<Pattern> patterns = Utils.loadPatternsForLevel(Settings.LEVEL_NAME);
+            LinkedHashMap<Integer, Integer> gestalts = new LinkedHashMap<Integer, Integer>();
+            for (int i = 0; i < patterns.size(); i++) {
+                Pattern pattern = patterns.get(i);
+                gestalts.put(pattern.getStartTileX(), pattern.getEndTileX());
+            }
+
             game.viewResults(gestalts, getLevel(Settings.ORIGINAL_LEVELS_PATH + Settings.LEVEL_NAME + ".txt"), 200, 0, true);
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.LevelGenerator) {

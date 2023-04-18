@@ -4,7 +4,6 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.LinkedHashMap;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -419,32 +418,6 @@ public class DataCollection {
         scoreSum = Math.sqrt(scoreSum);
         long score = Math.round(scoreSum * 10);
         return score;
-    }
-
-    // #endregion
-
-    // #region Helpers
-
-    public static LinkedHashMap<Integer, Integer> loadGestaltTileRanges(String levelName) {
-        // Load
-        Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName + "/" + Settings.TILE_RANGES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION);
-        List<String> lines = Utils.readAllLines(path);
-
-        // Parse
-        LinkedHashMap<Integer, Integer> gestalts = new LinkedHashMap<Integer, Integer>();
-        for (int i = 0; i < lines.size(); i++) {
-            String line = lines.get(i);
-            line = line.replace("[", "");
-            line = line.replace("]", "");
-
-            String[] split = line.split(" .. ");
-            int startTile = Integer.parseInt(split[0]);
-            int endTile = Integer.parseInt(split[1]);
-
-            gestalts.put(startTile, endTile);
-        }
-
-        return gestalts;
     }
 
     // #endregion
