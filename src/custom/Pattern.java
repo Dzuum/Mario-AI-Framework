@@ -16,9 +16,9 @@ public class Pattern implements Serializable {
     // The actual pattern tiles in framework format
     private List<String> geometry;
     // The states that form this pattern. These in turn contain all the events the AI created.
-    private List<EventRange> states;
+    private List<State> states;
 
-    public Pattern(String source, int index, List<String> geometry, List<EventRange> states) {
+    public Pattern(String source, int index, List<String> geometry, List<State> states) {
         this.sourceLevel = source;
         this.patternIndex = index;
         this.geometry = geometry;
@@ -26,7 +26,7 @@ public class Pattern implements Serializable {
     }
 
     public List<String> getGeometry() { return geometry; }
-    public List<EventRange> getStates() { return states; }
+    public List<State> getStates() { return states; }
 
     public int getTileWidth() { return geometry.get(0).length(); }
 

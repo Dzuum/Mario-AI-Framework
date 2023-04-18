@@ -66,7 +66,7 @@ public class DataCollection {
     // #endregion
 
     public static void findPatterns(String levelName, MarioResult result) {
-        List<EventRange> states = getStates(result);
+        List<State> states = getStates(result);
         
         // Combine states that are too short to the previous ones
         for (int i = 1; i < states.size(); i++) {
@@ -110,7 +110,7 @@ public class DataCollection {
             Pattern pattern = patterns.get(i);
 
             for (int k = 0; k < pattern.getStates().size(); k++) {
-                EventRange state = pattern.getStates().get(k);
+                State state = pattern.getStates().get(k);
                 lines.add("" + state.getDistanceGMA() + " ( " + state.getStateString() + " )");
             }
         }
@@ -154,8 +154,8 @@ public class DataCollection {
     /**
      * Join identical sequential events into one state.
      */
-    private static List<EventRange> getStates(MarioResult result) {
-        List<EventRange> states = new ArrayList<EventRange>();
+    private static List<State> getStates(MarioResult result) {
+        List<State> states = new ArrayList<State>();
         
         List<MarioAgentEvent> allEvents = result.getAgentEvents();
 
@@ -170,7 +170,7 @@ public class DataCollection {
                 // The previous one was the end for this range
                 MarioAgentEvent endEvent = allEvents.get(i - 1);
 
-                EventRange state = new EventRange(startEvent, endEvent);
+                State state = new State(startEvent, endEvent);
                 state.setAgentEvents(new ArrayList<>(allEvents.subList(startIndex, i)));
                 states.add(state);
 
@@ -181,7 +181,7 @@ public class DataCollection {
 
             // Make sure to record the last range of events as well
             if (i == (allEvents.size() - 1)) {
-                EventRange state = new EventRange(startEvent, currEvent);
+                State state = new State(startEvent, currEvent);
                 state.setAgentEvents(new ArrayList<>(allEvents.subList(startIndex, i)));
                 states.add(state);
             }
@@ -193,10 +193,10 @@ public class DataCollection {
     /**
      * Calculate the distances to previous state for each entry.
      */
-    private static void calculateDistances(List<EventRange> states) {
+    private static void calculateDistances(List<State> states) {
         for (int i = 1; i < states.size(); i++) {
-            EventRange first = states.get(i - 1);
-            EventRange second = states.get(i);
+            State first = states.get(i - 1);
+            State second = states.get(i);
 
             double distance = calculateDistance(first, second);
             second.setDistanceGMA(distance);
@@ -206,7 +206,7 @@ public class DataCollection {
     /**
      * Determine the gestalt boundaries based on the distances.
      */
-    private static void setBoundaryInfo(List<EventRange> states) {
+    private static void setBoundaryInfo(List<State> states) {
         states.get(0).setStartBoundary();
 
         for (int i = 1; i < states.size() - 1; i++) {
@@ -248,7 +248,7 @@ public class DataCollection {
     /**
      * Write the found patterns as text files. 
      */
-    private static List<Pattern> createPatterns(String levelName, List<EventRange> allStates) {
+    private static List<Pattern> createPatterns(String levelName, List<State> allStates) {
         Path originalLevelPath = Paths.get(Settings.ORIGINAL_LEVELS_PATH, levelName + ".txt");
         List<String> levelLines = Utils.readAllLines(originalLevelPath);
 
@@ -257,7 +257,7 @@ public class DataCollection {
         List<String> geometry = new ArrayList<String>();
 
         int startIndex = -1, endIndex;
-        EventRange state;
+        State state;
         for (int i = 0; i < allStates.size(); i++) {
             state = allStates.get(i);
 

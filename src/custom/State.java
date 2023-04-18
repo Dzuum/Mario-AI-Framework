@@ -6,7 +6,7 @@ import java.util.List;
 import engine.core.MarioAgentEvent;
 import engine.helper.MarioActions;
 
-public class EventRange extends MarioAgentEvent {
+public class State extends MarioAgentEvent {
     private float endX;
     private float endY;
 
@@ -17,7 +17,7 @@ public class EventRange extends MarioAgentEvent {
 
     private List<MarioAgentEvent> events = new ArrayList<MarioAgentEvent>();
     
-    public EventRange(MarioAgentEvent start, MarioAgentEvent end) {
+    public State(MarioAgentEvent start, MarioAgentEvent end) {
         super(start.getActions(), start.getMarioX(), start.getMarioY(),
             start.getMarioState(), start.getMarioOnGround(),
             end.getTimeSinceStartTicks() - start.getTimeSinceStartTicks() + 1);
@@ -100,9 +100,27 @@ public class EventRange extends MarioAgentEvent {
     
     // #endregion
 
+    public void mergePrev(State prevState) {
+        this.timeTicks += prevState.getDurationTicks();
+        this.timeMillis += prevState.getDurationMillis();
+
+        marioX = prevState.getMarioX();
+        marioY = prevState.getMarioY();
+    }
+
+    public void mergeNext(State nextState) {
+        this.timeTicks += nextState.getDurationTicks();
+        this.timeMillis += nextState.getDurationMillis();
+
+        endX = nextState.getEndX();
+        endY = nextState.getEndX();
+    }
+
+// TODO: obsolete?
     public void addDuration(int ticks, long millis) {
         this.timeTicks += ticks;
         this.timeMillis += millis;
+// TODO: endX endY
     }
 
     /**
@@ -149,10 +167,10 @@ public class EventRange extends MarioAgentEvent {
             result += "Airborne ";
 
         // 5. Time
-        if (Settings.StateTimeScoring == TimeScoring.Millis)
-            result += "|| Duration: " + getDurationMillis() + " ms";
-        else
-            result += "|| Duration: " + getDurationTicks() + " ticks";
+        // if (Settings.StateTimeScoring == TimeScoring.Millis)
+            result += "   Duration: " + getDurationMillis() + " ms | " + getDurationTicks() + " ticks";
+        // else
+            // result += " Duration: " + getDurationTicks() + " ticks";
 
         return result;
     }
