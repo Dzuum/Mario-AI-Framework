@@ -83,7 +83,6 @@ public class DataCollection {
 
 
 
-
         calculateDistances(states);
         setBoundaryInfo(states);
         List<Pattern> patterns = createPatterns(levelName, states);
@@ -117,11 +116,11 @@ public class DataCollection {
         String fileName = Settings.DISTANCES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
         Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
         Utils.writeAllLines(path, lines);
-
-        lines.clear();
         
         /**************
          * 2 - States */
+        lines.clear();
+
         int index = 0;
         for (int i = 0; i < patterns.size(); i++) {
             Pattern pattern = patterns.get(i);
@@ -133,11 +132,10 @@ public class DataCollection {
         path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
         Utils.writeAllLines(path, lines);
 
-        lines.clear();
-
-
         /*************
          * 3 - Tiles */
+        lines.clear();
+
         for (int i = 0; i < patterns.size(); i++) {
             Pattern pattern = patterns.get(i);
             lines.add("[" + pattern.getStartTileX() + " .. " + pattern.getEndTileX() + "]");
@@ -145,6 +143,19 @@ public class DataCollection {
 
         fileName = Settings.TILE_RANGES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
         path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
+        Utils.writeAllLines(path, lines);
+
+        /*****************
+         * 4 - Intensity */
+        lines.clear();
+
+        for (int i = 0; i < patterns.size(); i++) {
+            Pattern pattern = patterns.get(i);
+            lines.add("" + pattern.getIntensity());
+        }
+
+        fileName = levelName + "-" + Settings.INTENSITY_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+        path = Paths.get(Settings.RESULTS_FOLDER_NAME, Settings.INPUTS_FOLDER_NAME, fileName);
         Utils.writeAllLines(path, lines);
     }
 

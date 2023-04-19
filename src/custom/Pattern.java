@@ -18,22 +18,22 @@ public class Pattern implements Serializable {
     // The states that form this pattern. These in turn contain all the events the AI created.
     private List<State> states;
 
+    private float intensity;
+
     public Pattern(String source, int index, List<String> geometry, List<State> states) {
         this.sourceLevel = source;
         this.patternIndex = index;
         this.geometry = geometry;
         this.states = states;
+        calculateIntensity();
     }
 
     public int getPatternIndex() { return patternIndex; }
     public List<String> getGeometry() { return geometry; }
     public List<State> getStates() { return states; }
+    public float getIntensity() { return intensity; }
 
     public int getTileWidth() { return geometry.get(0).length(); }
-
-    public int calculateIntensity() {
-        return 0;
-    }
 
     public int getStartTileX() {
         return states.get(0).getStartTileX();
@@ -68,5 +68,25 @@ public class Pattern implements Serializable {
         Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, sourceLevel, Settings.PATTERNS_FOLDER_NAME, fileName);
 
         Utils.writeAllLines(newPath, geometry);
+    }
+
+    private void calculateIntensity() {
+        intensity = 0;
+        
+        boolean[] prevActions = new boolean[5];
+        for (int i = 0; i < states.size(); i++) {
+            boolean[] actions = states.get(i).getActions();
+
+            for (int k = 0; k < prevActions.length; k++) {
+                // Add intensity for each new input event
+                if (actions[k] && !prevActions[k]) {
+                    intensity++;
+                }
+
+                prevActions[k] = actions[k];
+            }
+        }
+
+        intensity = (intensity * 10.0f / getTileWidth());
     }
 }
