@@ -16,6 +16,8 @@ public class State extends MarioAgentEvent {
     private boolean isEnd;
 
     private List<MarioAgentEvent> events = new ArrayList<MarioAgentEvent>();
+
+    private String debugInfo;
     
     public State(MarioAgentEvent start, MarioAgentEvent end) {
         super(start.getActions(), start.getMarioX(), start.getMarioY(),
@@ -98,8 +100,19 @@ public class State extends MarioAgentEvent {
         this.events = events;
     }
     
+    public String getDebugInfo() {
+        return debugInfo;
+    }
+
+    public void setDebugInfo(String debugInfo) {
+        this.debugInfo = new String(debugInfo);
+    }
+
     // #endregion
 
+    /**
+     * Merges an earlier state to this one.
+     */
     public void mergePrev(State prevState) {
         this.timeTicks += prevState.getDurationTicks();
         this.timeMillis += prevState.getDurationMillis();
@@ -108,6 +121,9 @@ public class State extends MarioAgentEvent {
         marioY = prevState.getMarioY();
     }
 
+    /**
+     * Merges a later state to this one.
+     */
     public void mergeNext(State nextState) {
         this.timeTicks += nextState.getDurationTicks();
         this.timeMillis += nextState.getDurationMillis();
@@ -116,11 +132,10 @@ public class State extends MarioAgentEvent {
         endY = nextState.getEndX();
     }
 
-// TODO: obsolete?
-    public void addDuration(int ticks, long millis) {
-        this.timeTicks += ticks;
-        this.timeMillis += millis;
-// TODO: endX endY
+    public void resetGMA() {
+        isStart = false;
+        isEnd = false;
+        this.distance = 0;
     }
 
     /**
@@ -167,10 +182,7 @@ public class State extends MarioAgentEvent {
             result += "Airborne ";
 
         // 5. Time
-        // if (Settings.StateTimeScoring == TimeScoring.Millis)
-            result += "   Duration: " + getDurationMillis() + " ms | " + getDurationTicks() + " ticks";
-        // else
-            // result += " Duration: " + getDurationTicks() + " ticks";
+        result += "   Duration: " + getDurationMillis() + " ms | " + getDurationTicks() + " ticks";
 
         return result;
     }

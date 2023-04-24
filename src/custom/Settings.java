@@ -10,13 +10,9 @@ public class Settings {
 
     public enum TimeScoring { Ticks, Millis }
 
-    public static LaunchMode LAUNCH_MODE = LaunchMode.Agent;
-
-    public static TimeScoring StateTimeScoring = TimeScoring.Millis;
-    public static int StateCutoffMillis = 50; 
-    public static int StateCutoffTicks = 3; 
-
     // #region Global
+
+    public static LaunchMode LAUNCH_MODE = LaunchMode.Agent;
 
     public static final String LEVEL_NAME = "World 1-1";
     public static final String ORIGINAL_LEVELS_PATH = "./levels/custom/framework-originals/";
@@ -27,7 +23,26 @@ public class Settings {
 
     // #endregion
 
-    // #region Conversion
+    // #region GMA
+
+    public static TimeScoring StateTimeScoring = TimeScoring.Ticks;
+    public static int StateMinimumTicks = 5;
+
+    /** Pagnutti 0.75 */
+    public static double WeightDirection = 0.25;
+    /** Pagnutti 1.00 */
+    public static double WeightPowerup = 1;
+    /** Pagnutti 0.25 */
+    public static double WeightGroundState = 0.25;
+    /** Pagnutti 0.50 */
+    public static double WeightAirborneState = 0.5;
+    /** Pagnutti 0.01 */
+    // public static double WeightTime = 0.001;
+    public static double WeightTime = 0.1;
+
+    // #endregion
+
+    // #region Files -- Conversion
 
     public static final String CONVERT_METRICS_SOURCE = "levels/custom/metrics-originals/";
     public static final String CONVERT_METRICS_TARGET = "levels/custom/metrics-converted/";
@@ -53,8 +68,9 @@ public class Settings {
     public static final String DISTANCES_FILE_NAME = "1 - Distances";
     public static final String STATES_FILE_NAME = "2 - States";
     public static final String TILE_RANGES_FILE_NAME = "3 - Tiles";
+    public static final String SERIALIZED_STATE_FILE_NAME = "States";
+    public static final String SERIALIZED_PATTERN_FILE_NAME = "Pattern_";
     public static final String INTENSITY_FILE_NAME = "PatternIntensity";
-    public static final String PATTERNS_FILE_NAME = "Pattern_";
 
     // #endregion
 }

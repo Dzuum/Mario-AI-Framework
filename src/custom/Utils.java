@@ -2,8 +2,10 @@ package custom;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -130,6 +132,48 @@ public class Utils {
         writeAllLines(Paths.get(target), newLines);
     }
 
+    public static void serializeStates(String levelName, List<State> states) {
+        String fileName = Settings.SERIALIZED_STATE_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+        Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
+
+        try {
+            FileOutputStream fileStream = new FileOutputStream(new File(newPath.toString()));
+            ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+
+            objectStream.writeObject(states);
+
+            objectStream.close();
+            fileStream.close();
+        } catch (Exception ex) {
+            System.out.println("Error serializing States list.");
+            ex.printStackTrace();
+        }
+    }
+
+    public static List<State> deserializeStates(String levelName) {
+        List<State> states = new ArrayList<State>();
+
+        try {
+            String fileName = Settings.SERIALIZED_STATE_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+            Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
+
+            FileInputStream fileStream = new FileInputStream(newPath.toString());
+            ObjectInputStream objectStream = new ObjectInputStream(fileStream);
+                        
+            states = (List<State>)objectStream.readObject();
+                        
+            objectStream.close();
+            fileStream.close();
+        } catch (Exception ex) {
+            System.out.println("Error reading states for level " + levelName);
+            ex.printStackTrace();
+
+            states.clear();
+        }
+
+        return states;
+    }
+
     public static List<Pattern> loadPatternsForLevel(String levelName) {
         List<Pattern> patterns = new ArrayList<Pattern>();
 
@@ -139,7 +183,7 @@ public class Utils {
             File[] directoryListing = directory.listFiles();
 
             for (File file : directoryListing) {
-                if (file.getName().startsWith(Settings.PATTERNS_FILE_NAME)) {
+                if (file.getName().startsWith(Settings.SERIALIZED_PATTERN_FILE_NAME)) {
                     FileInputStream fileStream = new FileInputStream(file.getPath());
                     ObjectInputStream objectStream = new ObjectInputStream(fileStream);
                         

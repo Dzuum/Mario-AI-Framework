@@ -64,27 +64,31 @@ public class DataCollection {
 
     // #endregion
 
-    public static void findPatterns(String levelName, MarioResult result) {
+    public static void recordStates(String levelName, MarioResult result) {
         List<State> states = getStates(result);
-        
-        // Combine states that are too short to the previous ones
-        for (int i = 1; i < states.size(); i++) {
-            int durationTicks = states.get(i).getDurationTicks();
-            long durationMillis = states.get(i).getDurationMillis();
-
-            if ((Settings.StateTimeScoring == TimeScoring.Millis && durationMillis < Settings.StateCutoffMillis) ||
-                (Settings.StateTimeScoring == TimeScoring.Ticks && durationTicks < Settings.StateCutoffTicks)) {
-                // Combine with previous state
-                states.get(i - 1).addDuration(durationTicks, durationMillis);
-                states.remove(i);
-                i--;
-            }
-        }
-
-
 
         calculateDistances(states);
         setBoundaryInfo(states);
+        Utils.serializeStates(levelName, states);
+
+        if (Settings.WRITE_FILES) {
+            saveResultsFromStates(levelName);
+        }
+    }
+
+    public static void extractPatterns(String levelName) {
+        List<State> states = Utils.deserializeStates(levelName);
+        
+        // Reset because merging will change everything
+        for (int i = 0; i < states.size(); i++)
+            states.get(i).resetGMA();
+
+        states = combineShortStates(states);
+
+        // Recalculate due to merges
+        calculateDistances(states);
+        setBoundaryInfo(states);
+
         List<Pattern> patterns = createPatterns(levelName, states);
 
         if (Settings.WRITE_FILES) {
@@ -94,26 +98,52 @@ public class DataCollection {
                 pattern.writeDebugPatternFile();
             }
 
-            logResultsToFiles(levelName);
+            saveResultsFromPatterns(levelName);
         }
     }
 
-    private static void logResultsToFiles(String levelName) {
+    private static void saveResultsFromStates(String levelName) {
+        String fileSuffix = " (A - States)";
+
+        List<State> states = Utils.deserializeStates(levelName);
+        List<String> lines = new ArrayList<String>();
+
+        /*****************
+         * 1 - Distances */
+        for (int i = 0; i < states.size(); i++) {
+            State state = states.get(i);
+            lines.add("#" + i + ": " + state.getDistanceGMA() + " ( " + state.getDebugInfo() + " ) ( " + state.getStateString() + " )");
+        }
+
+        String fileName = Settings.DISTANCES_FILE_NAME + fileSuffix + Settings.RESULTS_FILE_EXTENSION;
+        Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
+        Utils.writeAllLines(path, lines);
+    }
+
+    private static void saveResultsFromPatterns(String levelName) {
+        String fileSuffix = " (B - Patterns)";
+
         List<Pattern> patterns = Utils.loadPatternsForLevel(levelName);
         List<String> lines = new ArrayList<String>();
 
         /*****************
          * 1 - Distances */
+        int stateIndex = 0;
         for (int i = 0; i < patterns.size(); i++) {
             Pattern pattern = patterns.get(i);
 
+            lines.add("START Pattern #" + pattern.getPatternIndex());
+
             for (int k = 0; k < pattern.getStates().size(); k++) {
                 State state = pattern.getStates().get(k);
-                lines.add("" + state.getDistanceGMA() + " ( " + state.getStateString() + " )");
+                lines.add("#" + stateIndex + ": " + state.getDistanceGMA() + " ( " + state.getDebugInfo() + " ) ( " + state.getStateString() + " )");
+                stateIndex++;
             }
+
+            lines.add("--------------------------------------");
         }
 
-        String fileName = Settings.DISTANCES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+        String fileName = Settings.DISTANCES_FILE_NAME + fileSuffix + Settings.RESULTS_FILE_EXTENSION;
         Path path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
         Utils.writeAllLines(path, lines);
         
@@ -128,7 +158,7 @@ public class DataCollection {
             index += pattern.getStates().size();
         }
 
-        fileName = Settings.STATES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+        fileName = Settings.STATES_FILE_NAME + fileSuffix + Settings.RESULTS_FILE_EXTENSION;
         path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
         Utils.writeAllLines(path, lines);
 
@@ -141,7 +171,7 @@ public class DataCollection {
             lines.add("[" + pattern.getStartTileX() + " .. " + pattern.getEndTileX() + "]");
         }
 
-        fileName = Settings.TILE_RANGES_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
+        fileName = Settings.TILE_RANGES_FILE_NAME + fileSuffix + Settings.RESULTS_FILE_EXTENSION;
         path = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, fileName);
         Utils.writeAllLines(path, lines);
 
@@ -195,6 +225,32 @@ public class DataCollection {
                 state.setAgentEvents(new ArrayList<>(allEvents.subList(startIndex, i)));
                 states.add(state);
             }
+        }
+
+        return states;
+    }
+
+    private static List<State> combineShortStates(List<State> states) {
+        // Checks again until merges result in the minimum tick count
+        boolean checkAgain = true;
+        
+        for (int i = 0; i < states.size() - 1; i++) {
+            State curr = states.get(i);
+            State next = states.get(i + 1);
+
+            if (curr.getDurationTicks() < Settings.StateMinimumTicks) {
+                next.mergePrev(curr);
+                states.remove(i);
+
+                if (checkAgain)
+                    i--;
+            }
+        }
+
+        State lastState = states.get(states.size() - 1);
+        if (lastState.getDurationTicks() < Settings.StateMinimumTicks) {
+            states.get(states.size() - 2).mergeNext(lastState);
+            states.remove(states.size() - 1);
         }
 
         return states;
@@ -336,17 +392,8 @@ public class DataCollection {
         return true;
     }
  
-    private static double calculateDistance(EventRange first, EventRange second) {
-        // Pagnutti 0.75
-        double weightDirection = 0.75;
-        // Pagnutti 1
-        double weightPowerup = 1;
-        // Pagnutti 0.25
-        double weightGroundState = 0.25;
-        // Pagnutti 0.5
-        double weightAirborneState = 0.5;
-        // Pagnutti 0.01
-        double weightTime = 0.01;
+    private static double calculateDistance(State first, State second) {
+        String debugInfo = "";
 
         double scoreSum = 0;
 
@@ -365,8 +412,12 @@ public class DataCollection {
                 scoreAdd = 2;
             }
 
-            scoreAdd = Math.pow(weightDirection * scoreAdd, 2);
+            scoreAdd = Math.pow(Settings.WeightDirection * scoreAdd, 2);
             scoreSum += scoreAdd;
+
+            debugInfo += String.format("%.2f", scoreAdd) + "  ";
+        } else {
+            debugInfo += "0.00  ";
         }
 
         // 2. Powerup State
@@ -384,8 +435,12 @@ public class DataCollection {
                 scoreAdd = 2;
             }
 
-            scoreAdd = Math.pow(weightPowerup * scoreAdd, 2);
+            scoreAdd = Math.pow(Settings.WeightPowerup * scoreAdd, 2);
             scoreSum += scoreAdd;
+
+            debugInfo += String.format("%.2f", scoreAdd) + "  ";
+        } else {
+            debugInfo += "0.00  ";
         }
         
         // 3. Ground State
@@ -402,8 +457,12 @@ public class DataCollection {
                 scoreAdd = 2;
             }
 
-            scoreAdd = Math.pow(weightGroundState * scoreAdd, 2);
+            scoreAdd = Math.pow(Settings.WeightGroundState * scoreAdd, 2);
             scoreSum += scoreAdd;
+
+            debugInfo += String.format("%.2f", scoreAdd) + "  ";
+        } else {
+            debugInfo += "0.00  ";
         }
 
         // 4. Airborne State
@@ -411,19 +470,28 @@ public class DataCollection {
         boolean airborneNext = second.getMarioOnGround();
         if (airbornePrev != airborneNext) {
             double scoreAdd = 1;
-            scoreAdd = Math.pow(weightAirborneState * scoreAdd, 2);
+            scoreAdd = Math.pow(Settings.WeightAirborneState * scoreAdd, 2);
             scoreSum += scoreAdd;
+
+            debugInfo += String.format("%.2f", scoreAdd) + "  ";
+        } else {
+            debugInfo += "0.00  ";
         }
         
         // 5. Time
         long duration = 0;
+        double scoreAdd = 0;
 
         if (Settings.StateTimeScoring == TimeScoring.Millis)
             duration = first.getDurationMillis();
         else
             duration = first.getDurationTicks();
         
-        scoreSum += Math.pow(weightTime * duration, 2);
+        scoreAdd = Math.pow(Settings.WeightTime * duration, 2);
+        scoreSum += scoreAdd;
+
+        debugInfo += String.format("%.2f", scoreAdd);
+        second.setDebugInfo(debugInfo);
 
         // Finalisation
         scoreSum = Math.sqrt(scoreSum);

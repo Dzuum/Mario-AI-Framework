@@ -44,7 +44,7 @@ public class Pattern implements Serializable {
     }
 
     public void serialize() {
-        String fileName = Settings.PATTERNS_FILE_NAME + patternIndex + Settings.RESULTS_FILE_EXTENSION;
+        String fileName = Settings.SERIALIZED_PATTERN_FILE_NAME + patternIndex + Settings.RESULTS_FILE_EXTENSION;
         Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, sourceLevel, Settings.PATTERNS_FOLDER_NAME, fileName);
 
         try {
@@ -64,7 +64,7 @@ public class Pattern implements Serializable {
     public void writeDebugPatternFile() {
         String debugPrefix = "debug";
 
-        String fileName = debugPrefix + Settings.PATTERNS_FILE_NAME + patternIndex + Settings.RESULTS_FILE_EXTENSION;
+        String fileName = debugPrefix + Settings.SERIALIZED_PATTERN_FILE_NAME + patternIndex + Settings.RESULTS_FILE_EXTENSION;
         Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, sourceLevel, Settings.PATTERNS_FOLDER_NAME, fileName);
 
         Utils.writeAllLines(newPath, geometry);

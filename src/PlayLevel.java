@@ -53,7 +53,8 @@ public class PlayLevel {
                 20, 0, true);
 
             DataCollection.recordInputs(Settings.LEVEL_NAME, result);
-            DataCollection.findPatterns(Settings.LEVEL_NAME, result);
+            DataCollection.recordStates(Settings.LEVEL_NAME, result);
+            DataCollection.extractPatterns(Settings.LEVEL_NAME);
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.Player) {
 
