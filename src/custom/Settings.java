@@ -16,7 +16,7 @@ public class Settings {
 
     public static LaunchMode LAUNCH_MODE = LaunchMode.Agent;
 
-    public static final String LEVEL_NAME = "World 1-1";
+    public static final String LEVEL_NAME = "World 1-2";
     public static final String ORIGINAL_LEVELS_PATH = "./levels/custom/framework-selected/";
 
     public static final boolean WRITE_FILES = true;
@@ -52,7 +52,7 @@ public class Settings {
     public static HashMap<String, Integer> StateMinimumTicks = new HashMap<String, Integer>()
     {{
         put("World 1-1", 5);
-        put("World 1-2", 5);
+        put("World 1-2", 6);
         put("World 2-1", 5);
         put("World 3-1", 5);
         put("World 3-2", 5);
