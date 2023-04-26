@@ -60,7 +60,7 @@ public class Settings {
         put("World 4-2", 6);
         put("World 5-1", 5);
         put("World 5-2", 6);
-        put("World 6-1", 5);
+        put("World 6-1", 6);
         put("World 6-2", 5);
         put("World 7-1", 5);
         put("World 8-1", 5);
