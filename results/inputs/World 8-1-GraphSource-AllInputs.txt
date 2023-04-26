@@ -1,0 +1,629 @@
+2: Right Speed
+3: Right Speed
+4: Right Speed
+5: Right Speed
+6: Right Speed
+7: Right Speed
+8: Right Speed
+9: Right Speed
+10: Right Speed
+11: Right Speed
+12: Right Speed
+13: Right Speed
+14: Right Speed
+15: Right Speed
+16: Right Speed
+17: Right Speed
+18: Right Speed
+19: Right Speed
+20: Right Speed
+21: Right Speed
+22: Right Speed Jump
+23: Right Speed Jump
+24: Right Speed
+25: Right Speed
+26: Right Speed
+27: Right Speed
+28: Right Speed
+29: Right Speed
+30: Right Speed
+31: Right Speed
+32: Right Speed Jump
+33: Right Speed Jump
+34: Right Speed
+35: Right Speed
+36: Right Speed
+37: Right Speed
+38: Right Speed
+39: Right Speed
+40: Right Speed
+41: Right Speed
+42: Right Speed Jump
+43: Right Speed Jump
+44: Right Speed Jump
+45: Right Speed Jump
+46: Right Speed Jump
+47: Right Speed Jump
+48: Right Speed Jump
+49: Right Speed Jump
+50: Right Speed
+51: Right Speed
+52: Right
+53: Right
+54: Right Speed
+55: Right Speed
+56: Right Speed
+57: Right Speed
+58: Right Speed
+59: Right Speed
+60: Right Speed
+61: Right Speed
+62: Right Speed
+63: Right Speed
+64: Right Speed
+65: Right Speed
+66: Right Speed
+67: Right Speed
+68: Right Speed
+69: Right Speed
+70: Right Speed
+71: Right Speed
+72: Right Speed Jump
+73: Right Speed Jump
+74: Right Speed Jump
+75: Right Speed Jump
+76: Right Speed
+77: Right Speed
+78: Right Speed
+79: Right Speed
+80: Right Speed
+81: Right Speed
+82: Right Speed
+83: Right Speed
+84: Right Speed
+85: Right Speed
+86: Right Speed
+87: Right Speed
+88: Right Speed
+89: Right Speed
+90: Right Speed
+91: Right Speed
+92: Right Speed
+93: Right Speed
+94: Right Speed
+95: Right Speed
+96: Right Speed Jump
+97: Right Speed Jump
+98: Right Speed
+99: Right Speed
+100: Right Speed
+101: Right Speed
+102: Right Speed
+103: Right Speed
+104: Right Speed
+105: Right Speed
+106: Right
+107: Right
+108: Right Speed Jump
+109: Right Speed Jump
+110: Left Speed Jump
+111: Left Speed Jump
+112: Jump
+113: Jump
+114: Right Speed Jump
+115: Right Speed Jump
+116: Right
+117: Right
+118: Right Speed
+119: Right Speed
+120: Right Speed Jump
+121: Right Speed Jump
+122: Right Speed Jump
+123: Right Speed Jump
+124: Right Speed Jump
+125: Right Speed Jump
+126: Right Speed Jump
+127: Right Speed Jump
+128: Right Speed
+129: Right Speed
+130: Right Speed
+131: Right Speed
+132: Right Speed
+133: Right Speed
+134: Right Speed
+135: Right Speed
+136: Right Speed
+137: Right Speed
+138: Right Speed
+139: Right Speed
+140: Right Speed
+141: Right Speed
+142: Right Speed Jump
+143: Right Speed Jump
+144: Right Speed Jump
+145: Right Speed Jump
+146: Right Speed Jump
+147: Right Speed Jump
+148: Right Speed Jump
+149: Right Speed Jump
+150: Right Speed
+151: Right Speed
+152: Right Speed
+153: Right Speed
+154: Right Speed Jump
+155: Right Speed Jump
+156: Right Speed Jump
+157: Right Speed Jump
+158: Right Speed Jump
+159: Right Speed Jump
+160: Right Speed Jump
+161: Right Speed Jump
+162: Right Speed
+163: Right Speed
+164: Right Speed
+165: Right Speed
+166: Right Speed
+167: Right Speed
+168: Right Speed
+169: Right Speed
+170: Right Speed
+171: Right Speed
+172: Right Speed
+173: Right Speed
+174: Right Speed Jump
+175: Right Speed Jump
+176: Right Speed
+177: Right Speed
+178: Right Speed
+179: Right Speed
+180: Right Speed
+181: Right Speed
+182: Right Speed
+183: Right Speed
+184: Right Speed
+185: Right Speed
+186: Right Speed
+187: Right Speed
+188: Right Speed
+189: Right Speed
+190: Right Speed Jump
+191: Right Speed Jump
+192: Right Speed
+193: Right Speed
+194: Right Speed
+195: Right Speed
+196: Right Speed
+197: Right Speed
+198: Right Speed
+199: Right Speed
+200: Right Speed
+201: Right Speed
+202: Right Speed
+203: Right Speed
+204: Right Speed
+205: Right Speed
+206: Right Speed
+207: Right Speed
+208: Right Speed
+209: Right Speed
+210: Right Speed
+211: Right Speed
+212: Right Speed
+213: Right Speed
+214: Right Speed Jump
+215: Right Speed Jump
+216: Right Speed Jump
+217: Right Speed Jump
+218: Right Speed Jump
+219: Right Speed Jump
+220: Right Speed
+221: Right Speed
+222: Right Speed
+223: Right Speed
+224: Right Speed
+225: Right Speed
+226: Right Speed
+227: Right Speed
+228: Left
+229: Left
+230: Left
+231: Left
+232: Left Speed
+233: Left Speed
+234: Right Speed
+235: Right Speed
+236: Right Speed
+237: Right Speed
+238: Right Speed Jump
+239: Right Speed Jump
+240: Right Speed Jump
+241: Right Speed Jump
+242: Right Speed Jump
+243: Right Speed Jump
+244: Right
+245: Right
+246: Right
+247: Right
+248: Right Speed
+249: Right Speed
+250: Right Speed
+251: Right Speed
+252: Right Speed
+253: Right Speed
+254: Right Speed
+255: Right Speed
+256: Right
+257: Right
+258: Right Jump
+259: Right Jump
+260: Right Speed Jump
+261: Right Speed Jump
+262: Right Jump
+263: Right Jump
+264: Right Speed Jump
+265: Right Speed Jump
+266: Right
+267: Right
+268: Right Speed
+269: Right Speed
+270: Right Speed
+271: Right Speed
+272: Right Speed
+273: Right Speed
+274: Right
+275: Right
+276: Right Speed
+277: Right Speed
+278: Right Speed
+279: Right Speed
+280: Right Speed Jump
+281: Right Speed Jump
+282: Right Speed
+283: Right Speed
+284: Right Speed
+285: Right Speed
+286: Right Speed
+287: Right Speed
+288: Right Speed
+289: Right Speed
+290: Right Speed
+291: Right Speed
+292: Right Speed
+293: Right Speed
+294: Right Speed
+295: Right Speed
+296: Right Speed
+297: Right Speed
+298: Right Speed
+299: Right Speed
+300: Right Speed
+301: Right Speed
+302: Right Speed
+303: Right Speed
+304: Right Speed
+305: Right Speed
+306: Right Speed
+307: Right Speed
+308: Right Speed
+309: Right Speed
+310: Right Speed
+311: Right Speed
+312: Right Speed
+313: Right Speed
+314: Right Speed
+315: Right Speed
+316: Right Speed
+317: Right Speed
+318: Right Speed
+319: Right Speed
+320: Right Speed
+321: Right Speed
+322: Right Speed Jump
+323: Right Speed Jump
+324: Right Speed Jump
+325: Right Speed Jump
+326: Right Speed
+327: Right Speed
+328: Right Speed
+329: Right Speed
+330: Right Speed
+331: Right Speed
+332: Right Speed
+333: Right Speed
+334: Right Speed
+335: Right Speed
+336: Right Speed
+337: Right Speed
+338: Right Speed
+339: Right Speed
+340: Right Speed
+341: Right Speed
+342: Right Speed
+343: Right Speed
+344: Right Speed
+345: Right Speed
+346: Right Speed
+347: Right Speed
+348: Right Speed
+349: Right Speed
+350: Right Speed
+351: Right Speed
+352: Right Speed
+353: Right Speed
+354: Right Speed Jump
+355: Right Speed Jump
+356: Right Speed
+357: Right Speed
+358: Right Speed
+359: Right Speed
+360: Right Speed
+361: Right Speed
+362: Right Speed
+363: Right Speed
+364: Right Speed
+365: Right Speed
+366: Right
+367: Right
+368: Right Speed
+369: Right Speed
+370: Right Jump
+371: Right Jump
+372: Right Speed Jump
+373: Right Speed Jump
+374: Right Speed Jump
+375: Right Speed Jump
+376: Right Speed
+377: Right Speed
+378: Right Speed
+379: Right Speed
+380: Right
+381: Right
+382: Right Speed Jump
+383: Right Speed Jump
+384: Right Speed Jump
+385: Right Speed Jump
+386: Right Speed Jump
+387: Right Speed Jump
+388: Right Speed
+389: Right Speed
+390: Right Speed
+391: Right Speed
+392: Right Speed
+393: Right Speed
+394: Right Speed
+395: Right Speed
+396: Right Speed
+397: Right Speed
+398: Right Speed
+399: Right Speed
+400: Right Speed
+401: Right Speed
+402: Right Speed
+403: Right Speed
+404: Right Speed
+405: Right Speed
+406: Right Speed
+407: Right Speed
+408: Right Speed
+409: Right Speed
+410: Right Speed
+411: Right Speed
+412: Right Speed
+413: Right Speed
+414: Right Speed
+415: Right Speed
+416: Right Speed
+417: Right Speed
+418: Right Speed Jump
+419: Right Speed Jump
+420: Right Speed
+421: Right Speed
+422: Right Speed
+423: Right Speed
+424: Right Speed
+425: Right Speed
+426: Right
+427: Right
+428: Right Speed
+429: Right Speed
+430: Right Speed
+431: Right Speed
+432: Right Jump
+433: Right Jump
+434: Right Speed Jump
+435: Right Speed Jump
+436: Right Speed
+437: Right Speed
+438: Right Speed
+439: Right Speed
+440: Left Speed
+441: Left Speed
+442: Jump
+443: Jump
+444: Right Speed Jump
+445: Right Speed Jump
+446: Right Speed
+447: Right Speed
+448: Right Speed
+449: Right Speed
+450: Right Speed
+451: Right Speed
+452: Right Speed
+453: Right Speed
+454: Right Speed
+455: Right Speed
+456: Right Speed
+457: Right Speed
+458: Right Speed
+459: Right Speed
+460: Right Speed
+461: Right Speed
+462: Right Speed
+463: Right Speed
+464: Right Speed
+465: Right Speed
+466: Right Speed Jump
+467: Right Speed Jump
+468: Right Speed Jump
+469: Right Speed Jump
+470: Right Speed
+471: Right Speed
+472: Right Speed
+473: Right Speed
+474: Right Speed
+475: Right Speed
+476: Right Speed
+477: Right Speed
+478: Right Speed
+479: Right Speed
+480: Right Speed
+481: Right Speed
+482: Right Speed Jump
+483: Right Speed Jump
+484: Right Speed Jump
+485: Right Speed Jump
+486: Right Speed
+487: Right Speed
+488: Right Speed
+489: Right Speed
+490: Right Speed
+491: Right Speed
+492: Right Speed
+493: Right Speed
+494: Right Speed
+495: Right Speed
+496: Right Speed
+497: Right Speed
+498: Right Speed
+499: Right Speed
+500: Right Speed
+501: Right Speed
+502: Right Speed Jump
+503: Right Speed Jump
+504: Right Speed Jump
+505: Right Speed Jump
+506: Right Speed Jump
+507: Right Speed Jump
+508: Right Speed
+509: Right Speed
+510: Right Speed
+511: Right Speed
+512: Right Speed
+513: Right Speed
+514: Right Speed
+515: Right Speed
+516: Right Speed
+517: Right Speed
+518: Right Speed
+519: Right Speed
+520: Right Speed
+521: Right Speed
+522: Right Speed Jump
+523: Right Speed Jump
+524: Right Speed Jump
+525: Right Speed Jump
+526: Right Speed
+527: Right Speed
+528: Right Speed
+529: Right Speed
+530: Left Speed
+531: Left Speed
+532: Right
+533: Right
+534: Right
+535: Right
+536: Right Jump
+537: Right Jump
+538: Right Speed
+539: Right Speed
+540: Right Speed
+541: Right Speed
+542: Right Speed
+543: Right Speed
+544: Right Speed
+545: Right Speed
+546: Right Speed
+547: Right Speed
+548: Right Jump
+549: Right Jump
+550: Right Speed Jump
+551: Right Speed Jump
+552: Right Speed Jump
+553: Right Speed Jump
+554: Right Speed
+555: Right Speed
+556: Right Speed
+557: Right Speed
+558: Right Speed
+559: Right Speed
+560: Right Speed
+561: Right Speed
+562: Right Speed
+563: Right Speed
+564: Jump
+565: Jump
+566: Right Speed
+567: Right Speed
+568: Right Speed
+569: Right Speed
+570: Right
+571: Right
+572: Right Speed Jump
+573: Right Speed Jump
+574: Right Speed Jump
+575: Right Speed Jump
+576: Right Speed
+577: Right Speed
+578: Right
+579: Right
+580: Right Speed
+581: Right Speed
+582: Right
+583: Right
+584: Jump
+585: Jump
+586: Right Speed Jump
+587: Right Speed Jump
+588: Right Speed Jump
+589: Right Speed Jump
+590: Right Speed Jump
+591: Right Speed Jump
+592: Right Speed
+593: Right Speed
+594: Right
+595: Right
+596: Right Speed
+597: Right Speed
+598: Right Speed
+599: Right Speed
+600: Right Speed
+601: Right Speed
+602: Right Speed
+603: Right Speed
+604: Right Speed
+605: Right Speed
+606: Right Speed
+607: Right Speed
+608: Left Speed Jump
+609: Left Speed Jump
+610: Left Speed
+611: Left Speed
+612: Left Speed
+613: Left Speed
+614: Left Speed
+615: Left Speed
+616: Right
+617: Right
+618: Right Speed
+619: Right Speed
+620: Right Speed
+621: Right Speed
+622: Right Speed
+623: Right Speed
+624: Right Speed
+625: Right Speed
+626: Right Speed Jump
+627: Right Speed Jump
+628: Right
+629: Right
+630: Right Speed
