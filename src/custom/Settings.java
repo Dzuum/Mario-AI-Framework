@@ -19,7 +19,7 @@ public class Settings {
     public static final String LEVEL_NAME = "World 1-2";
     public static final String ORIGINAL_LEVELS_PATH = "./levels/custom/framework-selected/";
 
-    public static final boolean WRITE_FILES = true;
+    public static final boolean WRITE_FILES = false;
     public static final String RESULTS_FOLDER_NAME = "results";
     public static final String RESULTS_FILE_EXTENSION = ".txt";
 

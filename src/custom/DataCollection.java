@@ -69,9 +69,9 @@ public class DataCollection {
 
         calculateDistances(states);
         setBoundaryInfo(states);
-        Utils.serializeStates(levelName, states);
 
         if (Settings.WRITE_FILES) {
+            Utils.serializeStates(levelName, states);
             saveResultsFromStates(levelName);
         }
     }
