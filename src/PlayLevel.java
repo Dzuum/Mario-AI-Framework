@@ -93,6 +93,10 @@ public class PlayLevel {
                 Settings.CONVERT_FRAMEWORK_SOURCE + Settings.CONVERT_FRAMEWORK_FILE,
                 Settings.CONVERT_METRICS_TARGET + Settings.CONVERT_METRICS_FILE);
 
+        } else if ( Settings.LAUNCH_MODE == LaunchMode.UpdateGeometry) {
+
+            Utils.applyModifiedPatternGeometries(Settings.LEVEL_NAME);
+
         }
     }
 }

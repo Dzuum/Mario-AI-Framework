@@ -206,6 +206,29 @@ public class Utils {
         return patterns;
     }
 
+    public static void applyModifiedPatternGeometries(String levelName) {
+        List<Pattern> patterns = loadPatternsForLevel(levelName);
+
+        for (int i = 0; i < patterns.size(); i++) {
+            String prefix = "Geometry";
+            String suffix = "_NEW";
+
+            String modifyFilename = prefix + Settings.SERIALIZED_PATTERN_FILE_NAME + patterns.get(i).getPatternIndex()
+                                  + suffix + Settings.RESULTS_FILE_EXTENSION;
+
+            Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, levelName, Settings.PATTERNS_FOLDER_NAME, modifyFilename);
+
+            File file = new File(newPath.toString());
+            if (file == null || !file.exists())
+                continue;
+
+            List<String> newGeometry = Utils.readAllLines(newPath);
+            patterns.get(i).setGeometry(newGeometry);
+            patterns.get(i).serialize();
+            patterns.get(i).writeGeometryFile();
+        }
+    }
+
     public static List<String> readAllLines(Path path) {
         List<String> lines = new ArrayList<String>();
 
