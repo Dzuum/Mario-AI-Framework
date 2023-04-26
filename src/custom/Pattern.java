@@ -28,12 +28,31 @@ public class Pattern implements Serializable {
         calculateIntensity();
     }
 
-    public int getPatternIndex() { return patternIndex; }
-    public List<String> getGeometry() { return geometry; }
-    public List<State> getStates() { return states; }
-    public float getIntensity() { return intensity; }
+    public String getSourceLevel() { return sourceLevel; }
+    public void setSourceLevel(String newLevel) { sourceLevel = newLevel; }
 
-    public int getTileWidth() { return geometry.get(0).length(); }
+    public int getPatternIndex() { return patternIndex; }
+    public void setPatternIndex(int newIndex) { patternIndex = newIndex; }
+
+    public List<String> getGeometry() { return geometry; }
+    public void setGeometry(List<String> newGeometry) { geometry = newGeometry; }
+
+    public List<State> getStates() { return states; }
+    public void setStates(List<State> newStates) { states = newStates; }
+
+    public float getIntensity() { return intensity; }
+    public void setIntensity(float newIntensity) { intensity = newIntensity; }
+
+    /**
+     * Intensity adjusted to pattern tile width.
+     */
+    public float getAdjustedIntensity() {
+        return (intensity * 10.0f / getTileWidth());
+    }
+
+    public int getTileWidth() {
+        return geometry.get(0).length();
+    }
 
     public int getStartTileX() {
         return states.get(0).getStartTileX();
@@ -61,10 +80,10 @@ public class Pattern implements Serializable {
         }
     }
 
-    public void writeDebugPatternFile() {
-        String debugPrefix = "debug";
+    public void writeGeometryFile() {
+        String prefix = "Geometry";
 
-        String fileName = debugPrefix + Settings.SERIALIZED_PATTERN_FILE_NAME + patternIndex + Settings.RESULTS_FILE_EXTENSION;
+        String fileName = prefix + Settings.SERIALIZED_PATTERN_FILE_NAME + patternIndex + Settings.RESULTS_FILE_EXTENSION;
         Path newPath = Paths.get(Settings.RESULTS_FOLDER_NAME, sourceLevel, Settings.PATTERNS_FOLDER_NAME, fileName);
 
         Utils.writeAllLines(newPath, geometry);
@@ -72,7 +91,7 @@ public class Pattern implements Serializable {
 
     private void calculateIntensity() {
         intensity = 0;
-        
+
         boolean[] prevActions = new boolean[5];
         for (int i = 0; i < states.size(); i++) {
             boolean[] actions = states.get(i).getActions();
@@ -86,7 +105,5 @@ public class Pattern implements Serializable {
                 prevActions[k] = actions[k];
             }
         }
-
-        intensity = (intensity * 10.0f / getTileWidth());
     }
 }

@@ -36,13 +36,11 @@ public class State extends MarioAgentEvent {
 
     // #region Get/Set
 
-    public float getEndX() {
-        return endX;
-    }
+    public float getEndX() { return endX; }
+    public void setEndX(float newX) { endX = newX; }
 
-    public float getEndY() {
-        return endY;
-    }
+    public float getEndY() { return endY; }
+    public void setEndY(float newY) { endY = newY; }
 
     public int getStartTileX() {
         return (int)(getMarioX() / 16);
@@ -66,21 +64,11 @@ public class State extends MarioAgentEvent {
         this.distance = distance;
     }
 
-    public boolean isStartBoundary() {
-        return isStart;
-    }
+    public boolean isStartBoundary() { return isStart; }
+    public void setStartBoundary() { isStart = true; }
 
-    public void setStartBoundary() {
-        isStart = true;
-    }
-
-    public boolean isEndBoundary() {
-        return isEnd;
-    }
-
-    public void setEndBoundary() {
-        isEnd = true;
-    }
+    public boolean isEndBoundary() { return isEnd; }
+    public void setEndBoundary() { isEnd = true; }
 
     public int getDurationTicks() {
         // Calculated in constructor already
@@ -92,13 +80,8 @@ public class State extends MarioAgentEvent {
         return getTimeSinceEpochMillis();
     }
 
-    public List<MarioAgentEvent> getAgentEvents() {
-        return events;
-    }
-
-    public void setAgentEvents(List<MarioAgentEvent> events) {
-        this.events = events;
-    }
+    public List<MarioAgentEvent> getAgentEvents() { return events; }
+    public void setAgentEvents(List<MarioAgentEvent> events) { this.events = events; }
     
     public String getDebugInfo() {
         return debugInfo;

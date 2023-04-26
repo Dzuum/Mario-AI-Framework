@@ -3,6 +3,9 @@ package engine.sprites;
 import engine.core.MarioSprite;
 import engine.helper.SpriteType;
 
+import custom.Settings;
+import custom.Settings.LaunchMode;
+
 public class FlowerEnemy extends Enemy {
     private float yStart;
     private int tick, waitTime;
@@ -14,11 +17,16 @@ public class FlowerEnemy extends Enemy {
         this.width = 2;
         this.yStart = this.y;
         this.ya = -1;
+
         // Fix AI agents not seeing flowers (Mario AI Framework PR #14)
-        // this.y -= 1;
-        // for (int i = 0; i < 4; i++) {
-        //     this.update();
-        // }
+        // For some reason this works only on some levels
+        if (Settings.LAUNCH_MODE == LaunchMode.Agent &&
+            Settings.UseFlowerEnemyFix.get(Settings.LEVEL_NAME)) {
+            this.y -= 1;
+            for (int i = 0; i < 4; i++) {
+                this.update();
+            }
+        }
 
         if (visuals) {
             this.graphics.originY = 24;

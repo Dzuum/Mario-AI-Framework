@@ -34,42 +34,35 @@ public class MarioAgentEvent implements Serializable {
      *   0: Left, 1: Right, 2: Down, 3: Speed, 4: Jump
      * </pre>
      */
-    public boolean[] getActions() {
-        return this.actions;
-    }
+    public boolean[] getActions() { return this.actions; }
+    public void setActions(boolean[] newActions) { this.actions = newActions; }
 
-    public float getMarioX() {
-        return this.marioX;
-    }
+    public float getMarioX() { return this.marioX; }
+    public void setMarioX(float newX) { this.marioX = newX; }
 
-    public float getMarioY() {
-        return this.marioY;
-    }
+    public float getMarioY() { return this.marioY; }
+    public void setMarioY(float newY) { this.marioY = newY; }
 
     /**
      *  0 = small, 1 = large, 2 = fire power-up.
      */
-    public int getMarioState() {
-        return this.marioState;
-    }
+    public int getMarioState() { return this.marioState; }
+    public void setMarioState(int newState) { this.marioState = newState; }
 
-    public boolean getMarioOnGround() {
-        return this.marioOnGround;
-    }
+    public boolean getMarioOnGround() { return this.marioOnGround; }
+    public void setMarioOnGround(boolean newVal) { this.marioOnGround = newVal; }
 
     /**
      * Total amount of update ticks at the time of this event.
      */
-    public int getTimeSinceStartTicks() {
-        return this.timeTicks;
-    }
+    public int getTimeSinceStartTicks() { return this.timeTicks; }
+    public void setTimeSinceStartTicks(int newTicks) { this.timeTicks = newTicks; }
     
     /**
      * Current time in milliseconds from epoch at the time of this event.
      */
-    public long getTimeSinceEpochMillis() {
-        return this.timeMillis;
-    }
+    public long getTimeSinceEpochMillis() { return this.timeMillis; }
+    public void setTimeSinceEpochMillis(long newMillis) { this.timeMillis = newMillis; }
 
     // #region Helper Functions
 

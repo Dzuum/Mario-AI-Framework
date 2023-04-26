@@ -83,7 +83,7 @@ public class DataCollection {
         for (int i = 0; i < states.size(); i++)
             states.get(i).resetGMA();
 
-        states = combineShortStates(states);
+        states = combineShortStates(levelName, states);
 
         // Recalculate due to merges
         calculateDistances(states);
@@ -95,7 +95,7 @@ public class DataCollection {
             emptyPatternResults(levelName);
             for (Pattern pattern : patterns) {
                 pattern.serialize();
-                pattern.writeDebugPatternFile();
+                pattern.writeGeometryFile();
             }
 
             saveResultsFromPatterns(levelName);
@@ -181,7 +181,7 @@ public class DataCollection {
 
         for (int i = 0; i < patterns.size(); i++) {
             Pattern pattern = patterns.get(i);
-            lines.add("" + pattern.getIntensity());
+            lines.add("" + pattern.getAdjustedIntensity());
         }
 
         fileName = levelName + "-" + Settings.INTENSITY_FILE_NAME + Settings.RESULTS_FILE_EXTENSION;
@@ -230,15 +230,16 @@ public class DataCollection {
         return states;
     }
 
-    private static List<State> combineShortStates(List<State> states) {
+    private static List<State> combineShortStates(String levelName, List<State> states) {
         // Checks again until merges result in the minimum tick count
         boolean checkAgain = true;
-        
+        int minTicks = Settings.StateMinimumTicks.get(levelName);
+
         for (int i = 0; i < states.size() - 1; i++) {
             State curr = states.get(i);
             State next = states.get(i + 1);
 
-            if (curr.getDurationTicks() < Settings.StateMinimumTicks) {
+            if (curr.getDurationTicks() < minTicks) {
                 next.mergePrev(curr);
                 states.remove(i);
 
@@ -248,7 +249,7 @@ public class DataCollection {
         }
 
         State lastState = states.get(states.size() - 1);
-        if (lastState.getDurationTicks() < Settings.StateMinimumTicks) {
+        if (lastState.getDurationTicks() < minTicks) {
             states.get(states.size() - 2).mergeNext(lastState);
             states.remove(states.size() - 1);
         }
