@@ -65,7 +65,7 @@ public class Settings {
         put("World 7-1", 6);
         put("World 8-1", 6);
         put("World 8-2", 6);
-        put("World 8-3", 5);
+        put("World 8-3", 6);
     }};
 
     /** Pagnutti 0.75 */
