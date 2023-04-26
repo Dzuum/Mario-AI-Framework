@@ -1,0 +1,58 @@
+START Pattern #0
+#0: 0.0 ( null ) ( Right Small Running    Duration: 956 ms | 28 ticks )
+--------------------------------------
+START Pattern #1
+#1: 28.0 ( 0.00  0.00  0.00  0.25  7.84 ) ( Right Small Running Airborne    Duration: 205 ms | 6 ticks )
+#2: 9.0 ( 0.25  0.00  0.00  0.25  0.36 ) ( Left Small Running    Duration: 71 ms | 6 ticks )
+#3: 9.0 ( 0.25  0.00  0.00  0.25  0.36 ) ( Right Small Running Airborne    Duration: 47 ms | 6 ticks )
+#4: 6.0 ( 0.00  0.00  0.00  0.00  0.36 ) ( Right Small Running Airborne    Duration: 328 ms | 13 ticks )
+--------------------------------------
+START Pattern #2
+#5: 13.0 ( 0.00  0.00  0.00  0.00  1.69 ) ( Right Small Running Airborne    Duration: 262 ms | 10 ticks )
+#6: 10.0 ( 0.00  0.00  0.00  0.00  1.00 ) ( Right Small Running Airborne    Duration: 235 ms | 9 ticks )
+#7: 10.0 ( 0.00  0.00  0.00  0.25  0.81 ) ( Right Small Running    Duration: 364 ms | 12 ticks )
+--------------------------------------
+START Pattern #3
+#8: 13.0 ( 0.00  0.00  0.00  0.25  1.44 ) ( Right Small Running Airborne    Duration: 364 ms | 12 ticks )
+#9: 12.0 ( 0.00  0.00  0.00  0.00  1.44 ) ( Right Small Running Airborne    Duration: 463 ms | 16 ticks )
+--------------------------------------
+START Pattern #4
+#10: 17.0 ( 0.00  0.00  0.00  0.25  2.56 ) ( Right Small Running    Duration: 502 ms | 16 ticks )
+#11: 16.0 ( 0.00  0.00  0.00  0.00  2.56 ) ( Right Small Running    Duration: 130 ms | 6 ticks )
+#12: 8.0 ( 0.00  0.00  0.00  0.25  0.36 ) ( Right Small Running Airborne    Duration: 299 ms | 10 ticks )
+#13: 10.0 ( 0.00  0.00  0.00  0.00  1.00 ) ( Right Small Running Airborne    Duration: 539 ms | 18 ticks )
+--------------------------------------
+START Pattern #5
+#14: 19.0 ( 0.00  0.00  0.00  0.25  3.24 ) ( Right Small Running    Duration: 165 ms | 8 ticks )
+#15: 9.0 ( 0.00  0.00  0.00  0.25  0.64 ) ( Right Small Running Airborne    Duration: 304 ms | 10 ticks )
+--------------------------------------
+START Pattern #6
+#16: 11.0 ( 0.00  0.00  0.00  0.25  1.00 ) ( Right Small Running    Duration: 104 ms | 6 ticks )
+#17: 8.0 ( 0.00  0.00  0.00  0.25  0.36 ) ( Right Small Running Airborne    Duration: 230 ms | 8 ticks )
+#18: 8.0 ( 0.00  0.00  0.00  0.00  0.64 ) ( Right Small Running Airborne    Duration: 296 ms | 11 ticks )
+#19: 11.0 ( 0.00  0.00  0.00  0.00  1.21 ) ( Right Small Running Airborne    Duration: 429 ms | 16 ticks )
+--------------------------------------
+START Pattern #7
+#20: 16.0 ( 0.00  0.00  0.00  0.00  2.56 ) ( Right Small Running Airborne    Duration: 299 ms | 11 ticks )
+#21: 11.0 ( 0.00  0.00  0.00  0.00  1.21 ) ( Right Small Running Airborne    Duration: 254 ms | 10 ticks )
+#22: 10.0 ( 0.00  0.00  0.00  0.00  1.00 ) ( Right Small Running Airborne    Duration: 191 ms | 8 ticks )
+#23: 8.0 ( 0.00  0.00  0.06  0.00  0.64 ) ( Right Small Airborne    Duration: 106 ms | 6 ticks )
+#24: 8.0 ( 0.00  0.00  0.06  0.25  0.36 ) ( Right Small Running    Duration: 189 ms | 8 ticks )
+#25: 9.0 ( 0.00  0.00  0.00  0.25  0.64 ) ( Right Small Running Airborne    Duration: 430 ms | 14 ticks )
+--------------------------------------
+START Pattern #8
+#26: 15.0 ( 0.00  0.00  0.00  0.25  1.96 ) ( Right Small Running    Duration: 236 ms | 8 ticks )
+#27: 9.0 ( 0.00  0.00  0.00  0.25  0.64 ) ( Right Small Running Airborne    Duration: 172 ms | 6 ticks )
+#28: 8.0 ( 0.00  0.00  0.06  0.25  0.36 ) ( Right Small    Duration: 39 ms | 6 ticks )
+#29: 8.0 ( 0.00  0.00  0.06  0.25  0.36 ) ( Right Small Running Airborne    Duration: 201 ms | 8 ticks )
+#30: 8.0 ( 0.00  0.00  0.00  0.00  0.64 ) ( Right Small Running Airborne    Duration: 333 ms | 12 ticks )
+--------------------------------------
+START Pattern #9
+#31: 13.0 ( 0.00  0.00  0.06  0.25  1.44 ) ( Right Small    Duration: 134 ms | 6 ticks )
+#32: 8.0 ( 0.00  0.00  0.06  0.25  0.36 ) ( Right Small Running Airborne    Duration: 154 ms | 8 ticks )
+#33: 9.0 ( 0.06  0.00  0.06  0.00  0.64 ) ( Small Airborne    Duration: 70 ms | 6 ticks )
+#34: 9.0 ( 0.06  0.00  0.06  0.25  0.36 ) ( Right Small Running    Duration: 65 ms | 6 ticks )
+#35: 8.0 ( 0.00  0.00  0.06  0.25  0.36 ) ( Right Small Airborne    Duration: 86 ms | 6 ticks )
+#36: 7.0 ( 0.00  0.00  0.06  0.00  0.36 ) ( Right Small Running Airborne    Duration: 203 ms | 8 ticks )
+#37: 8.0 ( 0.00  0.00  0.00  0.00  0.64 ) ( Right Small Running Airborne    Duration: 245 ms | 11 ticks )
+--------------------------------------
