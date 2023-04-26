@@ -1,0 +1,8 @@
+[0 .. 0] (event count: 1)
+[1 .. 5] (event count: 5)
+[6 .. 8] (event count: 3)
+[9 .. 12] (event count: 4)
+[13 .. 14] (event count: 2)
+[15 .. 16] (event count: 2)
+[17 .. 22] (event count: 6)
+[23 .. 24] (event count: 2)
