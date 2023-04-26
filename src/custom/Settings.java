@@ -54,7 +54,7 @@ public class Settings {
         put("World 1-1", 5);
         put("World 1-2", 6);
         put("World 2-1", 5);
-        put("World 3-1", 5);
+        put("World 3-1", 6);
         put("World 3-2", 5);
         put("World 4-1", 5);
         put("World 4-2", 5);
