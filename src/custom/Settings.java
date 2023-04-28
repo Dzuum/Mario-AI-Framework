@@ -8,7 +8,7 @@ public class Settings {
     {
         Agent, Player, Results, LevelGenerator,
         ConvertMetricsToFramework, ConvertFrameworkToMetrics,
-        UpdateGeometry
+        UpdateGeometry, AnalyzePatterns
     }
 
     public enum TimeScoring { Ticks, Millis }

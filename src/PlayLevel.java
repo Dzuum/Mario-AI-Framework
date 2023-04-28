@@ -9,7 +9,7 @@ import engine.core.MarioLevelGenerator;
 import engine.core.MarioLevelModel;
 import engine.core.MarioResult;
 import engine.core.MarioTimer;
-
+import custom.DataAnalysis;
 import custom.DataCollection;
 import custom.Pattern;
 import custom.Settings;
@@ -93,9 +93,13 @@ public class PlayLevel {
                 Settings.CONVERT_FRAMEWORK_SOURCE + Settings.CONVERT_FRAMEWORK_FILE,
                 Settings.CONVERT_METRICS_TARGET + Settings.CONVERT_METRICS_FILE);
 
-        } else if ( Settings.LAUNCH_MODE == LaunchMode.UpdateGeometry) {
+        } else if (Settings.LAUNCH_MODE == LaunchMode.UpdateGeometry) {
 
             Utils.applyModifiedPatternGeometries(Settings.LEVEL_NAME);
+
+        } else if (Settings.LAUNCH_MODE == LaunchMode.AnalyzePatterns) {
+
+            DataAnalysis.analyzeAllPatterns();
 
         }
     }

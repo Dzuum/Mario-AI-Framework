@@ -174,6 +174,23 @@ public class Utils {
         return states;
     }
 
+    public static List<Pattern> loadAllPatterns() {
+        List<Pattern> patterns = new ArrayList<Pattern>();
+
+        Path directoryPath = Paths.get(Settings.RESULTS_FOLDER_NAME);
+        File directory = new File(directoryPath.toString());
+        File[] directoryListing = directory.listFiles();
+
+        for (File file : directoryListing) {
+            if (!file.isDirectory() || !file.getName().startsWith("World"))
+                continue;
+
+            patterns.addAll(loadPatternsForLevel(file.getName()));
+        }
+
+        return patterns;
+    }
+
     public static List<Pattern> loadPatternsForLevel(String levelName) {
         List<Pattern> patterns = new ArrayList<Pattern>();
 
