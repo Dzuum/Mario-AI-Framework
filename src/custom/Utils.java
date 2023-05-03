@@ -175,6 +175,8 @@ public class Utils {
     }
 
     public static List<Pattern> loadAllPatterns() {
+        int minLength = Settings.PATTERN_MIN_LENGTH;
+
         List<Pattern> patterns = new ArrayList<Pattern>();
 
         Path directoryPath = Paths.get(Settings.RESULTS_FOLDER_NAME);
@@ -185,7 +187,11 @@ public class Utils {
             if (!file.isDirectory() || !file.getName().startsWith("World"))
                 continue;
 
-            patterns.addAll(loadPatternsForLevel(file.getName()));
+            List<Pattern> levelPatterns = loadPatternsForLevel(file.getName());
+            for (Pattern pattern : levelPatterns) {
+                if (pattern.getTileWidth() >= minLength)
+                    patterns.add(pattern);
+            }
         }
 
         return patterns;
