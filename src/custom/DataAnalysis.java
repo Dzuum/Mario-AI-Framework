@@ -77,22 +77,19 @@ public class DataAnalysis {
     }
 
     public static void analyzeAllPatterns() {
-        List<Pattern> allPatterns = Utils.loadAllPatterns();
-        Map<String, List<Pattern>> groupedPatterns = allPatterns
-            .stream()
-            .collect(
-                Collectors.groupingBy(Pattern::getSourceLevel));
-
-        PatternInfo patternInfo = analyzePatterns(allPatterns);
-        LevelInfo levelInfo = analyzeLevels(groupedPatterns);
+        PatternInfo patternInfo = analyzePatterns();
+        LevelInfo levelInfo = analyzeLevels();
 
         patternInfo.print();
         levelInfo.print();
     }
 
-    public static PatternInfo analyzePatterns(List<Pattern> allPatterns) {
+    public static PatternInfo analyzePatterns() {
+        List<Pattern> allPatterns = Utils.loadAllPatterns();
+
         PatternInfo info = new PatternInfo();
         info.Count = allPatterns.size();
+        
         
         // Min / Max
         int min = Integer.MAX_VALUE;
@@ -163,8 +160,14 @@ public class DataAnalysis {
         return info;
     }
 
-    public static LevelInfo analyzeLevels(Map<String, List<Pattern>> groupedPatterns) {
+    public static LevelInfo analyzeLevels() {
         LevelInfo info = new LevelInfo();
+
+        List<Pattern> allPatterns = Utils.loadAllPatterns();
+        Map<String, List<Pattern>> groupedPatterns = allPatterns
+            .stream()
+            .collect(
+                Collectors.groupingBy(Pattern::getSourceLevel));
 
 
         // Min / Max
