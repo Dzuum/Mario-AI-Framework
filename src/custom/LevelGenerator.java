@@ -4,10 +4,11 @@ import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
 
-import custom.DataAnalysis.LevelInfo;
 import engine.core.MarioLevelGenerator;
 import engine.core.MarioLevelModel;
 import engine.core.MarioTimer;
+
+import custom.DataAnalysis.LevelInfo;
 
 public class LevelGenerator implements MarioLevelGenerator {
     private static final boolean debug = true;

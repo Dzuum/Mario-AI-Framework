@@ -28,7 +28,7 @@ public class MarioGame {
     /**
      * Screen width
      */
-    public static final int width = 256;
+    public static final int width = 320;
     /**
      * Screen height
      */
