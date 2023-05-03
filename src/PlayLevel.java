@@ -76,8 +76,8 @@ public class PlayLevel {
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.LevelGenerator) {
 
-            MarioLevelGenerator generator = new custom.LevelGenerator(10);
-            String level = generator.getGeneratedLevel(new MarioLevelModel(150, 16), new MarioTimer(5 * 60 * 60 * 1000));
+            MarioLevelGenerator generator = new custom.LevelGenerator();
+            String level = generator.getGeneratedLevel(new MarioLevelModel(1, 1), new MarioTimer(5 * 60 * 60 * 1000));
             
             printResults(game.runGame(new agents.robinBaumgarten.Agent(), level, 20, 0, true));
 

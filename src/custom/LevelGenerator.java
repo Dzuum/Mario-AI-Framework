@@ -1,30 +1,28 @@
 package custom;
 
-import java.util.ArrayList;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
 
+import custom.DataAnalysis.LevelInfo;
 import engine.core.MarioLevelGenerator;
 import engine.core.MarioLevelModel;
 import engine.core.MarioTimer;
 
 public class LevelGenerator implements MarioLevelGenerator {
-    private int patternCount;
-    private String sourceLevel = "World 1-1";
+    private static final boolean debug = true;
 
-    private Random rand;
-    private List<Pattern> patterns;
-
-    public LevelGenerator(int patternCount) {
-        this.patternCount = patternCount;
-        patterns = new ArrayList<>();
-    }
+    private long seed = 1337;
+    private Random rand = new Random(seed);
 
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
-        patterns = Utils.loadPatternsForLevel(sourceLevel);
+        // Create big enough level to hold all possible levels
+        model = new MarioLevelModel(1000, 16);
 
-        rand = new Random();
+        List<Pattern> patterns = Utils.loadAllPatterns();
+        int patternCount = getPatternCount();
+
         model.clearMap();
 
         // The start x index for the next pattern
@@ -32,6 +30,10 @@ public class LevelGenerator implements MarioLevelGenerator {
 
         for (int i = 0; i < patternCount; i++) {
             Pattern pattern = patterns.get(rand.nextInt(patterns.size()));
+
+            if (debug)
+                System.out.println("Selected pattern #" + pattern.getPatternIndex() + " from " + pattern.getSourceLevel() + " (length: " + pattern.getTileWidth() + ")");
+
             List<String> geometry = pattern.getGeometry();
 
             String combinedPattern = "";
@@ -40,11 +42,36 @@ public class LevelGenerator implements MarioLevelGenerator {
             }
 
             model.copyFromString(currentMapX, 0, 0, 0, pattern.getTileWidth(), model.getHeight(), combinedPattern);
-
             currentMapX += pattern.getTileWidth();
         }
 
+        // Resize to correct size
+        String storedMap = model.getMap();
+        model = new MarioLevelModel(currentMapX, 16);
+        model.copyFromString(storedMap);
+
+        if (debug)
+            System.out.println("Generated map tile width: " + model.getWidth() + " " + currentMapX);
+
         return model.getMap();
+    }
+
+    private int getPatternCount() {
+        LevelInfo info = DataAnalysis.analyzeLevels();
+
+        // Pattern count is within +- two standard deviations from the average
+        double min = info.PatternCountAverage - info.PatternCountSD2;
+        double max = info.PatternCountAverage + info.PatternCountSD2;
+
+        double target = min + rand.nextDouble() * (max - min);
+        int patternCount = (int)Math.round(target);
+
+        if (debug) {
+            DecimalFormat df = new DecimalFormat("0.00");
+            System.out.println("Pattern target " + df.format(target) + " -> " + patternCount + " (min: " + df.format(min) + ", max: " + df.format(max) + ")");
+        }
+
+        return patternCount;
     }
 
     @Override
