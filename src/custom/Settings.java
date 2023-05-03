@@ -86,10 +86,10 @@ public class Settings {
     // #region Files -- Conversion
 
     public static final String CONVERT_METRICS_SOURCE = "levels/custom/metrics-originals/";
-    public static final String CONVERT_METRICS_TARGET = "levels/custom/metrics-converted/";
-    public static final String CONVERT_METRICS_FILE = "SMB-w1-l1_final.txt";
+    public static final String CONVERT_METRICS_TARGET = "levels/custom/metrics-selected/";
+    public static final String CONVERT_METRICS_FILE = "World 1-1.txt";
 
-    public static final String CONVERT_FRAMEWORK_SOURCE = "levels/custom/framework-originals/";
+    public static final String CONVERT_FRAMEWORK_SOURCE = "levels/custom/framework-selected/";
     public static final String CONVERT_FRAMEWORK_TARGET = "levels/custom/framework-converted/";
     public static final String CONVERT_FRAMEWORK_FILE = "World 1-1.txt";
 
