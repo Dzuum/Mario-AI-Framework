@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import engine.core.MarioGame;
 import engine.core.MarioRender;
 import engine.helper.TileFeature;
-
+import custom.CameraController;
 import custom.Settings;
 import custom.Settings.LaunchMode;
 
@@ -60,7 +60,7 @@ public class MarioTilemap extends MarioGraphics {
                 og.drawImage(img, xTile * 16 - x, yTile * 16 - y - move, null);
 
                 
-                if (Settings.LAUNCH_MODE == LaunchMode.Results) {
+                if (Settings.LAUNCH_MODE == LaunchMode.Results || MarioGame.pause) {
                     if (yTile == 2 && (xTile % 2) == 0) {
                         MarioRender.drawString(og, "" + xTile, xTile * 16 - x + 4, yTile * 16 - y + 4, 0);
                         MarioRender.drawString(og, "" + xTile, xTile * 16 - x + 3, yTile * 16 - y + 3, 7);

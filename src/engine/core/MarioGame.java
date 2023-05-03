@@ -49,7 +49,7 @@ public class MarioGame {
     /**
      * pauses the whole game at any moment
      */
-    public boolean pause = false;
+    public static boolean pause = false;
 
     /**
      * events that kills the player when it happens only care about type and param
