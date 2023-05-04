@@ -11,6 +11,7 @@ import engine.core.MarioResult;
 import engine.core.MarioTimer;
 import custom.DataAnalysis;
 import custom.DataCollection;
+import custom.DataPlaytest;
 import custom.Pattern;
 import custom.Settings;
 import custom.Settings.LaunchMode;
@@ -52,6 +53,7 @@ public class PlayLevel {
                 getLevel(Settings.ORIGINAL_LEVELS_PATH + Settings.LEVEL_NAME + ".txt"),
                 20, 0, true);
 
+            printResults(result);
             DataCollection.recordInputs(Settings.LEVEL_NAME, result);
             DataCollection.recordStates(Settings.LEVEL_NAME, result);
             DataCollection.extractPatterns(Settings.LEVEL_NAME);
@@ -60,7 +62,7 @@ public class PlayLevel {
 
             printResults(game.runGame(new agents.human.Agent(),
                              getLevel(Settings.ORIGINAL_LEVELS_PATH + Settings.LEVEL_NAME + ".txt"),
-                             200, 0, true));
+                             120, 0, true, 30, 3));
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.Results) {
 
@@ -100,6 +102,18 @@ public class PlayLevel {
         } else if (Settings.LAUNCH_MODE == LaunchMode.AnalyzePatterns) {
 
             DataAnalysis.analyzeAllPatterns();
+
+        } else if (Settings.LAUNCH_MODE == LaunchMode.Playtest) {
+
+            long seed = 45320;
+            String compareLevel = "World 1-1";
+
+            MarioLevelGenerator generator = new custom.IntensityCurveLevelGenerator();
+            ((custom.IntensityCurveLevelGenerator)generator).initialize(seed, compareLevel);
+
+            String level = generator.getGeneratedLevel(new MarioLevelModel(1, 1), new MarioTimer(5 * 60 * 60 * 1000));
+            
+            DataPlaytest.saveResult(seed, game.runGame(new agents.human.Agent(), level, 120, 0, true, 30, 3));
 
         }
     }

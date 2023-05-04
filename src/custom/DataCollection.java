@@ -194,7 +194,7 @@ public class DataCollection {
     /**
      * Join identical sequential events into one state.
      */
-    private static List<State> getStates(MarioResult result) {
+    public static List<State> getStates(MarioResult result) {
         List<State> states = new ArrayList<State>();
         
         List<MarioAgentEvent> allEvents = result.getAgentEvents();
@@ -260,7 +260,7 @@ public class DataCollection {
     /**
      * Calculate the distances to previous state for each entry.
      */
-    private static void calculateDistances(List<State> states) {
+    public static void calculateDistances(List<State> states) {
         for (int i = 1; i < states.size(); i++) {
             State first = states.get(i - 1);
             State second = states.get(i);
@@ -273,7 +273,7 @@ public class DataCollection {
     /**
      * Determine the gestalt boundaries based on the distances.
      */
-    private static void setBoundaryInfo(List<State> states) {
+    public static void setBoundaryInfo(List<State> states) {
         states.get(0).setStartBoundary();
 
         for (int i = 1; i < states.size() - 1; i++) {

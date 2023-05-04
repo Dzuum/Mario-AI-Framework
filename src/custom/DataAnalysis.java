@@ -3,7 +3,6 @@ package custom;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class DataAnalysis {
 
@@ -161,13 +160,9 @@ public class DataAnalysis {
     }
 
     public static LevelInfo analyzeLevels() {
-        LevelInfo info = new LevelInfo();
+        Map<String, List<Pattern>> groupedPatterns = Utils.loadAllPatternsGrouped();
 
-        List<Pattern> allPatterns = Utils.loadAllPatterns();
-        Map<String, List<Pattern>> groupedPatterns = allPatterns
-            .stream()
-            .collect(
-                Collectors.groupingBy(Pattern::getSourceLevel));
+        LevelInfo info = new LevelInfo();
 
 
         // Min / Max

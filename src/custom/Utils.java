@@ -14,6 +14,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Utils {
 
@@ -197,6 +199,16 @@ public class Utils {
         return patterns;
     }
 
+    public static Map<String, List<Pattern>> loadAllPatternsGrouped() {
+        List<Pattern> allPatterns = Utils.loadAllPatterns();
+
+        return allPatterns
+            .stream().collect(Collectors.groupingBy(Pattern::getSourceLevel));
+    }
+
+    /**
+      * Loads ALL patterns for the specific level, i.e. doesn't exclude by pattern length.
+      */
     public static List<Pattern> loadPatternsForLevel(String levelName) {
         List<Pattern> patterns = new ArrayList<Pattern>();
 

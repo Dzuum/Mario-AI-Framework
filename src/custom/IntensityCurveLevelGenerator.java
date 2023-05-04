@@ -11,16 +11,26 @@ import engine.core.MarioTimer;
 public class IntensityCurveLevelGenerator implements MarioLevelGenerator {
     private static final boolean debug = true;
 
+    private String compareLevel;
     private long seed = 1338;
     private Random rand = new Random(seed);
 
     private List<Pattern> allPatterns;
     private List<Pattern> comparePatterns;
-    private String compareLevel = "World 1-1";
     private float allowedIntensityVariance = 0.1f;
+
+    public void initialize(long seed, String compareLevel) {
+        this.seed = seed;
+        rand = new Random(this.seed);
+
+        this.compareLevel = compareLevel;
+    }
 
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
+        if (debug)
+            System.out.println("Generating level with seed " + seed);
+
         // Create big enough level to hold all possible levels
         model = new MarioLevelModel(1000, 16);
 

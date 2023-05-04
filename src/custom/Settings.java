@@ -8,7 +8,7 @@ public class Settings {
     {
         Agent, Player, Results, LevelGenerator,
         ConvertMetricsToFramework, ConvertFrameworkToMetrics,
-        UpdateGeometry, AnalyzePatterns
+        UpdateGeometry, AnalyzePatterns, Playtest
     }
 
     public enum TimeScoring { Ticks, Millis }
@@ -24,6 +24,17 @@ public class Settings {
     public static final boolean WRITE_FILES = false;
     public static final String RESULTS_FOLDER_NAME = "results";
     public static final String RESULTS_FILE_EXTENSION = ".txt";
+
+    // #region Playtests
+
+    public static final String PLAYTEST_FOLDER_NAME = "playtests";
+    public static final String PLAYTEST_MARIORESULT_FILE = "_Result";
+    public static final String PLAYTEST_ALLINPUTS_FILE = "_AllInputs";
+    public static final String PLAYTEST_UNIQUEINPUTS_FILE = "_UniqueInputs";
+    public static final String PLAYTEST_STATE_FILE = "_StateSerialized";
+    public static final String PLAYTEST_STATEDEBUG_FILE = "_StateDebug";
+
+    // #endregion
 
     public static HashMap<String, Boolean> UseFlowerEnemyFix = new HashMap<String, Boolean>()
     {{
@@ -43,7 +54,6 @@ public class Settings {
         put("World 8-2", false);
         put("World 8-3", false);
     }};
-
 
     // #endregion
 
