@@ -2,6 +2,7 @@ package agents.human;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 
 import engine.core.MarioAgent;
 import engine.core.MarioForwardModel;
@@ -18,7 +19,13 @@ public class Agent extends KeyAdapter implements MarioAgent {
 
     @Override
     public boolean[] getActions(MarioForwardModel model, MarioTimer timer) {
-        return actions;
+        // Copy the action array; otherwise its the reference that is sent
+        // meaning the last action will be the only value
+        boolean[] copyAction = new boolean[actions.length];
+        for (int i = 0; i < copyAction.length; i++)
+            copyAction[i]= actions[i];
+            
+        return copyAction;
     }
 
     @Override
