@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -177,6 +178,8 @@ public class Utils {
     }
 
     public static List<Pattern> loadAllPatterns() {
+        List<String> excludeLevels = Arrays.asList("World 7-1", "World 8-1", "World 8-2", "World 8-3");
+
         int minLength = Settings.PATTERN_MIN_LENGTH;
 
         List<Pattern> patterns = new ArrayList<Pattern>();
@@ -186,7 +189,7 @@ public class Utils {
         File[] directoryListing = directory.listFiles();
 
         for (File file : directoryListing) {
-            if (!file.isDirectory() || !file.getName().startsWith("World"))
+            if (!file.isDirectory() || !file.getName().startsWith("World") || excludeLevels.contains(file.getName()))
                 continue;
 
             List<Pattern> levelPatterns = loadPatternsForLevel(file.getName());
