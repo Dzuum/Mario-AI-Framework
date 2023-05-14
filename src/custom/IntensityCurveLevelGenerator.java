@@ -85,8 +85,14 @@ public class IntensityCurveLevelGenerator implements MarioLevelGenerator {
         model = new MarioLevelModel(currentMapX, 16);
         model.copyFromString(storedMap);
 
-        if (debug)
-            System.out.println("Generated map tile width: " + model.getWidth() + " " + currentMapX);
+        if (debug) {
+            int originalWidth = 0;
+            for (Pattern p : Utils.loadPatternsForLevel(compareLevel))
+                originalWidth += p.getTileWidth();
+
+            System.out.println("Original map tile width: " + originalWidth);
+            System.out.println("Generated map tile width: " + model.getWidth());
+        }
 
         return model.getMap();
     }
@@ -96,6 +102,7 @@ public class IntensityCurveLevelGenerator implements MarioLevelGenerator {
 
         if (debug) {
             System.out.println("Pattern target " + patternCount);
+            System.out.println();
         }
 
         return patternCount;
