@@ -43,8 +43,29 @@ public class IntensityCurveLevelGenerator implements MarioLevelGenerator {
 
         model.clearMap();
 
+        String startPattern =
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "------\n" +
+        "XXXXXX\n" +
+        "XXXXXX\n";
+
         // The start x index for the next pattern
         int currentMapX = 0;
+
+        model.copyFromString(currentMapX, 0, 0, 0, 6, 16, startPattern);
+        currentMapX += 6;
 
         for (int i = 0; i < patternCount; i++) {
             Pattern pattern = selectPattern(i);
