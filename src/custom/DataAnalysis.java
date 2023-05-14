@@ -19,6 +19,12 @@ public class DataAnalysis {
         public double LengthSD2;
         public double LengthPercentageWithinSD1;
         public double LengthPercentageWithinSD2;
+
+        public double IntensityAverage;
+        public double IntensitySD1;
+        public double IntensitySD2;
+        public double IntensityPercentageWithinSD1;
+        public double IntensityPercentageWithinSD2;
         
         public void print() {
             System.out.println("####################################");
@@ -32,6 +38,12 @@ public class DataAnalysis {
                 + df.format(LengthSD1) + " (" + df.format(LengthPercentageWithinSD1) + " % within SD1)");
             System.out.println("Length SD2: " 
                 + df.format(LengthSD2) + " (" + df.format(LengthPercentageWithinSD2) + " % within SD2)");
+            System.out.println();
+            System.out.println("Intensity Avg: " + df.format(IntensityAverage));
+            System.out.println("Intensity SD1: " 
+                + df.format(IntensitySD1) + " (" + df.format(IntensityPercentageWithinSD1) + " % within SD1)");
+            System.out.println("Intensity SD2: " 
+                + df.format(IntensitySD2) + " (" + df.format(IntensityPercentageWithinSD2) + " % within SD2)");
             System.out.println();
         }
     }
@@ -107,7 +119,7 @@ public class DataAnalysis {
         info.MaxLength = max;
 
 
-        // Average
+        // Average (length)
         double average = 0;
 
         for (int i = 0; i < allPatterns.size(); i++)
@@ -117,7 +129,7 @@ public class DataAnalysis {
         info.LengthAverage = average;
         
 
-        // Standard Deviation 1
+        // Standard Deviation 1 (length)
         double standardDeviation = 0;
 
         for (int i = 0; i < allPatterns.size(); i++) {
@@ -127,7 +139,7 @@ public class DataAnalysis {
         standardDeviation = Math.sqrt(standardDeviation / allPatterns.size());
         info.LengthSD1 = standardDeviation;
 
-        // % within standard deviation 1
+        // % within standard deviation 1 (length)
         double percentage = 0;
 
         for (int i = 0; i < allPatterns.size(); i++) {
@@ -140,10 +152,10 @@ public class DataAnalysis {
         info.LengthPercentageWithinSD1 = percentage * 100;
 
 
-        // Standard Deviation 2 (tile length)
+        // Standard Deviation 2 (length)
         info.LengthSD2 = info.LengthSD1 * 2;
         
-        // % within standard deviation 2
+        // % within standard deviation 2 (length)
         percentage = 0;
 
         for (int i = 0; i < allPatterns.size(); i++) {
@@ -156,6 +168,55 @@ public class DataAnalysis {
         info.LengthPercentageWithinSD2 = percentage * 100;
 
 
+        // Average (intensity)
+        average = 0;
+
+        for (int i = 0; i < allPatterns.size(); i++)
+            average += allPatterns.get(i).getAdjustedIntensity();
+
+        average = average / allPatterns.size();
+        info.IntensityAverage = average;
+        
+
+        // Standard Deviation 1 (intensity)
+        standardDeviation = 0;
+
+        for (int i = 0; i < allPatterns.size(); i++) {
+            standardDeviation += Math.pow(allPatterns.get(i).getAdjustedIntensity() - average, 2);
+        }
+
+        standardDeviation = Math.sqrt(standardDeviation / allPatterns.size());
+        info.IntensitySD1 = standardDeviation;
+
+        // % within standard deviation 1 (length)
+        percentage = 0;
+
+        for (int i = 0; i < allPatterns.size(); i++) {
+            float intensity = allPatterns.get(i).getAdjustedIntensity();
+            if (intensity > average - info.IntensitySD1 && intensity < average + info.IntensitySD1)
+                percentage++;
+        }
+
+        percentage = percentage / allPatterns.size();
+        info.IntensityPercentageWithinSD1 = percentage * 100;
+
+
+        // Standard Deviation 2 (intensity)
+        info.IntensitySD2 = info.IntensitySD1 * 2;
+        
+        // % within standard deviation 2 (intensity)
+        percentage = 0;
+
+        for (int i = 0; i < allPatterns.size(); i++) {
+            float intensity = allPatterns.get(i).getAdjustedIntensity();
+            if (intensity > average - info.IntensitySD2 && intensity < average + info.IntensitySD2)
+                percentage++;
+        }
+
+        percentage = percentage / allPatterns.size();
+        info.IntensityPercentageWithinSD2 = percentage * 100;
+
+        
         return info;
     }
 
