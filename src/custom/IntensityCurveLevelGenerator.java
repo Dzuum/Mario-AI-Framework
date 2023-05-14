@@ -17,7 +17,7 @@ public class IntensityCurveLevelGenerator implements MarioLevelGenerator {
 
     private List<Pattern> allPatterns;
     private List<Pattern> comparePatterns;
-    private float allowedIntensityVariance = 0.1f;
+    private float allowedIntensityVariancePercentage = 0.1f;
 
     public void initialize(long seed, String compareLevel) {
         this.seed = seed;
@@ -104,8 +104,8 @@ public class IntensityCurveLevelGenerator implements MarioLevelGenerator {
     private Pattern selectPattern(int patternIndex) {
         Pattern comparePattern = comparePatterns.get(patternIndex);
         float compareIntensity = comparePattern.getAdjustedIntensity();
-        float minIntensity = compareIntensity - allowedIntensityVariance;
-        float maxIntensity = compareIntensity + allowedIntensityVariance;
+        float minIntensity = compareIntensity - compareIntensity * allowedIntensityVariancePercentage;
+        float maxIntensity = compareIntensity + compareIntensity * allowedIntensityVariancePercentage;
 
         Pattern[] suitablePatterns = allPatterns
             .stream().filter(e -> e.getAdjustedIntensity() >= minIntensity && e.getAdjustedIntensity() <= maxIntensity)
@@ -116,9 +116,9 @@ public class IntensityCurveLevelGenerator implements MarioLevelGenerator {
                 + " has intensity " + comparePattern.getAdjustedIntensity()
                 + " (suitable patterns: " + suitablePatterns.length + ")");
 
-            for (Pattern suitablePattern : suitablePatterns) {
-                System.out.println(suitablePattern.getSourceLevel() + " #" + suitablePattern.getPatternIndex() + ": " + suitablePattern.getAdjustedIntensity());
-            }
+            // for (Pattern suitablePattern : suitablePatterns) {
+            //     System.out.println(suitablePattern.getSourceLevel() + " #" + suitablePattern.getPatternIndex() + ": " + suitablePattern.getAdjustedIntensity());
+            // }
         }
 
         Pattern pattern = suitablePatterns[rand.nextInt(suitablePatterns.length)];
@@ -126,8 +126,11 @@ public class IntensityCurveLevelGenerator implements MarioLevelGenerator {
         if (debug) {
             System.out.println("Selected pattern #" + pattern.getPatternIndex() + " from " + pattern.getSourceLevel()
                 + " (length: " + pattern.getTileWidth() + ", intensity: " + pattern.getAdjustedIntensity() + ")");
+
+            System.out.println();
         }
 
+        
         return pattern;
     }
 
