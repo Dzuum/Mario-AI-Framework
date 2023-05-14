@@ -1,0 +1,430 @@
+[TODO PATTERNS]
+Allowed problems:
+- World 3-1 #4 meibi ongelms
+- World 6-1 toiseks vika pattern unplayable
+- World 6-2 vika pattern ongelma kans
+
+Poistettu (len < 7 ja anomalyi)
+- World 4-2 #4 on anomaly vähän koska se AI teki vääriä valintoja ja joutu backtrack. lyhyt ja iso intensity seurauksena
+  - Tästä vois ottaa screenshot kuinka se AI on siel alhaal et tää aiheutti ongelms
+- World 5-2 viimeinen pattern kans anomaly
+  - Mikä täs oli probleema, auttaisko flagin laskeminen?
+- World 7-1 sama
+- World 8-1 sama
+
+
+- INPUTTI EI TOIMI HUMAN AGENT VISSIIN MUTTA ONKO VÄLIÄ
+// TODO: ennen playtest test että kaikki toimii
+// Tasot lataantuu, input toimii, saveResult toimii
+// TODO: kuolemat / restartit manuaalisesti -> nvm saa automaattisesti
+- Intensiteetti käyrät kaikista tasoista
+  - Ottaa ne testiin jotka lähinnä sitä Schell kirjaa
+  - Bonuksena testata og kenttiä joissa erilaisii intensiteettei emt
+- Ylemmillä valita jotain target tile length tai pattern count generoiduille kentille
+  - Sitte intensiteetti jotenki hmm
+  - Ehkä jtn find equation perustuen pointseihin
+    - y on intensity ja x pattern index
+    - tai ehk x ennemmin että missä kohtaa og kenttää se pattern on
+    - joko ekan tai keskimmäisen tilen x indeksi koko kentästä
+    - ja meibi relative to map length
+- Research method päättäminen
+  - Numero vai ranking
+  - Generate ne level kuvat?
+  - RANKING NOT GOOD
+    - Tavoite ei oo tehä parempia kenttiä vaan sinänsä samantasosii
+    - Ehkä siis se numeroarvostelut 1-5 jollon ranking kommentit pois?
+    - Meibi tää pointti about samantasosii kenttii halutaan myös resert questioneihi muGn
+- Generaattori
+  - Start pos ja flag how do
+  - Ne intensiteetit jossai muualla oli siitä täs joukkios mainintaa
+  - Huom also että vaikka ois designed tietty interest curve nii AI voi pelata eri tavoin miten designer suunnitteli
+    - Also huomiota että AI pelaa aika lineaarisesti, esmes speed aina päällä ku vaa mahollist
+      - Oikea pelaaja käyttäis todennäkösesti kokemustasoon perustuen eri määrän (kokenut käyttäis enemmän) so i dunno
+- "Genetic Approach in Procedural Content Generation for Platformer Games Level Creation"
+  - Tsek tässä difficulty curve hmmm
+- Record niitä asioita kun pelaa läpi ja mahis restart jne, tsek mitä kommenttei täst on tääl
+- Test analyze rytmit patterneist
+  - Ottaa actionit ja timelinet tickeissä ja see how it looks
+  - Tuleeko samanlaisii patternei, jotenki tsek out jossei muuta nii graafit
+- PLAYTESTIT
+  - Opetella pelaamaan JOSSAIN TIETYSSÄ GENEROIDUSSA KENTÄSSÄ
+    - World 1-1 tulee testeihin mukaan
+  - Testejä
+    - Miten se interest curve vaikuttaa / kui paljon tjsp
+      - Sama curve mutta eri kenttiä
+    - Toinen interest curve testi
+      - Eri curveja?
+  - Randomilla seedit jokaselle ja kansion nimeen ne
+    - Test että ok kentät, esmes ez kenttiä merkata mitkä on
+  - Kenttiä joissa pattern intensity graph ok
+    - Test mitkä on ok vaikeusaste
+    - World 1-1
+    - World 4-1
+    - World 5-1
+    - World 6-2
+    - (World 1-2)
+    - (World 2-1)
+    - (World 3-2)
+    - (World 6-1)
+  - Pilot testi ite
+    - Include tulokset varsinaiseen?
+  - Jokanen test samanlainen? Että vaikka yks original ja kaks generoitua tai jotain
+    - Lyk suoraviivainen ku vähempi porukkaa nii samaan juttuun saa enempi dataa
+    - Miten valita OG kentät? Samat OG kentät jokaselle?
+      - JA SITTE SEN KENTÄN INTENSITEETTI generoitaes käyttää?
+      - Ehkä pattern length kans pitäs olla se sama
+      - Intensiteetti weighted vai absolute jotenki et pitää olla rajoissa
+  - Ohjeistus
+    - Napit 
+    - Vihuja avoid tai hypätä päälle
+      - Pipe vihuja avoid
+    - Jump hold korkeammalle
+    - Se että completee main goal, eikä juttujen keräys
+  - Saralla useammat testit, lyk vaik eri päivinä muutaman pelaajan testit
+    - Lyk setup normisti mut se tekee useamman pelaajan kansiot
+    - Jakaa sit muka useammaks pelaajaks
+- Setup testit
+  - Kysellä jotain eri juttuj niku fun to play, interesting, muuta?
+  - Tsek läpi platformer paprut esmes "Patterns as Objectives for Level Generation"
+  - Kuolemat, time to complete, mitä muuta record runeista?
+  - Pregenerated levels, useampi kansio jokaselle oma
+  - Target playtest 10-20 min ettei kyllästy (oisko tukea)
+  - Tarpeeks monta kenttää kuitenki
+    - Vaikka vähän ihmisii nii pitäs olla tarpeeks kenttii?
+    - Saisko esmes 4x 3 kentän pooolia tai 6x 2 kentän pool
+  - Vähän ihmisii niin ...
+    - Underground tasot pois
+      - Tsek kaikki tasot joiden patternit OK:lta mukaan otettavaks että MIKÄ NIIDEN INTENSITY CURVE ON
+        - Jos niissä ois sitte about sama nii vois käyttää
+          - Esmes generaattoriin ne kolme huippua ja niille ranget datan perusteella
+    - Sama pool kenttiä joista patternit kaikille (sama vaikeusaste)
+    - HUOM! Nämä selitykset myös gradu
+- RQ esmes "Rhythm-Based Level Generation for 2D Platformers" tai muistaki mallia?
+  - Pitää miettiä onko tää enää rytmijuttuja ees
+  - Sinänsä se state on sama ku ton paprun rytmin generointi
+    - Esmes se Mario state ei oo tavallaan mukana itel koska ei ottanu pickuppei
+  - Meibi jotenki naamioida että joo tää on rhythm pattern extractionia, logical kokonaisuuksia, emt
+  - Ehkä rhythm pattern vois olla se juttu mitä yritetään
+    - Pitäis patterneist puhua lisempää
+- Jos aikaa niin tsek miten expressive ranget sais tehtyä
+  - Varoa ettei Pattern.cs muutu
+  - Esmes vihujen määriä voi tsek getGeometry ja ulkopuolella analysoida
+Playtest
+- Opettaa näppäimet
+  - Including SPEED, ja kertoa että voi hypätä pidemmälle
+- Pelata introna World 1-1 että oppii pelaan
+- Valitut og kentät ja generoitavien kenttien parametrit
+- Kenttien pelaamisjärjestys
+- Ohjeistus
+  - Esmes keskittyä läpäisemään?
+  - Jokainen ohjeistus perustella
+- Intro kenttä
+- Kysely
+Pilot test
+- Käyttää final dataan jos ei tuu muutoksia tän takia
+- Karpouzis et al. (2015) "The Platformer Experience Dataset"
+  - Tässä on hyvää kamaa esmes sivul 3 testauksest ja questionnairest
+  - https://ped.institutedigitalgames.com/dataset-description/
+    - Täällä questionnairet
+- Record kauan kestää vetää kenttä
+  - Ajastus joka kentälle huom
+- Tapa resetoida kenttä jos ded
+- Kysely oisko 1-5 tyyliin paljo huonompi, huonompi, sama/eos (?), parempi, paljo parempi
+- Su saisko pari testaajaa lisää?
+  - Kysyä Jannelta haittaisko
+- Research method kirjoittaminen voi tehä myöhemmin
+  - Huom GMA distance pyöristetty kokonaisluvuiks
+    - Koska floatit epätarkkoi ja tosi vaihtelevia niin ois aiheuttanu koko ajan boundaryjä
+  - Also time scoring on ticks perusteella näköjään että selitellä
+    - Huom kans eri painotus sen takia, ja se että paprus ei kerrottu aikayksikköä
+    - Also huom direction weight eri myös
+  - Also se state combination kun wähän ticks (6) selittää miks (reaktioaikaa ja semmost emt)
+  - Also selitellä ettei oo perfect cut offs, esmes World 1-1 pattern 4 on yks palikka joka kuuluis pattern 5
+    - Että manual intervention tai parametrien hienosäätö per level ois se juttu
+      - Tai sitten geometriaan perustuva analyysi ennemmin
+    - Toinen esimerkki World 6-1 toinen ja kolmas pattern
+    - Mutta selitellä kuitenkin että melko hyvin capturee loogisia kokonaisuuksia niin ku nää portaat
+  - Yks huomio että alusta tuli aina melko tyhjä pattern koska pitkään alkaa kentät sil et juoksee oikealle
+
+
+
+- Kattella vaik bar graph jossa kaik yhe level patternit (niiden intensiteetit) peräkkäi ja vrt siihe toiseen interest curveen
+  - Lyk saako samanlaisen muotoiseks? If yes niin graduun mby figure jossa molemmista side-by-side kuva
+  - Basically siis patternin intensiteetti laskea siten että tulee sama muoto
+  - TOSIN EI TÄÄ OIKEIN TOIMI EHKÄ
+    - Eli patternit ite on diskreetimpiä nii ei niitä laskuja välttämättä näy jos huiput lähellä toisiaan
+      - Selitellä kuites tää?
+      - Käyttää patternien intensityä oman curven tekemiseen? ranget ois helppo ehkä emt, eri pattern määrät ongelma
+
+- Intensiteettiin pojautuva level gen
+  - Level gen esmes listat joka worldin included leveleille
+    - Uus kansio johon included kentät kaikki, sekä framework että converted
+  - Hakee kansiot ja patternit niistä mitä worldei included
+    - Esmes eri collectioneita että easylist johon addRange world1 world2 world3 ja allList jossa addRange kaik
+  - Painotus curvene perustuen how do
+
+- EXPRESSIVE RANGEEN LIITTYEN COMPLETABILITY
+  - Emergeekö jotain kombinaatioita jotka on uncompletable
+  - x määrä kertoja ajaa AI:lla?
+  - Miten automatisoida iso määrä, pitää kirjata ylös seed ja menikö läpi
+
+- Wash controller
+
+
+
+Exclusioneita ja limitationeita
+- Trampolinet poistettu koska ei oo frameworkissa implementoitu
+- Liikkuvat beamsit on korvattu paikoillaan pysyvillä solid blockeilla koska ei frameworkissa
+- Grafiikat on joissain tasoissa vaihettu koska ei tilesettei, ja toisaalta hyvä testejä varten
+- Tykki, hammer boi, ja Lakitu vihut ei oo ku ei oo implemented
+- Undergroundiin menevät putket ei impl
+
+
+
+/****************
+ ** Paketointi **
+ ****************/
+
+Controller support
+  PS4 ohjain riittääkö vain kytkeä kii?
+    Voiko laittaa emuloimaan tiettyjä painalluksia?
+
+Settings luokka initialisoida lukemalla Settings.txt
+
+JAR: VS Code Explorer -> Java Projects -> Export JAR
+  levels kansio pitää olla mukana
+
+
+
+/********************
+ ** Interest curve **
+ ********************/
+
+Test myös inputit jossa kaikki mukana
+  Not good, ei oikein kuvasta intensiteettiä halutulla tavalla
+
+Test myös patternien intensiteetin avulla chart
+  Eka patternit tehty
+  Sitte intensiteetti (input count) jokaselle
+  Sitte discrete graph miten ne seuraa toisiaan
+
+Interest curvet running averagella kun kattoo input alkuja
+  Ei oo samoi curvei mutta näkyy piikkei -> vaihtelu tärkeää
+
+Joka kentän data output
+  Sitten test läpi graph hommassa millasil asetuksil tulee millasii curvei
+
+Interest curve on se hypoteesi että kaikki tasot seuraa jossai määri hyvää curvea ja iteki kandee
+  Ehkä jotain lyk min max approksimaatiota laskea
+    Lyk missä ne 3 huippua (voiks ol enempi), ja vaihtelun määrä minimist niihi huippuihi
+  
+JOS EI TUE NIIN PITÄÄ MIETTIÄ laittaisko vihuista lisää intensityä
+
+Kattoa mihi päädytää ku kaikkien curvet generoitu
+  Test w/ ja w/o ne stop eventit?
+  Jos support intensity curvea ni heavily pilot siihen?
+    Notta että se on se input intensity / rytmi
+  Jos ei support hyvin ni miettii tuloksii ja pivot teksti tukemaan mitä ikinä päättää (helpoimman kautta) tehä
+
+Valittujen original kenttien intensiteetti ja/tai interest curve
+  Avg input määrän perusteella?
+    Tsek myös pattern intensiteetin laskenta
+    Pitäskö vihujen lisätä intensiteettiä?
+      Test mitä tapahtuu jos yes
+      Mututuntuma ehkä vähän koska ne liikkuu
+  Kaikista figuret
+  Myös jotain laskennallista dataa että voi verrata?
+    Voiko export pisteet tjsp
+  Kattoa seuraako ne interest curvea
+    Jos kyllä, niin se on sitäki tärkeämpi osa gradua sitten
+      Eli mikä tahansa rytmi ei oo ok, tässä yks esimerkki hyvästä
+    Jos joitain jotka vähä eroaa enempi mut ois keskenään samantyylisii nii vois niitäki vertailla
+  Also kattella nouseeko intensiteetti / vaikeus koko ajan
+    Säätää parametrit siten että nousee? Esmes vihujen painoarvo
+      Perustella sillä että todnäk tarkottivat vaikeusasteen nousevan koko ajan
+
+
+
+/*************************
+ ** Kenttien generointi **
+ *************************/
+
+Yks testattava kenttä et randomilla patternit? Pitäs tsek myös sen curve sitte
+  Toinen level kontrollina joku og kenttä
+  Oisko muiden generaattoreiden kenttiä kans testissä ni vois verrata mby emt
+
+Pitäskö test samoilla patterneil test eri curveja jos joka patternil on intensiteetti (input count)
+
+Seeded (deterministic) generator?
+  Etukäteen rand seedit joka testaajalle?
+    Pystyis sitten helposti etukäteen tekeen ne 2D kuvat
+      Näitä vois sitte vilauttaa kun kysytää kumpi o parempi
+    Pitää selitellä gradus sit
+
+Jos interest curve hommat ni miettii millasii muita curvei test kans
+  Päinvastainen, rand, emt
+
+Jos slicejä niin plussaa että mukana tulee optional pathit ehkä; toki ne voi sekottaa ku pelaaja ei mee optimal reittii aina
+  Mutta onko ongelmaa yhistellä niitä
+
+Sit start ja end y perusteella vois joko adjust kun niitä ketjuttaa
+  TAI valitaan vaan patternei jotka ns tasasia että aina voi ketjuttaa
+  TBD tuleeko impossible patternei
+
+Varmistaa kaikki patternit että kun ne on vikoi notta flag tulee soppeliin paikkaan
+  Jos ei ni special versio jossa flag manually laitettunna,
+  TAI flag on aina sama (muutama tyhjää ja fläg)
+  Sama Marion aloitussijainnille
+
+Parametrisointi
+  Esmes interest curven määrittäminen ja max deviance
+    Miten deviance, total vai per pattern?
+
+
+
+/**********************
+ ** Expressive range **
+ **********************/
+
+Jotain läheisyysanalyysia intensiteeteille lyk esmes mitä ne jotku PCG validaattorit teki muulle datalle
+
+Original kentille expressive range uudelleenlaskea mitä esitelly paprus et tuleeko samoi tuloksii
+Generoiduille kentille kaikkea interest curvesta expressive rangeen
+
+
+
+/************************
+ ** Graduun kirjotella **
+ ************************/
+
+Jos tarpeen nii analyze ne serialized statet mitä playtesteis kerätty
+
+Pattern valinnasta että kaik intensityt on ns normalisoitu / adjusted lengthiin nähden että on niku verrannollista
+
+DataAnalysis.analyzeAllPatterns jutut raportoida kans
+  Näillä todnäk perusteltu level gen homs
+
+Meibi esmes Dahlskog & Togelius (2012) (Patterns and procedural ...) ja verrata omia patternei mitä löyty
+
+Tsek commitit ja esmes [SelectedLevels] selityksii
+- Lyk miettii mitä ees kertoo, esmes leveleiden muokkaus kerrotaanko?
+  - Ei kuitenkaan fundamentally muokkaa tasoa, mutta haluttiin piettää mahd lähellä og kuitenkin?
+
+GMA arvot selitellä
+- Direction vähempi koska tekee nopeita inhumane käännöksiä
+- Aika oli liian painotettu, paprus ei mby ollu ajan määrettä ni se voi waikuttaa mutta toisaalta AI tekee nopeammin liikkeitä
+- Minimi tick count junou koska human reaction time
+  - Noin 250 ms reaktioaika ja 30 ticks per second -> 7.5 ticks
+  - Results in more natural / logical patterns
+
+Expressive rangesta että vertaillaan myös generaattorin naturea vähän muihin for additional insight
+
+Pagnutti hywää kamaa esmes eka sivu toka kolumni joka tärkeää meibi
+
+Selittää datan keruu AI:lla, stateihin jako, pisteytys jnejne
+  Basically tsek Git historia
+
+Notea että AI pelaa erilain ku oikea pelaaja emt
+  Pitää record kaik pelaajan hommat ja vertailla mby
+
+Kirjata input method eli mitä ohjainta käytettiin
+  Also og NES controller ja tää ohjain side-by-side labeled kuvat mitkä napit tekee mitä
+    Pointtina näyttää että kopioitiin layout
+  https://www.nintendo.co.jp/clv/manuals/en/pdf/CLV-P-NAAAE.pdf
+
+Included ja Excluded Levels infot oma alikappale selityksineen
+  Mitkä kentät suoraan frameworkista ja mitkä lisätty ite NES Maps avulla (metrics kentät väittää sillein)
+    Linkkiä NES Maps jos on tämmösii kenttii
+  e.g. underwater toimii input fundamentally eri tavalla
+  Boss tasot kans, niissä lopun intensiteettihuippu on boss fight jota ei implemented
+  Commiteis on mitä muutoksia piti tehä
+  Mitä uupuu kentistä, kirjattu Included Levelsiin
+    Yleisesti selittää, ei listata kaikkii leveleit?
+    Selitel myös miks ok lmao (koska scope pienempi)
+
+Mitka kentät valittiin ja miksi (AI ei päässy läpi)
+  Tästä myös pohdintaa kuinka vaikuttaa lopputulokseen (ne mitä pääs läpi meni kuitenki melko optimisti)
+
+Kuva jossa allekkai esmes world 1-1 (ota kuva sil metrics paketil) ja sen text representation
+  sama aspect ratio sama skaala et näkee hyvin mite menee 1:1 tilet lyk char represents tile
+  also refer siihe figuree jossa tileset; onhan se se AI Framework tileset
+  e.g. ground block on #
+
+Tileset on sama kaikis, eli ei esmes underground tilesettiä käytössä
+  Meibi gud for tests ettei se vääristä tuloksia
+  Varmistaa viitattu tileset kuva ettei siin oo underground tilei, ja et se on tän framework mukana tullu tileset
+  Also huom background uupuu, sama asia että lisäis real game juttuu mutta tässä häirittis mebe
+
+Mario inputit varmistaa, ainaki siinä reserts osiossa selittää
+Espes walking / running ei oo selitetty
+
+Runs 30 fps by default eri every x millisecond on update. jos state sama ni emt gej
+Mikä SNES versiossa FPS
+Tsek captured gameplay kulkeeko yhtä nopeaa (tää ei oo ehkä framerate-independent)
+
+Input intensity ja patternit pitäs ehkä yhistää jotenki?
+  Sille että näillä patterneilla tulee samaa interest curve käyrää
+  Vai testataanko käyrää erikseen emt wtf
+
+Gradus selityksis esimerkkikuva vaik koko kenttä zoomed out ja siinä boundaryt punasella
+  TAI pienempi osio kentästä josta näkyy selvästi ne patternit
+  Ja sit kertoa miten parsed for dat GMA (statet tjsp) ja miten analysoitiin
+
+Pohdintaa kumpi on hyödyllisempi agent vs. player analyysi for dat pattern matsku
+  Vai voisko olla molemmil paikkansa
+
+
+
+/***********
+ ** Bonus **
+ ***********/
+
+Extract myös Mario float position x ja y ja siitä piirtää kans kaavio sillä Processingilla
+  Voisko käyttää havainnollistaan AI:n kulkemaa reittiä jos overlay tason päälle
+    Pitää olla x ja y axis skaalat oikein
+  Periaattees Levenshtein distance vois laskea jos käyrä myös pelaajasta, ja ehk eri tasoje välil kans
+    Emt onko järkee, mitä se kertois
+    Pitäis jotenki venyttää lyhempää (nopeampaa) runia ja tiivistää pitempää (hitaampaa) runia
+      Onko väliä jos on joka tick data point jos scale horizontally
+      Molempia saman verran scale mutta eri suuntaan
+  Oisko tää että on (x, y) positio vai pelkkä x tai y positio ja aika?
+    Voi myös olla kumpiki x ja y omat graafit, mutta kertooko sekää mitään
+
+
+
+/********************
+ ** Previous notes **
+ ********************/
+
+Tsek onko Github og branch päivityksiä
+
+Tuki datan keräämiselle
+  Mikä input valittiin
+  State
+    Jos tosi lyhyt state change niin onko error, poistaako datasta?
+  Nykyinen frame, aika edellisestä framesta, aika pelin alusta
+  x ja y tile position tai jotain muuta dataa jonka perusteella kattoa syy eri inputeille? Tsek mitä Bach paperis tehtiin
+  Lisätä rivi vasta kun state vaihtuu
+  Output .csv ja test Excelissä esmes joitain kaavioita
+  HUOM! Jos pienii hetkittäisii suunnanvaihoksii niin disregard
+
+FPS vaikuttaa suoraan siihen kuin nopeaa agentit liikkuu. Pitäs ehkä jotenki saaha FPS independent movement?
+  Myös pelaajahahmolla vaikuttaa asd
+  Pitäs kattoo myös että liikkuu samalla tavalla about kui oikeas pelis
+
+Mikä oikea timer tasojen suorittamiseen vai jättääkö pois?
+
+Datan keruu ja analyysi
+  Kattoa onko consistent framet, tuleeko 30 päätöstä per sekuntti
+  Eli kerätä tieto mones frame, ja kui monta millisekunttia kulunu alusta
+  Sitte miettiä tätä vähän, ehkä käyttää millisekunttei kuites emt
+  GMA:lla patterneja
+    Patterneille intensiteetti (input count per kesto?)
+  Oleassa oleville kentille interest curve
+
+
+VS Code Java support:
+Install Coding Pack for Java
+  https://code.visualstudio.com/docs/languages/java
+Restart VS Code että path menee oikein
+Sit vaan Open Folder ja F5 compilee

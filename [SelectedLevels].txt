@@ -1,0 +1,192 @@
+/*********************
+ ** Included levels **
+ *********************/
+
+(15/32 kpl, ~50 %)
+
+World 1-1
+  Geometria OK
+    Uupuu warp pipe (teleport pieneen underground osioon)
+  Vihut OK
+  AI OK
+    Menee läpi aina
+    Välillä ongelmia lippuun hyppäämisessä
+World 1-2
+  Geometria OK
+    Uupuu warp pipe (teleport pieneen underground osioon ja
+    Ylös / alas liikkuvat lifts / elevators / moving platforms
+    Tileset eri (underground originally)
+  Vihut OK
+  AI OK
+    Menee läpi meibi aina
+    Välillä jää odottelemaan pipe vihollista
+World 2-1
+  Geometria OK
+    Lopusta poistettu pystysuora seinä koska siinä pitäis olla trampoline, jota ei Mario AI Framework oo impl
+    Maalia siirretty lähemmäs ylemmästä syystä (== level katkaistu lopusta tavallaan)
+    Uupuu warp pipe (teleport pieneen underground osioon)
+  Vihut OK
+  AI OK
+    Menee läpi meibi aina
+World 3-1
+  Geometria OK
+    Uupuu warp pipe (teleport pieneen underground osioon)
+    Tileset eri (tumma teema originally)
+  ?? Vihut ??
+    Hammer Bros 2x uupuu; näköjään korvattu lentävällä kilpikonnalla (Koopa Paratroopa)
+  AI OK
+    Menee läpi JOS POISTAA 1x FLOWER vihun
+      FIX JÄLKEEN menee läpi
+World 3-2  [CONVERTED]
+  Geometria OK
+  Vihut OK
+  AI OK
+    Menee läpi meibi aina
+    Ongelmia lippuun hyppäämisessä
+World 4-1
+  Geometria OK
+  Vihut OK
+    Uupuu Lakitu joka nakkelee Spiny bois; frameworkissa valmiiksi asetettu niitä sopiva määrä
+  AI OK
+    Menee läpi JOS POISTAA 2x FLOWER vihuja
+      FIX JÄLKEEN menee läpi jos poistaa 1x flower vihun
+World 4-2
+  Geometria OK
+    Voisko olla ongelmia koska underground level; ovat vähä tiiviimpiä, notta tän ketjuttaminen muiden levujen kanssa tsek
+  Vihut OK
+  AI OK
+    Menee läpi meibi aina
+World 5-1
+  Geometria OK
+    Uupuu warp pipe (teleport pieneen underground osioon)
+  Vihut OK
+    Bullet Bill ei ammuskele, meibi not implemented? Vai kulkeeko liian nopsaa AI?
+  AI OK
+    Menee läpi meibi aina
+    Ongelmia lippuun hyppäämisessä
+World 5-2  [CONVERTED]
+  Geometria OK
+    Trampoline uupuu
+    Uupuu warp pipe (teleport underwater osioon)
+  Vihut OK
+    Hammer Bros 4x uupuu; EI OO KORVATTU MILLÄÄN
+    Lisätty puuttuvat 2x Koopa Paratroopa
+    Bullet Bill ei ammuskele, meibi not implemented? Vai kulkeeko liian nopsaa AI?
+  AI OK
+    Menee läpi meibi aina sen jälkeen kun Koopa Paratroopat lisätty (muutoin tippui rotkoon aivan lopussa)
+    Ongelmia lippuun hyppäämisessä
+World 6-1
+  Geometria OK
+  Vihut OK
+    Uupuu Lakitu joka nakkelee Spiny bois; frameworkissa valmiiksi asetettu niitä sopiva määrä
+  AI OK
+    Menee läpi meibi aina
+    Ongelmia lippuun hyppäämisessä
+World 6-2
+  Geometria OK
+    Uupuu warp pipe (teleport pieneen underground osioon)
+    Uupuu warp pipe (teleport underwater osioon)
+  Vihut OK 
+  AI OK
+    Menee läpi JOS POISTAA 3x FLOWER vihui
+      FIX JÄLKEEN menee läpi jos poistaa 2x flower vihuin
+World 7-1
+  Geometria OK
+    Uupuu warp pipe (teleport pieneen underground osioon)
+  Vihut OK
+    Hammer Bros 2x uupuu; näköjään korvattu lentävällä kilpikonnalla (Koopa Paratroopa)
+    Bullet Bill ei ammuskele, meibi not implemented? Vai kulkeeko liian nopsaa AI?
+  AI OK
+    Menee läpi meibi aina
+World 8-1
+  Geometria OK
+    Uupuu warp pipe (teleport pieneen underground osioon)
+  Vihut OK
+  AI OK
+    Menee läpi JOS POISTAA 1x FLOWER vihun
+      FIX JÄLKEEN ei vaikutusta
+World 8-2  [CONVERTED]
+  Geometria OK
+    Trampoline uupuu
+    Uupuu warp pipe (teleport pieneen underground osioon)
+  Vihut OK
+    Bullet Bill ei ammuskele, meibi not implemented? Vai kulkeeko liian nopsaa AI?
+  AI OK
+    Menee läpi meibi aina
+    Ongelmia lippuun hyppäämisessä
+World 8-3  [CONVERTED]
+  Geometria OK
+  Vihut OK
+    Hammer Bros uupuu monta; korvattu ite lentävällä kilpikonnalla (Koopa Paratroopa)
+      Pitäskö esmes lopun Hammer Bros olla ennemmin normi Koopa
+    Bullet Bill ei ammuskele, meibi not implemented? Vai kulkeeko liian nopsaa AI?
+  AI OK
+    Menee läpi JOS POISTAA 1x FLOWER vihun
+      FIX JÄLKEEN ei vaikutusta
+    Ongelmia lippuun hyppäämisessä
+
+
+
+/*********************
+ ** Excluded levels **
+ *********************/
+
+World 1-3, 3-3, 4-3, 5-3, 6-3
+  Ei läpäise koska ei kaik platformit ilmassa
+World 2-2, 7-2
+  Underwater
+  Ihan eri gameplay / response inputtiin
+World 2-3, 7-3
+  Depends heavily on the flying enemy "Cheep Cheep", which is not implemented in the framework
+World 1-4, 2-4, 3-4, 4-4, 5-4, 6-4, 7-4, 8-4
+  Boss level
+  Unimplemented, olennaiset, jutsks jotka vaikuttais pelaamiseen:
+    Boss ampuu projectilejä koko kentän pituudelta
+    Pyörivät fire barit
+    Boss fight
+
+
+
+/*****************
+ ** First tests **
+ *****************/
+
+World 1-1 OK (lvl-1)
+World 1-2 OK, MODIFIED (suoraan underground) (lvl-2)
+World 1-3 NOT OK (AI ei läpäise) (lvl-3)
+World 1-4 MISSING (boss)
+
+World 2-1 NOT OK (puuttuu trampoline nii ei läpäise) (lvl-4)
+World 2-2 MISSING (underwater)
+World 2-3 MISSING (cheep cheep siltoja)
+World 2-4 MISSING (boss)
+
+World 3-1 NOT OK (AI ei läpäise) (lvl-5)
+World 3-2 OK (platform-level-metrics paketista)
+World 3-3 NOT OK (AI ei läpäise) (lvl-6)
+World 3-4 MISSING (boss)
+
+World 4-1 NOT OK (AI ei läpäise) (lvl-7)
+World 4-2 OK, MODIFIED (suoraan underground) (lvl-8)
+World 4-3 MISSING (mushroom hyppelyä)
+World 4-4 MISSING (boss)
+
+World 5-1 OK (lvl-9)
+World 5-2 OK (platform-level-metrics paketista)
+World 5-3 NOT OK (AI ei läpäise) (lvl-10)
+World 5-4 MISSING (boss)
+
+World 6-1 OK (lvl-11)
+World 6-2 NOT OK (AI ei läpäise) (lvl-12)
+World 6-3 NOT OK (AI ei läpäise) (lvl-13)
+World 6-4 MISSING (boss)
+
+World 7-1 OK (lvl-14)
+World 7-2 MISSING (underwater)
+World 7-3 MISSING (cheep cheep siltoja)
+World 7-4 MISSING (boss)
+
+World 8-1 NOT OK (AI ei läpäise) (lvl-15)
+World 8-2 OK (platform-level-metrics paketista)
+World 8-3 OK (platform-level-metrics paketista)
+World 8-4 MISSING (boss)

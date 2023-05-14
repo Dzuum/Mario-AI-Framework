@@ -1,0 +1,89 @@
+[Generointi]
+Random number generator [1, 100000000]
+  Testikenttä ->
+    World 1-1 & 87842897
+
+  Varsinaiset ->
+    World 1-1 & 28484638
+    World 3-2 & 76497918
+    World 5-2 & 82523889
+    
+    World 1-1 & 
+    World 3-2 & 
+    World 5-2 & 
+    
+    World 1-1 & 
+    World 3-2 & 
+    World 5-2 & 
+    
+    World 1-1 & 
+    World 3-2 & 
+    World 5-2 & 
+    
+    World 1-1 & 
+    World 3-2 & 
+    World 5-2 & 
+Kentät testattiin AI:lla että on läpäistävissä
+  Kourallinen kenttiä oli mitä ei voinu läpäistä niin piti uus seed hommata
+World 7 ja World 8 excluded koska liian vaikeita
+Tasojen alkuun generoidaan 6 tileä tyhjää että on tilaa junou muuten voi spawnata suoraan vihuun esmes
+Analyysiä
+  Loppuuko kentät usein niihin portaisiin lyk monta hyppyä ni helposti omissa patterneissa?
+
+testikenttä
+sama seed
+perustuen kaikkiin kenttiin
+
+10x random numeroita vai enempi
+(17 kenttää tiputettu syistä x)
+(ug kentät tiputettu koska vähä erilaisia ja top reuna ois oudonnäköne emt selitel jotenki)
+  (World 1-2)
+
+eiku nyt otetaan intensity curveja joka se juttu, mutta patternit kaikista kuitenkin
+Opettelu
+og vs generoitu jokaisessa
+World 1-1 : Good
+World 3-2 : Meibi, tasasempi intensiteetin puolesta mutta ei korreloi vaikeuteen välttämättä vaikka vähä input changei koska vihut
+Random
+World 5-2 : Meibi, vähä enempi vaihtelua
+
+World 3-1 : Meibi, vähä enempi vaihtelua
+World 5-1 : Tasasempi, sama idea ku 3-2 mutta käyrät ns paremmat emt
+Random pari?
+
+(World 1-2?)
+World 2-1 : Voi ol vaikea
+World 7-1 : Meibi
+World 8-1 : Voi olla vaikea
+(World 8-2) : Täälläki heittelyboi isossa roolissa mut pienemmäs emt
+World 8-3 : Meibi
+
+4-1 Tiputettu koska se heittelyäiä ois ollu pääroolissa
+^ ehkä myös generoinnista pois?
+4-2 Tiputtaa kans, vähä meh?
+6-1 Tiputettu koska se heittelyäiä ois ollu pääroolissa
+^ ehkä myös generoinnista pois?
+
+
+Kysyä
+Vaikeusaste
+Jotain free commenttei jokasen luokittelun jälkeen
+
+ku playtests rdy ja done ni transfer private repoon
+
+World 1-1
+(2-1 mut mby vähä vaikea)
+(3-1 onko vaikea)
+(3-2 ois semmone tasapaksu pitkälle mut siinäki tulee se lopun piikki siitä pyramidista joka ei oo vaikea, no chance to die)
+(eikä esmes 4-1 koska siinä se lentotyyppi pääroolissa)
+
+yks jossa kaikki
+
+
+levelit generoida levylle
+kuvat niistä tasoista
+???
+kyssärit
+ohjeistus
+järjestely
+test itellä
