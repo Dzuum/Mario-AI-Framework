@@ -80,6 +80,28 @@ public class IntensityCurveLevelGenerator implements MarioLevelGenerator {
             currentMapX += pattern.getTileWidth();
         }
 
+        
+        String endPattern =
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "----\n" +
+        "XXXX\n" +
+        "XXXX\n";
+
+        model.copyFromString(currentMapX, 0, 0, 0, 4, 16, endPattern);
+        currentMapX += 4;
+
         // Resize to correct size
         String storedMap = model.getMap();
         model = new MarioLevelModel(currentMapX, 16);
