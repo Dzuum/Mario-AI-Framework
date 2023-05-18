@@ -28,7 +28,9 @@ public class Settings {
     // #region Playtests
 
     public static final String PLAYTEST_FOLDER_NAME = "playtests";
-    public static final String PLAYTEST_LEVELS_NAME = "levels";
+    public static final String PLAYTEST_LEVELS_FOLDER = "levels";
+    public static final String PLAYTEST_LOGS_FOLDER = "logs";
+    public static final String PLAYTEST_QUESTIONNAIRES_FOLDER = "questionnaire";
     public static final String PLAYTEST_MARIORESULT_FILE = "_Result";
     public static final String PLAYTEST_ALLINPUTS_FILE = "_AllInputs";
     public static final String PLAYTEST_UNIQUEINPUTS_FILE = "_UniqueInputs";

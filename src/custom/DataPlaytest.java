@@ -3,6 +3,7 @@ package custom;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -15,9 +16,15 @@ import engine.helper.MarioActions;
 public class DataPlaytest {
 
     public static void saveResult(int testerId, String levelId, MarioResult result) {
-        Path folderPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), levelId);
+        Path folderPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_LOGS_FOLDER, levelId);
 
+        try {
+            if (!Files.exists(folderPath.getParent())) {
+                Files.createDirectory(folderPath.getParent());
+            }
+        } catch (Exception ex) { }
 
+        
         // 1 - MarioResult
         List<String> lines = new ArrayList<String>();
         lines.add("Game Status: " + result.getGameStatus().toString());
