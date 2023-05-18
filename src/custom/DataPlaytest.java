@@ -14,8 +14,8 @@ import engine.helper.MarioActions;
 
 public class DataPlaytest {
 
-    public static void saveResult(long seed, MarioResult result) {
-        Path folderPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(seed));
+    public static void saveResult(int testerId, String levelId, MarioResult result) {
+        Path folderPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), levelId);
 
 
         // 1 - MarioResult
@@ -41,8 +41,9 @@ public class DataPlaytest {
         lines.add("  Max X Jump: " + result.getMaxXJump());
         lines.add("  Max Air Time: " + result.getMaxJumpAirTime());
 
+        // Support multiple attempts
         for (int i = 1; i < 100; i++) {
-            Path filePath = Paths.get(folderPath.toString(), i + "-1" + Settings.PLAYTEST_MARIORESULT_FILE + ".txt");
+            Path filePath = Paths.get(folderPath.toString(), "Run#" + i + "-1" + Settings.PLAYTEST_MARIORESULT_FILE + ".txt");
             File file = new File(filePath.toString());
 
             if (!file.exists()) {
@@ -84,8 +85,9 @@ public class DataPlaytest {
             allInputLines.add(allLine);
         }
 
+        // Support multiple attempts
         for (int i = 1; i < 100; i++) {
-            Path filePath = Paths.get(folderPath.toString(), i + "-2a" + Settings.PLAYTEST_ALLINPUTS_FILE + ".txt");
+            Path filePath = Paths.get(folderPath.toString(), "Run#" + i + "-2a" + Settings.PLAYTEST_ALLINPUTS_FILE + ".txt");
             File file = new File(filePath.toString());
 
             if (!file.exists()) {
@@ -94,8 +96,9 @@ public class DataPlaytest {
             }
         }
 
+        // Support multiple attempts
         for (int i = 1; i < 100; i++) {
-            Path filePath = Paths.get(folderPath.toString(), i + "-2b" + Settings.PLAYTEST_UNIQUEINPUTS_FILE + ".txt");
+            Path filePath = Paths.get(folderPath.toString(), "Run#" + i + "-2b" + Settings.PLAYTEST_UNIQUEINPUTS_FILE + ".txt");
             File file = new File(filePath.toString());
 
             if (!file.exists()) {
@@ -110,8 +113,9 @@ public class DataPlaytest {
         DataCollection.calculateDistances(states);
         DataCollection.setBoundaryInfo(states);
 
+        // Support multiple attempts
         for (int i = 1; i < 100; i++) {
-            Path filePath = Paths.get(folderPath.toString(), i + "-3" + Settings.PLAYTEST_STATE_FILE + ".txt");
+            Path filePath = Paths.get(folderPath.toString(), "Run#" + i + "-3" + Settings.PLAYTEST_STATE_FILE + ".txt");
             File file = new File(filePath.toString());
 
             if (!file.exists()) {
@@ -140,8 +144,9 @@ public class DataPlaytest {
             lines.add("#" + i + ": " + state.getDistanceGMA() + " ( " + state.getDebugInfo() + " ) ( " + state.getStateString() + " )");
         }
         
+        // Support multiple attempts
         for (int i = 1; i < 100; i++) {
-            Path filePath = Paths.get(folderPath.toString(), i + "-4" + Settings.PLAYTEST_STATEDEBUG_FILE + ".txt");
+            Path filePath = Paths.get(folderPath.toString(), "Run#" + i + "-4" + Settings.PLAYTEST_STATEDEBUG_FILE + ".txt");
             File file = new File(filePath.toString());
 
             if (!file.exists()) {

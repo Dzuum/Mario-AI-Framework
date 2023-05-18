@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -103,17 +105,59 @@ public class PlayLevel {
 
             DataAnalysis.analyzeAllPatterns();
 
-        } else if (Settings.LAUNCH_MODE == LaunchMode.Playtest) {
-
-            long seed = 45320;
+        } else if (Settings.LAUNCH_MODE == LaunchMode.GeneratePlaytest) {
+            
+            boolean saveResult = true;
+            int testerId = 0;
+            long seed = 87842897;
             String compareLevel = "World 1-1";
+            // String compareLevel = "World 3-2";
+            // String compareLevel = "World 5-2";
+
+            String generatedId = "1A"; // "1A", "1B", "2A", ...
+            String originalId = "1B"; // "1A", "1B", "2A", ...
 
             MarioLevelGenerator generator = new custom.IntensityCurveLevelGenerator();
             ((custom.IntensityCurveLevelGenerator)generator).initialize(seed, compareLevel);
-
             String level = generator.getGeneratedLevel(new MarioLevelModel(1, 1), new MarioTimer(5 * 60 * 60 * 1000));
+
+            if (saveResult) {
+                // Generate the playtest folder
+                Path playtestFolder = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId));
+                try {
+                    if (!Files.exists(playtestFolder)) {
+                        Files.createDirectory(playtestFolder);
+                    }
+                } catch (Exception ex) { }
+
+                // Save the generated level
+                String fileName = generatedId + Settings.RESULTS_FILE_EXTENSION;
+                Path generatedDestination = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_LEVELS_NAME, fileName);
+                Utils.writeAllLines(generatedDestination, Arrays.asList(level.split("\n")));
+
+                // Save the original level
+                Path originalSource = Paths.get(Settings.ORIGINAL_LEVELS_PATH, compareLevel + ".txt");
+                List<String> originalLevel = Utils.readAllLines(originalSource);
+
+                fileName = originalId + Settings.RESULTS_FILE_EXTENSION;
+                Path originalDestination = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_LEVELS_NAME, fileName);
+                Utils.writeAllLines(originalDestination, originalLevel);
+            }
+
+            // MarioResult result = game.runGame(new agents.human.Agent(), level, 120, 0, true, 30, 3);
+            MarioResult result = game.runGame(new agents.robinBaumgarten.Agent(), level, 120, 0, true, 30, 3);
+
+        } else if (Settings.LAUNCH_MODE == LaunchMode.Playtest) {
             
-            DataPlaytest.saveResult(seed, game.runGame(new agents.human.Agent(), level, 120, 0, true, 30, 3));
+            int testerId = 0;
+            String levelId = "1A"; // "1A", "1B", "2A", ...
+
+            Path loadPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_LEVELS_NAME, levelId + ".txt");
+            String level = getLevel(loadPath.toString());
+
+
+            MarioResult result = game.runGame(new agents.human.Agent(), level, 120, 0, true, 30, 3);
+            DataPlaytest.saveResult(testerId, levelId, result);
 
         }
     }
