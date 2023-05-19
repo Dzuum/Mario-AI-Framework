@@ -3,10 +3,10 @@
 Please rate the following on a scale from 1 to 5 (1 = don't play, 3 = average, 5 = very skilled)
 
 How would you rate your skill in playing video games?
-> 
+> 4
 
 How would you rate your skill in 2D platformer games?
-> 
+> 4
 
 
   Instructions
