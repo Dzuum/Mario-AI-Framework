@@ -149,7 +149,25 @@ public class PlayLevel {
             }
 
             // MarioResult result = game.runGame(new agents.human.Agent(), level, 120, 0, true, 30, 3);
-            MarioResult result = game.runGame(new agents.robinBaumgarten.Agent(), level, 120, 0, true, 30, 3);
+            // MarioResult result = game.runGame(new agents.robinBaumgarten.Agent(), level, 120, 0, true, 30, 3);
+
+        } else if (Settings.LAUNCH_MODE == LaunchMode.Practice) {
+
+            int testerId = 0;
+            String levelId = Settings.PLAYTEST_PRACTICE_LEVEL_FILE;
+
+            Path loadPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_LEVELS_FOLDER, levelId + ".txt");
+            String level = getLevel(loadPath.toString());
+
+            try {
+                Path path = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_INSTRUCTIONS_FILE + ".txt");
+                File folder = new File(path.toString());
+
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(folder);
+            } catch (Exception ex) { }
+
+            game.runGame(new agents.human.Agent(), level, 600, 0, true, 30, 3);
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.Playtest) {
             

@@ -8,7 +8,8 @@ public class Settings {
     {
         Agent, Player, Results, LevelGenerator,
         ConvertMetricsToFramework, ConvertFrameworkToMetrics,
-        UpdateGeometry, AnalyzePatterns, GeneratePlaytest, Playtest
+        UpdateGeometry, AnalyzePatterns, GeneratePlaytest,
+        Practice, Playtest
     }
 
     public enum TimeScoring { Ticks, Millis }
@@ -31,6 +32,8 @@ public class Settings {
     public static final String PLAYTEST_LEVELS_FOLDER = "levels";
     public static final String PLAYTEST_LOGS_FOLDER = "logs";
     public static final String PLAYTEST_QUESTIONNAIRES_FOLDER = "questionnaire";
+    public static final String PLAYTEST_INSTRUCTIONS_FILE = "Instructions";
+    public static final String PLAYTEST_PRACTICE_LEVEL_FILE = "Practice";
     public static final String PLAYTEST_MARIORESULT_FILE = "_Result";
     public static final String PLAYTEST_ALLINPUTS_FILE = "_AllInputs";
     public static final String PLAYTEST_UNIQUEINPUTS_FILE = "_UniqueInputs";
