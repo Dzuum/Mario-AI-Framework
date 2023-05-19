@@ -1,3 +1,20 @@
+- jar tiedostot
+- playtest läpi et toimii kaik
+  - mitata aika
+- jos ok aika niin ne 3 lisää
+- sitte reference kuvat
+  - mass convert ja mass generate pics
+- ku playtests rdy ja done ni transfer private repoon
+
+
+
+
+
+
+
+
+
+
 [TODO PATTERNS]
 Allowed problems:
 - World 3-1 #4 meibi ongelms
@@ -11,6 +28,112 @@ Poistettu (len < 7 ja anomalyi)
   - Mikä täs oli probleema, auttaisko flagin laskeminen?
 - World 7-1 sama
 - World 8-1 sama
+
+
+JOO ELIKKÄS
+Emt oliko paras et oli nää kolme eri curvea mutta sen puitteissa kirjotella
+Esmes yks tavote oli että toimiiko tää eri curveilla, että tulokset seuraa sitä og tasoa
+Ja sitten vähän yrittää vertailla myös eri tasoparien kesken tuloksia että saisko curven hyvyydestä tietoa
+  Ja jos on ne bonus kentät nii ne tukemaan tuloksia koska ne sentään pelattiin kerralla ja ranked
+
+
+SelectedLevels tiedosto kans läpi ja varmaa kaik muutki txt tiedostot tääl
+Ohjeistus kertoa how did
+Kertoa että PS4 controller jossa button mapping lähellä NES controller
+- Manual: https://www.nintendo.co.jp/clv/manuals/en/pdf/CLV-P-NAAAE.pdf
+Notes about questionnaire
+- Kysymykset kohdistettu siihen mitä tutkitaan
+- Oletus ois että tulee about samantasoisia tuloksia og vs generated
+Notes
+- Testikenttä kaikilla sama
+- Pelattavien kenttien seed valittiin randomilla [1, 100000000]
+- Pelattavien kenttien järjestykset valittiin randomilla
+  - Randomilla ne groupit 1-3 ja sit group sisältä randomilla kumpi eka
+- Kentät testattiin AI:lla että on läpäistävissä
+  - Kourallinen kenttiä oli mitä ei voinu läpäistä niin piti uus seed hommata
+- World 7 ja World 8 excluded koska liian vaikeita
+- Tasojen alkuun generoidaan 6 tileä tyhjää että on tilaa junou muuten voi spawnata suoraan vihuun esmes
+- Analyysiä
+  - Loppuuko kentät usein niihin portaisiin lyk monta hyppyä ni helposti omissa patterneissa?
+  - Esitiedoissa kysyttiin skill koska skill ja challenge liittyy flow
+    - Periaatteessa vois kattoa skill ja challenge ja tuliko flow tilaa (tai enjoymenttiin flow'n sijaan yhistää)
+      - Jotai kuitenki vois flow'sta kertoa potentiaalisesti
+  - Rankingille testejä: https://en.wikipedia.org/wiki/Ranking#Ranking_in_statistics
+  - Tsekata mitä ite kirjottanu esmes challengesta
+    - Esmes challengeen voi liittyä myös enemy count ni se ja input intensity saako yhistettyä difficulty vastauksiin
+- Rand seeds [1, 100000000]
+- Rand järjestys
+- Generointi
+  - Selitykset miks nää kolme otettiin interest curve comparisoneiks
+    - Oliko kutakuinkin niissä sama kui se Schell?
+      - Kaikist kuvat curvet
+    - Huom kuitenki patternit otettii isommasta otannasta
+- Generointi
+  - Selitykset miks nää kolme otettiin interest curve comparisoneiks
+    - Oliko kutakuinkin niissä sama kui se Schell?
+      - Kaikist kuvat curvet
+    - Huom kuitenki patternit otettii isommasta otannasta
+  - huom world 1-6 ne tietyt kentät poislukien patternit mut interest curvet tietyistä
+- Analyysi
+  - Jotenki analysoida että miten joka groupissa arvot eroaa
+    - Eli kaikkien pelaajien World 1-1 tulokset esmes yks group
+    - Eli relative arviointi og vs. generated?
+      - Miten ne random kentät sit tähän kytkeytyy
+    - Vältetään ehkä inconsistencyy mitä subjective ratingis voi olla
+    - Mutta kuitenkin numeroarviointi koska ei tavoite tehä parempaa (?)
+  - Intensity arviointiin ois varmaan pitäny vihut ottaa huomioon koska liikkuvat ja vaatii pelaajalta enempi
+    - Tsek vihumäärät läpi ja tarpeen tullen pisteyttää mitkä vihut on enempi myöhemmin esillä
+      - Lyk jos esmes more challenging kenttii nii selittyykö tällä about 100 % et on enempi vihui tjsp
+  - GMA approach mitä käytettiin ei ota huomioon sitä että jotkin rakenteet riippuvat edellisestä -> impossible kenttiä
+  - 5. ja 6. pattern oli matchei vain 3 ja viel samaa luokkaa molemmat intensityt, siitä johtu että ainaki seed 50298663 tuli kahesti sama peräkkäin
+    - Tsek muutki, laskea suoraan määrä unique kombinaatioita kaikille kolmelle kentälle
+      - Junou riippuu paljon curvesta ja luotujen patternien määrästä
+  - Future research ois hyvä luoda ite patternitki lennosta _jotenki_ että rytmi ja sitä support geometria on erikseen
+valittu interest curve on mitä onn koska shcell ja perustleee hyvin ja world 1-1 joka anecdotally regarded as a good levle on se 
+
+
+
+
+???
+
+10x random numeroita vai enempi
+(17 kenttää tiputettu syistä x)
+(ug kentät tiputettu koska vähä erilaisia ja top reuna ois oudonnäköne emt selitel jotenki)
+  (World 1-2)
+
+eiku nyt otetaan intensity curveja joka se juttu, mutta patternit kaikista kuitenkin
+Opettelu
+og vs generoitu jokaisessa
+World 1-1 : Good
+World 3-2 : Meibi, tasasempi intensiteetin puolesta mutta ei korreloi vaikeuteen välttämättä vaikka vähä input changei koska vihut
+Random
+World 5-2 : Meibi, vähä enempi vaihtelua
+
+World 3-1 : Meibi, vähä enempi vaihtelua
+World 5-1 : Tasasempi, sama idea ku 3-2 mutta käyrät ns paremmat emt
+Random pari?
+
+(World 1-2?)
+World 2-1 : Voi ol vaikea
+World 7-1 : Meibi
+World 8-1 : Voi olla vaikea
+(World 8-2) : Täälläki heittelyboi isossa roolissa mut pienemmäs emt
+World 8-3 : Meibi
+
+4-1 Tiputettu koska se heittelyäiä ois ollu pääroolissa
+^ ehkä myös generoinnista pois?
+4-2 Tiputtaa kans, vähä meh?
+6-1 Tiputettu koska se heittelyäiä ois ollu pääroolissa
+^ ehkä myös generoinnista pois?
+
+
+World 1-1
+(2-1 mut mby vähä vaikea)
+(3-1 onko vaikea)
+(3-2 ois semmone tasapaksu pitkälle mut siinäki tulee se lopun piikki siitä pyramidista joka ei oo vaikea, no chance to die)
+(eikä esmes 4-1 koska siinä se lentotyyppi pääroolissa)
+
+???
 
 
 - INPUTTI EI TOIMI HUMAN AGENT VISSIIN MUTTA ONKO VÄLIÄ
@@ -296,6 +419,9 @@ Generoiduille kentille kaikkea interest curvesta expressive rangeen
 /************************
  ** Graduun kirjotella **
  ************************/
+
+Se kaksvaiheinen generaatio vain pikainen maininta että voi futu reserts mainita et ois hyvä
+Lyk koska sitä ei nyt käytetä
 
 Jos tarpeen nii analyze ne serialized statet mitä playtesteis kerätty
 

@@ -112,17 +112,14 @@ public class PlayLevel {
         } else if (Settings.LAUNCH_MODE == LaunchMode.GeneratePlaytest) {
             
             boolean saveResult = true;
-            String testerId = DataPlaytest.getTesterId();
-            long seed = 87842897;
+            String testerId = "";
+            long seed = 0;
             String compareLevel = "World 1-1";
             // String compareLevel = "World 3-2";
             // String compareLevel = "World 5-2";
 
-            // String generatedId = "1A"; // "1A", "1B", "2A", ...
-            // String originalId = "1B"; // "1A", "1B", "2A", ...
-
-            String generatedId = "1A"; // "1A", "1B", "2A", ...
-            String originalId = "1B"; // "1A", "1B", "2A", ...
+            String originalId =  "1A"; // "1A", "1B", "2A", ...
+            String generatedId = "1B"; // "1A", "1B", "2A", ...
 
             MarioLevelGenerator generator = new custom.IntensityCurveLevelGenerator();
             ((custom.IntensityCurveLevelGenerator)generator).initialize(seed, compareLevel);
@@ -188,7 +185,7 @@ public class PlayLevel {
             MarioResult result = game.runGame(new agents.human.Agent(), level, 120, 0, true, 30, 3);
             DataPlaytest.saveResult(testerId, levelId, result);
 
-            if (result.getGameStatus() == GameStatus.WIN) {
+            if (result.getGameStatus() == GameStatus.WIN && levelId == "1B" || levelId == "2B" || levelId == "3B") {
 
                 try {
                     Path path = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_QUESTIONNAIRES_FOLDER);
