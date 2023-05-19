@@ -97,9 +97,13 @@ public class PlayLevel {
             
         } else if (Settings.LAUNCH_MODE == LaunchMode.ConvertFrameworkToMetrics) {
         
+            // Utils.convertLevelFrameworkToMetrics(
+            //     Settings.CONVERT_FRAMEWORK_SOURCE + Settings.CONVERT_FRAMEWORK_FILE,
+            //     Settings.CONVERT_METRICS_TARGET + Settings.CONVERT_METRICS_FILE);
+
             Utils.convertLevelFrameworkToMetrics(
-                Settings.CONVERT_FRAMEWORK_SOURCE + Settings.CONVERT_FRAMEWORK_FILE,
-                Settings.CONVERT_METRICS_TARGET + Settings.CONVERT_METRICS_FILE);
+                Settings.CONVERT_PLAYTESTS_SOURCE,
+                Settings.CONVERT_PLAYTESTS_TARGET);
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.UpdateGeometry) {
 

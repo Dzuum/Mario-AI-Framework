@@ -109,6 +109,9 @@ public class Settings {
     public static final String CONVERT_FRAMEWORK_TARGET = "levels/custom/framework-converted/";
     public static final String CONVERT_FRAMEWORK_FILE = "World 1-1.txt";
 
+    public static final String CONVERT_PLAYTESTS_SOURCE = "levels/custom/framework-playtests/";
+    public static final String CONVERT_PLAYTESTS_TARGET = "levels/custom/metrics-playtests/";
+
     // #endregion
 
     // #region Files -- Input Analysis

@@ -100,39 +100,83 @@ public class Utils {
     }
     
     public static void convertLevelFrameworkToMetrics(String source, String target) {
-        List<String> sourceLines = readAllLines(Paths.get(source));
-        List<String> newLines = new ArrayList<String>();
+        Path sourcePath = Paths.get(source);
+        File sourceFile = new File(source.toString());
 
-        for (int lineIdx = 0; lineIdx < sourceLines.size(); lineIdx++) {
-            String sourceLine = sourceLines.get(lineIdx);
-            String newLine = "";
+        if (sourceFile.isDirectory()) {
+            File[] directoryListing = sourceFile.listFiles();
+    
+            for (File file : directoryListing) {
+                List<String> sourceLines = readAllLines(file.toPath());
+                List<String> newLines = new ArrayList<String>();
+    
+                for (int lineIdx = 0; lineIdx < sourceLines.size(); lineIdx++) {
+                    String sourceLine = sourceLines.get(lineIdx);
+                    String newLine = "";
+    
+                    for (int charIdx = 0; charIdx < sourceLine.length(); charIdx++) {
+                        String character = String.valueOf(sourceLine.charAt(charIdx));
+                        boolean foundConversion = false;
+    
+                        for (int i = 0; i < conversionMap.length; i++) {
+                            String from = conversionMap[i][1];
+                            String to = conversionMap[i][0];
+    
+                            if (from.equals(character)) {
+                                newLine += to;
+                                foundConversion = true;
+                                break;
+                            }
+                        }
+    
+                        if (!foundConversion) {
+                            System.out.println("ERROR: Didn't find match for character '" + character + "'");
+                        }
+                    }
+    
+                    newLines.add(newLine);
+                }
+    
+                newLines.add(0, "HEIGHT=" + newLines.size() + ";WIDTH=" + sourceLines.get(0).length() + ";");
 
-            for (int charIdx = 0; charIdx < sourceLine.length(); charIdx++) {
-                String character = String.valueOf(sourceLine.charAt(charIdx));
-                boolean foundConversion = false;
+                writeAllLines(Paths.get(target + file.getName()), newLines);
+            }
 
-                for (int i = 0; i < conversionMap.length; i++) {
-                    String from = conversionMap[i][1];
-                    String to = conversionMap[i][0];
+        } else {
+            List<String> sourceLines = readAllLines(sourcePath);
+            List<String> newLines = new ArrayList<String>();
 
-                    if (from.equals(character)) {
-                        newLine += to;
-                        foundConversion = true;
-                        break;
+            for (int lineIdx = 0; lineIdx < sourceLines.size(); lineIdx++) {
+                String sourceLine = sourceLines.get(lineIdx);
+                String newLine = "";
+
+                for (int charIdx = 0; charIdx < sourceLine.length(); charIdx++) {
+                    String character = String.valueOf(sourceLine.charAt(charIdx));
+                    boolean foundConversion = false;
+
+                    for (int i = 0; i < conversionMap.length; i++) {
+                        String from = conversionMap[i][1];
+                        String to = conversionMap[i][0];
+
+                        if (from.equals(character)) {
+                            newLine += to;
+                            foundConversion = true;
+                            break;
+                        }
+                    }
+
+                    if (!foundConversion) {
+                        System.out.println("ERROR: Didn't find match for character '" + character + "'");
                     }
                 }
 
-                if (!foundConversion) {
-                    System.out.println("ERROR: Didn't find match for character '" + character + "'");
-                }
+                newLines.add(newLine);
             }
 
-            newLines.add(newLine);
+            newLines.add(0, "HEIGHT=" + newLines.size() + ";WIDTH=" + sourceLines.get(0).length() + ";");
+
+            writeAllLines(Paths.get(target), newLines);
         }
-
-        newLines.add(0, "HEIGHT=" + newLines.size() + ";WIDTH=" + sourceLines.get(0).length() + ";");
-
-        writeAllLines(Paths.get(target), newLines);
     }
 
     public static void serializeStates(String levelName, List<State> states) {
