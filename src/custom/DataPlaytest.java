@@ -15,8 +15,8 @@ import engine.helper.MarioActions;
 
 public class DataPlaytest {
 
-    public static void saveResult(int testerId, String levelId, MarioResult result) {
-        Path folderPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_LOGS_FOLDER, levelId);
+    public static void saveResult(String testerId, String levelId, MarioResult result) {
+        Path folderPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, testerId, Settings.PLAYTEST_LOGS_FOLDER, levelId);
 
         try {
             if (!Files.exists(folderPath.getParent())) {
@@ -162,4 +162,10 @@ public class DataPlaytest {
             }
         }
     }
+
+    public static String getTesterId() {
+        Path path = Paths.get("[ID]" + ".txt");
+        List<String> lines = Utils.readAllLines(path);
+        return lines.get(0);
+    } 
 }

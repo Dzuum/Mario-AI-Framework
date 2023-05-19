@@ -112,11 +112,14 @@ public class PlayLevel {
         } else if (Settings.LAUNCH_MODE == LaunchMode.GeneratePlaytest) {
             
             boolean saveResult = true;
-            int testerId = 0;
+            String testerId = DataPlaytest.getTesterId();
             long seed = 87842897;
             String compareLevel = "World 1-1";
             // String compareLevel = "World 3-2";
             // String compareLevel = "World 5-2";
+
+            // String generatedId = "1A"; // "1A", "1B", "2A", ...
+            // String originalId = "1B"; // "1A", "1B", "2A", ...
 
             String generatedId = "1A"; // "1A", "1B", "2A", ...
             String originalId = "1B"; // "1A", "1B", "2A", ...
@@ -136,7 +139,7 @@ public class PlayLevel {
 
                 // Save the generated level
                 String fileName = generatedId + Settings.RESULTS_FILE_EXTENSION;
-                Path generatedDestination = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_LEVELS_FOLDER, fileName);
+                Path generatedDestination = Paths.get(Settings.PLAYTEST_FOLDER_NAME, testerId, Settings.PLAYTEST_LEVELS_FOLDER, fileName);
                 Utils.writeAllLines(generatedDestination, Arrays.asList(level.split("\n")));
 
                 // Save the original level
@@ -144,7 +147,7 @@ public class PlayLevel {
                 List<String> originalLevel = Utils.readAllLines(originalSource);
 
                 fileName = originalId + Settings.RESULTS_FILE_EXTENSION;
-                Path originalDestination = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_LEVELS_FOLDER, fileName);
+                Path originalDestination = Paths.get(Settings.PLAYTEST_FOLDER_NAME, testerId, Settings.PLAYTEST_LEVELS_FOLDER, fileName);
                 Utils.writeAllLines(originalDestination, originalLevel);
             }
 
@@ -153,14 +156,14 @@ public class PlayLevel {
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.Practice) {
 
-            int testerId = 0;
+            String testerId = DataPlaytest.getTesterId();
             String levelId = Settings.PLAYTEST_PRACTICE_LEVEL_FILE;
 
-            Path loadPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_LEVELS_FOLDER, levelId + ".txt");
+            Path loadPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, testerId, Settings.PLAYTEST_LEVELS_FOLDER, levelId + ".txt");
             String level = getLevel(loadPath.toString());
 
             try {
-                Path path = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_INSTRUCTIONS_FILE + ".txt");
+                Path path = Paths.get(Settings.PLAYTEST_FOLDER_NAME, testerId, Settings.PLAYTEST_INSTRUCTIONS_FILE + ".txt");
                 File folder = new File(path.toString());
 
                 Desktop desktop = Desktop.getDesktop();
@@ -171,7 +174,7 @@ public class PlayLevel {
 
         } else if (Settings.LAUNCH_MODE == LaunchMode.Playtest) {
             
-            int testerId = 0;
+            String testerId = DataPlaytest.getTesterId();
             String levelId = "1A";
             // String levelId = "1B";
             // String levelId = "2A";
@@ -179,7 +182,7 @@ public class PlayLevel {
             // String levelId = "3A";
             // String levelId = "3B";
 
-            Path loadPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, String.valueOf(testerId), Settings.PLAYTEST_LEVELS_FOLDER, levelId + ".txt");
+            Path loadPath = Paths.get(Settings.PLAYTEST_FOLDER_NAME, testerId, Settings.PLAYTEST_LEVELS_FOLDER, levelId + ".txt");
             String level = getLevel(loadPath.toString());
 
             MarioResult result = game.runGame(new agents.human.Agent(), level, 120, 0, true, 30, 3);
