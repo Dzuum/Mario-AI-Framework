@@ -1,0 +1,48 @@
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:
+11:
+12:
+13:
+14:
+15:
+16:
+17: Right Speed
+18: Right Speed
+19: Right Speed
+20: Right Speed
+21: Right Speed
+22: Right Speed
+23: Right Speed
+24: Right Speed
+25: Right Speed
+26: Right Speed
+27: Right Speed
+28: Right Speed
+29: Right Speed
+30: Right Speed Jump
+31: Right Speed Jump
+32: Right Speed Jump
+33: Right Speed Jump
+34: Right Speed Jump
+35: Right Speed Jump
+36: Right Speed Jump
+37: Speed
+38: Speed
+39: Speed
+40: Speed
+41: Speed
+42: Speed
+43: Right Speed
+44: Right Speed
+45: Right Speed
+46: Right Speed Jump
+47: Right Speed Jump
+48: Right Speed Jump
+49: Right Speed Jump

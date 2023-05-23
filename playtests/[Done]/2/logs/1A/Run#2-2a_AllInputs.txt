@@ -1,0 +1,213 @@
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:
+11:
+12:
+13:
+14:
+15:
+16:
+17:
+18:
+19:
+20:
+21: Right
+22: Right
+23: Right
+24: Right
+25: Right
+26: Right
+27: Right
+28: Right
+29: Right
+30: Right
+31: Right
+32: Right
+33: Right
+34: Right
+35: Right
+36: Right
+37: Right
+38: Right
+39: Right
+40: Right
+41: Right
+42: Right
+43: Right
+44: Right
+45: Right
+46: Right
+47: Right
+48: Right
+49: Right
+50: Right
+51: Right
+52: Right
+53: Right
+54: Right
+55: Right
+56: Right
+57: Right
+58: Right
+59: Right
+60: Right
+61: Right
+62: Right
+63: Right
+64: Right
+65:
+66:
+67:
+68:
+69:
+70:
+71:
+72:
+73:
+74:
+75: Jump
+76: Jump
+77: Jump
+78:
+79:
+80:
+81:
+82:
+83:
+84:
+85:
+86:
+87:
+88:
+89:
+90:
+91:
+92:
+93:
+94:
+95: Jump
+96: Jump
+97: Jump
+98: Jump
+99: Right Jump
+100: Right Jump
+101: Right
+102: Right
+103:
+104:
+105:
+106:
+107:
+108:
+109:
+110:
+111:
+112:
+113:
+114:
+115:
+116:
+117:
+118:
+119:
+120:
+121:
+122: Right Jump
+123: Right Jump
+124: Right Jump
+125: Right Jump
+126: Right Jump
+127: Right Jump
+128: Right Jump
+129: Right Jump
+130: Right Jump
+131: Right Jump
+132: Right Jump
+133: Right Jump
+134: Right Jump
+135: Right Jump
+136: Right Jump
+137: Right Jump
+138: Right Jump
+139: Right Jump
+140: Right
+141: Right
+142: Right
+143: Right
+144: Right
+145: Right
+146: Right
+147: Right
+148: Right
+149: Right
+150: Right
+151: Right
+152: Right
+153: Right
+154: Right
+155: Right
+156: Right
+157: Right
+158: Right
+159: Right
+160: Right
+161: Right
+162: Right
+163: Right
+164: Right
+165: Right
+166: Right
+167: Right
+168: Right
+169: Right
+170: Right
+171: Right
+172: Right
+173: Right
+174: Right
+175: Right
+176: Right
+177: Right
+178: Right
+179: Right
+180: Right
+181: Right
+182: Right
+183: Right
+184: Right
+185: Right
+186: Right
+187: Right
+188: Right
+189: Right
+190: Right
+191: Right
+192: Right
+193: Right
+194: Right
+195: Right
+196: Right
+197: Right Jump
+198: Jump
+199: Jump
+200: Jump
+201:
+202:
+203:
+204:
+205:
+206:
+207:
+208:
+209:
+210:
+211:
+212:
+213:
+214: Jump

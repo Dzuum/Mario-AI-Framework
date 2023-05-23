@@ -1,0 +1,20 @@
+Game Status: LOSE
+  Percentage Completion: 0.73672754
+  Lives: 0
+  Coins: 11
+  Remaining Time: 57
+  Times Hurt: 0
+Mario State: 1
+  Mushrooms Collected: 10
+  Fire Flowers Collected: 0
+Total Kills: 7
+  Stomps: 2
+  Fireballs: 0
+  Shells: 0
+  Falls: 5
+Bricks Destroyed: 0
+  Brick Bumps: 0
+  Question Block Bumps: 7
+Jumps: 32
+  Max X Jump: 85.10913
+  Max Air Time: 29

@@ -1,0 +1,28 @@
+  Preliminary info
+
+Please rate the following on a scale from 1 to 5 (1 = don't play, 3 = average, 5 = very skilled)
+
+How would you rate your skill in playing video games?
+> 5
+
+How would you rate your skill in 2D platformer games?
+> 3
+
+
+  Instructions
+
+The main goal is to just complete presented the levels.
+Please use this first level to get familiar with the controls; it's not necessary to complete this level.
+
+Controls
+- Move with D-pad
+- Jump with X
+  - Hold down to jump higher
+- Run with Square
+  - Jump while running to jump a longer distance
+
+Enemies
+- Evade enemies or jump on top to defeat them
+  - Enemies with spikes on their backs cannot be defeated
+  - Turtles withdraw inside their shells and can be launched by jumping on top of them again
+- Some pipes have a piranha plant inside them that cannot be defeated

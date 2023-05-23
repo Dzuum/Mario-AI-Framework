@@ -1,0 +1,39 @@
+Rate the attributes below for both levels on a scale from 1 (least) to 5 (most).
+Please use the adjacent screenshots to help remember the levels played.
+
+
+  First level (A)
+
+A-1. Fun
+> 3
+
+A-2. Challenge
+>2 
+
+A-3. Novelty (how interesting the level was)
+> 3
+
+A-4. Pacing (how interesting was the pacing of the obstacles and enemies)
+> 4
+
+
+  Second level (B)
+
+B-1. Fun
+> 3
+
+B-2. Challenge
+> 4
+
+B-3. Novelty (how interesting the level was)
+> 4
+
+B-4. Pacing (how interesting was the pacing of the obstacles and enemies)
+> 2
+
+
+  Both levels
+
+Finally, think about both of the levels.
+How similar to each other did it feel to play them on a scale from 1 (not at all) to 5 (almost identical)?
+> 2

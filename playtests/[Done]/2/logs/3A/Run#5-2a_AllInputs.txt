@@ -1,0 +1,107 @@
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:
+11:
+12:
+13:
+14:
+15:
+16:
+17:
+18:
+19:
+20:
+21:
+22:
+23:
+24:
+25:
+26:
+27:
+28:
+29:
+30:
+31:
+32:
+33:
+34:
+35:
+36:
+37:
+38:
+39:
+40:
+41:
+42:
+43:
+44:
+45:
+46: Right
+47: Right
+48: Right
+49: Right
+50: Right
+51: Right
+52: Right
+53: Right
+54: Right
+55: Right
+56: Right
+57: Right
+58: Right
+59: Right
+60: Right
+61: Right
+62: Right
+63: Right
+64: Right
+65: Right
+66: Right
+67: Right
+68: Right
+69: Right
+70: Right
+71: Right
+72: Right
+73: Right
+74: Right
+75: Right
+76: Right
+77: Right
+78: Right
+79: Right
+80: Right
+81: Right
+82: Right
+83: Right
+84: Right
+85: Right
+86: Right
+87: Right
+88: Right
+89: Right Jump
+90: Right Jump
+91: Right Jump
+92: Right Jump
+93: Right Jump
+94: Right Jump
+95: Right
+96: Right
+97: Right
+98: Right
+99: Right
+100: Right
+101: Right
+102: Right
+103: Right Jump
+104: Right Jump
+105: Right Jump
+106: Right
+107: Right
+108:
