@@ -140,6 +140,8 @@ public class Utils {
                 newLines.add(0, "HEIGHT=" + newLines.size() + ";WIDTH=" + sourceLines.get(0).length() + ";");
 
                 writeAllLines(Paths.get(target + file.getName()), newLines);
+
+                System.out.println("Converted " + file.getName());
             }
 
         } else {

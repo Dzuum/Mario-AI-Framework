@@ -200,6 +200,45 @@ public class PlayLevel {
                 } catch (Exception ex) { }
             }
 
+        } else if (Settings.LAUNCH_MODE == LaunchMode.Metrics) {
+
+            int count = 1000;
+            String compareLevel = "World 1-1";
+            // String compareLevel = "World 3-2";
+            // String compareLevel = "World 5-2";
+
+            String basePath = "C:\\Users\\Dzuum\\Desktop\\Mario-AI-Framework\\platform-level-metrics\\levels\\";
+            String folder = "custom-w1-1-original";
+
+            MarioLevelGenerator generator = new custom.IntensityCurveLevelGenerator();
+
+            for (int i = 0; i < count; i++) {
+                ((custom.IntensityCurveLevelGenerator)generator).initialize(i, compareLevel);
+                String level = generator.getGeneratedLevel(new MarioLevelModel(1, 1), new MarioTimer(5 * 60 * 60 * 1000));
+
+                // Save the generated level
+                String fileName = i + Settings.RESULTS_FILE_EXTENSION;
+                Path generatedDestination = Paths.get(basePath, folder, fileName);
+                Utils.writeAllLines(generatedDestination, Arrays.asList(level.split("\n")));
+
+                System.out.println("Created #" + i);
+            }
+
+        } else if (Settings.LAUNCH_MODE == LaunchMode.ConvertMetrics) {
+
+            String basePath = "C:\\Users\\Dzuum\\Desktop\\Mario-AI-Framework\\platform-level-metrics\\levels\\";
+
+            String sourceFolder = "custom-w1-1-original\\";
+            String destinationFolder = "custom-w1-1\\";
+
+            // String sourceFolder = "custom-w3-2-original\\";
+            // String destinationFolder = "custom-w3-2\\";
+
+            // String sourceFolder = "custom-w5-2-original\\";
+            // String destinationFolder = "custom-w5-2\\";
+
+            Utils.convertLevelFrameworkToMetrics(basePath + sourceFolder, basePath + destinationFolder);
+
         }
     }
 }

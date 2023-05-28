@@ -9,7 +9,7 @@ public class Settings {
         Agent, Player, Results, LevelGenerator,
         ConvertMetricsToFramework, ConvertFrameworkToMetrics,
         UpdateGeometry, AnalyzePatterns, GeneratePlaytest,
-        Practice, Playtest
+        Practice, Playtest, Metrics, ConvertMetrics
     }
 
     public enum TimeScoring { Ticks, Millis }
