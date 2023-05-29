@@ -16,6 +16,11 @@ public class LevelGenerator implements MarioLevelGenerator {
     private long seed = 1337;
     private Random rand = new Random(seed);
 
+    public void initialize(long seed) {
+        this.seed = seed;
+        rand = new Random(this.seed);
+    }
+
     @Override
     public String getGeneratedLevel(MarioLevelModel model, MarioTimer timer) {
         // Create big enough level to hold all possible levels
