@@ -1,1 +1,25 @@
 Loppuportaita puuttui generoiduissa niin ei saanu max points
+
+
+kommentteihin
+joissain kentissä outoi loppui, ei oo ramppia (pari kertaa)
+-> generoituja kenttiä
+-> eräs pelaaja halus "max points" vaikkei framework scorettanu mutta tiesi miten peli toimi entuudestaan
+--> eli hyppy mahd korkealle mut harmitta kun peli ei antanu
+
+8 oisko #2 kommentti että toinen tuntu paljon pidemmältä
+-> testeis hyvä myös tile count mukana?
+
+7: (1B) outoa kun sama osio tason alus ja keskel
+ehk myös ylemmät pituus concerns
+
+couple players were noted play with the run button held down as much as possible
+this seemed to result in more deaths than slower play would have since the speed at which the character moves while running and the amount of level shown in Super Mario Bros at once sometimes makes required reaction time to obstacles and enemies very short
+
+HUOM mainita että free comment alsoa
+TAI ENNEMMIN
+some observations were gathered from players' comments during play and afterwards emt joo
+
+some players got frustrated from multiple deaths
+these occurred even in the original levels
+jätettiin kesken mutta pelaajat pääs yli puolen välin
