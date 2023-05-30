@@ -1,0 +1,382 @@
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:
+11:
+12:
+13:
+14:
+15:
+16:
+17:
+18:
+19:
+20:
+21:
+22: Right
+23: Right
+24: Right
+25: Right
+26: Right
+27: Right
+28: Right
+29: Right
+30: Right Speed
+31: Right Speed
+32: Right Speed
+33: Right Speed
+34: Right Speed
+35: Right Speed
+36: Right Speed
+37: Right Speed
+38: Right Speed
+39: Right Speed
+40: Right Speed
+41: Right Speed
+42: Right
+43: Right
+44: Right
+45: Right
+46: Right
+47: Right Jump
+48: Right
+49: Right
+50: Right
+51: Right
+52: Right
+53: Right
+54: Right
+55: Right
+56: Right
+57: Right
+58: Right
+59: Right
+60: Right
+61: Right Jump
+62: Right Jump
+63: Right Jump
+64: Right
+65: Right
+66: Right
+67: Right
+68: Right
+69: Right
+70: Right
+71: Right
+72: Right
+73: Right
+74: Right
+75: Right
+76: Right
+77: Right
+78: Right
+79: Right
+80: Right
+81:
+82:
+83:
+84:
+85:
+86:
+87:
+88:
+89:
+90:
+91:
+92:
+93: Jump
+94: Right Jump
+95: Right
+96: Right
+97: Right
+98: Right
+99: Right
+100: Right
+101: Right
+102: Right
+103: Right
+104: Right
+105: Right
+106: Right
+107: Right
+108: Right
+109:
+110:
+111:
+112:
+113:
+114:
+115:
+116:
+117: Right
+118: Right Jump
+119: Right Jump
+120: Right Jump
+121: Right
+122: Right
+123: Right
+124: Right
+125: Right
+126: Right
+127: Right
+128: Right
+129: Right
+130: Right Jump
+131: Right Jump
+132: Right Jump
+133: Right Jump
+134: Right Jump
+135: Right Jump
+136: Right Jump
+137: Right Jump
+138: Right Jump
+139: Right Jump
+140: Right Jump
+141: Right
+142: Right
+143: Right
+144: Right
+145: Right
+146: Right
+147: Right
+148: Right
+149: Right
+150: Right
+151: Right
+152: Right
+153: Right
+154: Right
+155: Right
+156: Right
+157: Right
+158: Right
+159: Right
+160: Right
+161: Right
+162: Right
+163: Right
+164: Right
+165: Right Jump
+166: Right Jump
+167: Right Jump
+168: Right Jump
+169: Right Jump
+170: Right Jump
+171: Right Jump
+172: Right Jump
+173: Right Jump
+174: Right Jump
+175: Right Jump
+176: Right Jump
+177: Right Jump
+178: Right
+179: Right
+180: Right
+181: Right
+182: Right
+183: Right
+184: Right
+185: Right
+186: Right
+187: Right
+188: Right
+189: Right
+190: Right
+191: Right
+192: Right
+193: Right
+194: Right
+195: Right
+196: Right
+197: Right
+198: Right
+199:
+200:
+201:
+202:
+203: Left
+204: Left
+205: Left
+206: Left
+207:
+208:
+209: Right
+210: Right
+211: Right
+212: Right
+213: Right
+214: Right
+215: Right
+216: Right
+217: Right
+218: Right
+219: Right
+220: Right
+221: Right
+222: Right
+223: Right
+224: Right
+225: Right
+226: Right
+227: Right
+228: Right
+229: Right
+230: Right
+231: Right
+232: Right
+233: Right
+234: Right
+235: Right
+236: Right
+237: Right
+238: Right
+239: Right
+240: Right Jump
+241: Right Jump
+242: Right Jump
+243: Right Jump
+244: Right
+245: Right
+246: Right
+247: Right
+248: Right
+249: Right
+250: Right
+251: Right
+252: Right Jump
+253: Right Jump
+254: Right Jump
+255: Right Jump
+256: Right
+257: Right
+258: Right
+259: Right
+260: Right
+261: Right
+262: Right
+263: Right
+264: Right
+265: Right
+266: Right
+267: Right
+268: Right
+269: Right
+270: Right
+271: Right
+272: Right
+273: Right
+274: Right
+275: Right
+276: Right
+277: Right
+278: Right
+279: Right
+280: Right
+281: Right
+282: Right
+283: Right Jump
+284: Right Jump
+285: Right Jump
+286: Right Jump
+287: Right Jump
+288: Right
+289: Right
+290: Right
+291: Right
+292: Right
+293: Right
+294: Right
+295: Right
+296:
+297:
+298:
+299:
+300:
+301:
+302: Left
+303: Left
+304: Left
+305: Left
+306: Left
+307: Left
+308:
+309:
+310:
+311:
+312: Right
+313: Right Jump
+314: Right Jump
+315: Right Jump
+316: Right Jump
+317: Right Jump
+318: Right Jump
+319: Right Jump
+320: Right Jump
+321: Right Jump
+322: Right Jump
+323: Right Jump
+324: Right Jump
+325: Right Jump
+326: Right Jump
+327: Right
+328: Right
+329: Right
+330: Right
+331: Right
+332: Right
+333: Right
+334: Right
+335: Right
+336: Right
+337: Right Jump
+338: Right Jump
+339: Right Jump
+340: Right Jump
+341: Right Jump
+342: Right
+343:
+344:
+345:
+346:
+347:
+348:
+349:
+350:
+351:
+352:
+353:
+354:
+355:
+356: Jump
+357: Jump
+358: Jump
+359: Jump
+360: Jump
+361:
+362: Right
+363: Right
+364: Right
+365: Right
+366: Right
+367: Right
+368: Right
+369: Right Jump
+370: Right Jump
+371: Right Jump
+372: Right Jump
+373: Right Jump
+374: Right Jump
+375: Right Jump
+376: Right Jump
+377: Right Jump
+378: Right Jump
+379: Right Jump
+380: Right
+381:
+382:
+383:

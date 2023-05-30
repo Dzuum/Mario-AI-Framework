@@ -1,0 +1,5 @@
+#0: 0.0 ( null ) ( Small    Duration: 1252 ms | 39 ticks )
+#1: 39.0 ( 0.06  0.00  0.00  0.00  15.21 ) ( Right Small    Duration: 67 ms | 3 ticks )
+#2: 4.0 ( 0.06  0.00  0.00  0.00  0.09 ) ( Small    Duration: 331 ms | 11 ticks )
+#3: 12.0 ( 0.00  0.00  0.00  0.25  1.21 ) ( Small Airborne    Duration: 395 ms | 13 ticks )
+#4: 14.0 ( 0.00  0.00  0.00  0.25  1.69 ) ( Small    Duration: 34 ms | 2 ticks )

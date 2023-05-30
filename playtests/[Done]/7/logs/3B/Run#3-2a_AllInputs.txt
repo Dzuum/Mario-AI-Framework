@@ -1,0 +1,1748 @@
+2:
+3:
+4:
+5:
+6:
+7:
+8:
+9:
+10:
+11:
+12:
+13:
+14:
+15:
+16:
+17:
+18:
+19:
+20:
+21: Right
+22: Right
+23: Right
+24: Right
+25: Right
+26: Right Speed
+27: Right Speed
+28: Right Speed
+29: Right Speed
+30: Right Speed
+31: Right Speed
+32: Right Speed
+33: Right Speed Jump
+34: Right Speed Jump
+35: Right Speed Jump
+36: Right Speed Jump
+37: Right Speed Jump
+38: Right Speed Jump
+39: Right Speed Jump
+40: Right Speed Jump
+41: Right Speed Jump
+42: Right Speed Jump
+43: Right Speed Jump
+44: Right Speed Jump
+45: Right Speed Jump
+46: Right Speed Jump
+47: Right Speed Jump
+48: Right Speed
+49: Right
+50: Right
+51: Right
+52: Right
+53: Right
+54: Right
+55: Right
+56: Right
+57: Right
+58: Right
+59: Right
+60: Right
+61: Right
+62: Right
+63:
+64:
+65:
+66:
+67:
+68:
+69:
+70:
+71:
+72:
+73:
+74:
+75:
+76:
+77:
+78:
+79:
+80:
+81:
+82:
+83: Jump
+84: Jump
+85:
+86:
+87:
+88:
+89:
+90:
+91:
+92:
+93:
+94:
+95:
+96:
+97:
+98:
+99:
+100:
+101:
+102:
+103:
+104:
+105:
+106:
+107: Jump
+108: Jump
+109: Left Jump
+110: Left Jump
+111: Left Jump
+112: Left Jump
+113: Left Jump
+114: Jump
+115:
+116:
+117:
+118:
+119: Right Jump
+120: Right Jump
+121: Right Jump
+122: Right Jump
+123: Right Jump
+124: Right Jump
+125: Right Jump
+126: Right Jump
+127: Right
+128: Right
+129: Right
+130: Right Jump
+131: Right Jump
+132: Right Jump
+133: Right Jump
+134: Right
+135:
+136:
+137:
+138:
+139:
+140:
+141:
+142:
+143:
+144:
+145:
+146:
+147:
+148:
+149:
+150:
+151:
+152:
+153:
+154:
+155:
+156:
+157:
+158:
+159:
+160:
+161:
+162:
+163:
+164:
+165:
+166:
+167:
+168:
+169:
+170:
+171:
+172:
+173:
+174:
+175:
+176:
+177: Jump
+178: Jump
+179: Jump
+180: Left Jump
+181: Left Jump
+182: Left Jump
+183: Left Jump
+184: Left Jump
+185:
+186:
+187:
+188:
+189:
+190: Right
+191: Right
+192: Right
+193: Right Jump
+194: Right Jump
+195: Right Jump
+196: Right Jump
+197: Right Jump
+198: Right Jump
+199: Right Jump
+200: Right Jump
+201: Right
+202: Right
+203: Right
+204: Right
+205: Right
+206: Right
+207: Right
+208: Right Jump
+209: Right Jump
+210: Right Jump
+211: Right Jump
+212: Right
+213: Right
+214: Right
+215: Right
+216: Right
+217: Right
+218:
+219:
+220:
+221:
+222:
+223: Right
+224: Right
+225: Right
+226: Right
+227: Right
+228: Right
+229: Right
+230: Right
+231: Right
+232: Right Jump
+233: Right Jump
+234: Right Jump
+235: Right Jump
+236: Right Jump
+237: Right Jump
+238: Right Jump
+239: Right Jump
+240: Right Jump
+241: Right Jump
+242: Right Jump
+243: Right Jump
+244: Right
+245: Right
+246:
+247:
+248:
+249:
+250:
+251:
+252: Right
+253: Right
+254: Right
+255: Right
+256: Right
+257: Right
+258: Right
+259: Right
+260: Right
+261: Right
+262: Right
+263: Right
+264:
+265:
+266:
+267:
+268:
+269:
+270:
+271:
+272:
+273:
+274:
+275:
+276:
+277:
+278:
+279:
+280:
+281:
+282:
+283:
+284:
+285:
+286:
+287:
+288:
+289:
+290:
+291:
+292:
+293:
+294:
+295: Jump
+296: Jump
+297: Jump
+298: Jump
+299: Right Jump
+300: Right Jump
+301: Right Jump
+302:
+303:
+304:
+305:
+306:
+307:
+308:
+309:
+310:
+311:
+312:
+313:
+314: Right Jump
+315: Right Jump
+316: Right Jump
+317: Right Jump
+318: Right Jump
+319: Right Jump
+320: Right Jump
+321: Right Jump
+322: Right Jump
+323:
+324:
+325:
+326:
+327:
+328:
+329:
+330:
+331: Right
+332: Right
+333: Right
+334: Right
+335: Right
+336: Right
+337: Right
+338:
+339:
+340:
+341:
+342:
+343:
+344:
+345:
+346:
+347:
+348:
+349:
+350:
+351:
+352:
+353:
+354:
+355:
+356:
+357:
+358:
+359:
+360:
+361:
+362:
+363:
+364:
+365:
+366:
+367:
+368:
+369:
+370:
+371:
+372:
+373:
+374:
+375:
+376:
+377:
+378: Left
+379: Left
+380: Left
+381: Left
+382: Left
+383: Left
+384:
+385:
+386:
+387:
+388:
+389:
+390:
+391: Right
+392: Right
+393: Right
+394: Right
+395: Right
+396: Right
+397: Right
+398: Right
+399: Right
+400: Right
+401: Right
+402: Right
+403: Right
+404: Right
+405: Right
+406: Right
+407: Right
+408: Right
+409: Right
+410: Right
+411: Right
+412: Right
+413: Right
+414: Right
+415: Right
+416:
+417:
+418:
+419:
+420:
+421:
+422:
+423:
+424:
+425:
+426: Jump
+427: Jump
+428: Jump
+429: Jump
+430: Jump
+431:
+432:
+433:
+434:
+435:
+436:
+437:
+438:
+439:
+440: Right
+441: Right
+442: Right
+443: Jump
+444: Jump
+445: Jump
+446: Left Jump
+446: Left Jump
+446: Left Jump
+446: Left Jump
+446: Left Jump
+446: Left
+446: Left
+446: Left
+446: Left
+446: Left
+447: Left
+448: Left
+449: Left
+450:
+451:
+452:
+453:
+454:
+455:
+456:
+457:
+458:
+459:
+460:
+461:
+462:
+463:
+464:
+465: Right
+466: Right
+467: Right
+468: Right
+469: Right Jump
+470: Right Jump
+471: Right Jump
+472: Right Jump
+473: Right Jump
+474: Right Jump
+475: Right Jump
+476: Right Jump
+477: Right Jump
+478: Right Jump
+479: Right Jump
+480: Right Jump
+481: Right Jump
+482: Right Jump
+483: Right Jump
+484: Right Jump
+485: Right
+486: Right
+487: Right Jump
+488: Right Jump
+489: Right Jump
+490: Right Jump
+491: Right Jump
+492: Right Jump
+493: Right Jump
+494: Right Jump
+495: Right Jump
+496: Right Jump
+497: Right Jump
+498: Right
+499: Right
+500:
+501:
+502:
+503:
+504:
+505:
+506:
+507:
+508: Right
+509: Right
+510: Right
+511: Right
+512: Right
+513: Right
+514: Right
+515: Right
+516: Right
+517: Right Jump
+518: Right Jump
+519: Right Jump
+520: Right Jump
+521: Right Jump
+522: Right Jump
+523: Right Jump
+524: Right Jump
+525: Right Jump
+526: Right Jump
+527: Right Jump
+528: Right Jump
+529: Right
+530: Right
+531: Right
+532: Right
+533: Right
+534: Right
+535: Right
+536: Right
+537:
+538:
+539:
+540:
+541:
+542:
+543:
+544:
+545: Right
+546: Right
+547: Right
+548: Right
+549: Right
+550: Right
+551: Right
+552: Right
+553: Right
+554: Right
+555: Right
+556: Right
+557: Right
+558: Right
+559: Right
+560: Right
+561: Right
+562: Right
+563: Right
+564: Right
+565: Right
+566:
+567:
+568:
+569:
+570: Left
+571: Left
+572: Left
+573: Left
+574: Left
+575: Left
+576:
+577:
+578:
+579:
+580:
+581:
+582:
+583:
+584:
+585:
+586:
+587:
+588: Right
+589: Right
+590: Right
+591: Right
+592: Right
+593: Right
+594: Right
+595: Right
+596: Right
+597: Right
+598: Right
+599: Right
+600: Right
+601: Right
+602: Right
+603: Right
+604: Right
+605: Right
+606: Right
+607: Right
+608: Right
+609: Right
+610: Right
+611: Right
+612: Right
+613: Right Jump
+614: Right Jump
+615: Right Jump
+616: Right Jump
+617: Right Jump
+618: Right Jump
+619: Right Jump
+620: Right Jump
+621: Right
+622: Right
+623: Right
+624: Right
+625: Right
+626: Right
+627: Right
+628: Right
+629: Right
+630: Right
+631: Right
+632: Right
+633: Right
+634: Right
+635: Right
+636: Right
+637: Right
+638: Right
+639: Right
+640: Right
+641: Right
+642: Right
+643: Right
+644: Right
+645: Right
+646: Right
+647: Right
+648: Right
+649: Right
+650: Right
+651: Right
+652:
+653:
+654:
+655: Jump
+656: Jump
+657: Jump
+658: Jump
+659:
+660: Right
+661: Right
+662: Right
+663: Right
+664:
+665:
+666:
+667:
+668:
+669:
+670: Left
+671: Left
+672: Left
+673: Left
+674:
+675:
+676:
+677:
+678:
+679:
+680:
+681:
+682:
+683: Right
+684: Right
+685: Right
+686: Right
+687: Right
+688: Right
+689: Right
+690: Right
+691: Right
+692: Right
+693:
+694:
+695:
+696:
+697:
+698:
+699:
+700:
+701:
+702:
+703:
+704:
+705: Left
+706: Left
+707: Left
+708: Left
+709: Left
+710: Left
+711: Left
+712: Left
+713: Left
+714: Left
+715: Left Jump
+716: Left Jump
+717: Left Jump
+718: Left Jump
+719: Left Jump
+720: Left Jump
+721: Left Jump
+722: Left Jump
+723: Jump
+724: Jump
+725: Jump
+726:
+727:
+728: Right
+729: Right
+730: Right
+731: Right
+732: Right Speed
+733: Right Speed
+734: Right Speed Jump
+735: Right Speed Jump
+736: Right Speed Jump
+737: Right Speed Jump
+738: Right Speed Jump
+739: Right Speed Jump
+740: Right Speed Jump
+741: Right Speed Jump
+742: Right Speed Jump
+743: Right Speed Jump
+744: Right Speed Jump
+745: Right Speed Jump
+746: Right Speed Jump
+747: Right Speed Jump
+748: Right Speed Jump
+749: Right Speed
+750: Right
+751: Right
+752: Right Jump
+753: Right Jump
+754: Right Jump
+755: Right Jump
+756: Right Jump
+757: Jump
+758: Jump
+759: Jump
+760:
+761: Left
+762: Left
+763: Left
+764: Left
+765:
+766:
+767:
+768:
+769:
+770: Right
+771: Right
+772: Right
+773: Right
+774: Right
+775: Right
+776: Right
+777: Right
+778: Right
+779: Right
+780: Right
+781: Right Jump
+782: Right Jump
+783: Right Jump
+784: Right Jump
+785: Right Jump
+786: Right Jump
+787: Right Jump
+788: Right Jump
+789: Right
+790: Right
+791: Right
+792: Right
+793: Right
+794: Right
+795: Right
+796: Right
+797: Right
+798: Right
+799: Right
+800: Right
+801: Right
+802: Right
+803: Right
+804: Right
+805:
+806:
+807:
+808: Right
+809: Right
+810: Right
+811: Right
+812: Right
+813: Right
+814: Right
+815: Right
+816: Right
+817: Right
+818: Right
+819: Right
+820:
+821:
+822:
+823:
+824: Left
+825: Left
+826: Left
+827: Left
+828: Left
+829: Left
+830: Left
+831: Left
+832: Left
+833: Left
+834:
+835:
+836:
+837:
+838:
+839: Right
+840: Right
+841: Right
+842: Right Speed Jump
+843: Right Speed Jump
+844: Right Speed Jump
+845: Right Speed Jump
+846: Right Speed Jump
+847: Right Speed Jump
+848: Right Speed Jump
+849: Right Speed Jump
+850: Right Speed Jump
+851: Right Speed
+852: Right
+853: Right
+854: Right
+855: Right
+856: Right
+857: Right
+858: Right
+859: Right
+860: Right
+861: Right
+862: Right
+863: Right Speed Jump
+864: Right Speed Jump
+865: Right Speed Jump
+866: Right Speed Jump
+867: Right Speed Jump
+868: Right Speed Jump
+869: Right Speed Jump
+870: Right Speed Jump
+871: Right Speed Jump
+872: Right Speed Jump
+873: Right Speed Jump
+874: Right Speed Jump
+875: Right Speed Jump
+876: Right Speed Jump
+877: Right Speed Jump
+878: Right
+879:
+880:
+881:
+882: Jump
+883: Jump
+884: Right Jump
+885: Right Jump
+886: Right Jump
+887: Right Jump
+888: Right Jump
+889: Right Jump
+890: Right
+891: Right
+892: Right
+893: Right Jump
+894: Right Jump
+895: Right Jump
+896: Right Jump
+897: Right Jump
+898: Right Jump
+899: Right Jump
+900: Right Jump
+901: Right Jump
+902: Right
+903: Right
+904: Right
+905: Right Jump
+906: Right Jump
+907: Right Jump
+908: Right Jump
+909: Right Jump
+910: Right Jump
+911: Right Jump
+912: Right
+913: Right
+914: Right
+915: Right
+916: Right
+917: Right
+918: Right
+919:
+920:
+921:
+922:
+923: Jump
+924: Jump
+925: Right Jump
+926: Right Jump
+927: Right Jump
+928: Right Jump
+929: Right Jump
+930: Right Jump
+931: Right Jump
+932: Right
+933: Right
+934: Right
+935: Right
+936: Right
+937: Right
+938: Right
+939: Right
+940: Right
+941: Right
+942: Right
+943: Right
+944: Right
+945: Right
+946:
+947:
+948:
+949:
+950:
+951:
+952:
+953:
+954: Right
+955: Right
+956: Right
+957: Right
+958: Right
+959: Right
+960: Right
+961: Right
+962: Right
+963: Right
+964: Right
+965: Right
+966: Right
+967: Right
+968: Right
+969: Right
+970: Right
+971: Right
+972: Right
+973: Right
+974: Right
+975: Jump
+976: Jump
+977: Jump
+978: Jump
+979: Jump
+980:
+981:
+982:
+983:
+984:
+985:
+986:
+987:
+988:
+989:
+990:
+991:
+992:
+993:
+994:
+995:
+996:
+997:
+998:
+999: Right
+1000: Right
+1001: Right
+1002: Right
+1003: Right
+1004: Right
+1005: Right
+1006: Right
+1007: Right
+1008: Right
+1009: Right
+1010: Right
+1011:
+1012:
+1013:
+1014:
+1015:
+1016:
+1017:
+1018:
+1019:
+1020:
+1021:
+1022:
+1023:
+1024:
+1025:
+1026:
+1027:
+1028:
+1029: Left
+1030: Left
+1031: Left
+1032: Left
+1033: Left
+1034: Left
+1035: Left
+1036: Left
+1037:
+1038:
+1039:
+1040:
+1041:
+1042:
+1043:
+1044:
+1045:
+1046:
+1047:
+1048:
+1049: Left
+1050: Left
+1051: Left
+1052: Left Jump
+1053: Left Jump
+1054: Left Jump
+1055: Left Jump
+1056: Left Jump
+1057: Left Jump
+1058: Jump
+1059: Jump
+1060: Jump
+1061: Jump
+1062: Jump
+1063: Jump
+1064: Jump
+1065:
+1066:
+1067:
+1068:
+1069:
+1070:
+1071:
+1072:
+1073:
+1074:
+1075: Right
+1076: Right
+1077: Right
+1078: Right
+1079: Right
+1080:
+1081:
+1082:
+1083:
+1084: Jump
+1085: Jump
+1086: Left Jump
+1087: Left Jump
+1088: Left Jump
+1089: Left Jump
+1090: Left Jump
+1091: Left Jump
+1092: Left Jump
+1093: Left Jump
+1094: Jump
+1095: Jump
+1096:
+1097:
+1098:
+1099:
+1100:
+1101:
+1102:
+1103: Right
+1104: Right Speed
+1105: Right Speed
+1106: Right Speed Jump
+1107: Right Speed Jump
+1108: Right Speed Jump
+1109: Right Speed Jump
+1110: Right Speed Jump
+1111: Right Speed Jump
+1112: Right Speed Jump
+1113: Right Speed Jump
+1114: Right Speed Jump
+1115: Right Speed Jump
+1116: Right Speed Jump
+1117: Right Speed Jump
+1118: Right Speed Jump
+1119: Right Speed Jump
+1120: Right Speed Jump
+1121: Right Speed Jump
+1122: Right
+1123: Right
+1124: Right
+1125: Right
+1126: Right
+1127: Right
+1128: Right
+1129: Right
+1130: Right
+1131: Right
+1132: Right
+1133: Right
+1134: Right
+1135: Right
+1136: Right
+1137: Right
+1138: Right
+1139: Right
+1140: Right
+1141: Right
+1142: Right
+1143: Right
+1144: Right
+1145: Right
+1146: Right
+1147: Right
+1148: Right
+1149: Right
+1150: Right Jump
+1151: Right Jump
+1152: Right Jump
+1153: Right Jump
+1154: Right Jump
+1155: Right
+1156: Right
+1157: Right
+1158: Right
+1159: Right
+1160: Right
+1161: Right
+1162: Right
+1163: Right
+1164: Right
+1165: Right Jump
+1166: Right Jump
+1167: Right Jump
+1168: Right Jump
+1169: Right Jump
+1170: Right
+1171: Right
+1172: Right
+1173: Right
+1174: Right
+1175:
+1176:
+1177:
+1178:
+1179:
+1180:
+1181:
+1182:
+1183:
+1184:
+1185:
+1186:
+1187:
+1188:
+1189:
+1190:
+1191: Left
+1192: Left
+1193: Left
+1194: Left
+1195: Left
+1196: Left
+1197: Left
+1198: Left
+1199: Left
+1200: Left
+1201: Left
+1202: Left
+1203: Left
+1204: Left
+1205: Left
+1206: Left
+1207: Left
+1208: Left
+1209: Left
+1210: Left
+1211: Left
+1212:
+1213:
+1214:
+1215: Left
+1216: Left
+1217: Left
+1218: Left
+1219: Left
+1220: Left
+1221:
+1222:
+1223:
+1224:
+1225:
+1226: Left
+1227: Left
+1227: Left
+1227:
+1227:
+1227:
+1227:
+1227: Right
+1227: Right
+1227: Right
+1227: Right
+1228: Right
+1229: Right
+1230: Right
+1231: Right
+1232: Right
+1233: Right Speed
+1234: Right Speed
+1235: Right Speed
+1236: Right Speed
+1237: Right Speed
+1238: Right Speed
+1239: Right Speed
+1240: Right Speed
+1241: Right Speed
+1242: Right Speed
+1243: Right Speed
+1244: Right
+1245: Right
+1246: Right
+1247: Right Jump
+1248: Right Jump
+1249: Right Jump
+1250: Right Jump
+1251: Right
+1252: Right
+1253:
+1254:
+1255:
+1256:
+1257:
+1258:
+1259:
+1260:
+1261:
+1262:
+1263:
+1264:
+1265:
+1266:
+1267: Left
+1268: Left
+1269: Left
+1270:
+1271:
+1272: Jump
+1273: Jump
+1274: Jump
+1275: Jump
+1276: Jump
+1277: Jump
+1278: Jump
+1279: Jump
+1280:
+1281: Left
+1282: Left
+1283: Left
+1284:
+1285:
+1286:
+1287: Right
+1288: Right
+1289: Right
+1290: Right
+1291: Right
+1292: Right
+1293: Right
+1294: Right
+1295: Right
+1296: Right
+1297: Right
+1298:
+1299:
+1300:
+1301:
+1302: Jump
+1303: Jump
+1304: Right Jump
+1305: Right Jump
+1306: Right Jump
+1307: Right Jump
+1308: Right
+1309: Right
+1310: Right
+1311: Right
+1312: Right
+1313: Right
+1314:
+1315:
+1316:
+1317:
+1318:
+1319: Jump
+1320: Jump
+1321: Jump
+1322: Jump
+1323:
+1324:
+1325:
+1326:
+1327:
+1328: Right
+1329: Right
+1330: Right
+1331: Right
+1332:
+1333:
+1334:
+1335:
+1336:
+1337:
+1338:
+1339: Jump
+1340: Jump
+1341: Jump
+1342: Right Jump
+1343: Right Jump
+1344: Right
+1345:
+1346:
+1347:
+1348:
+1349:
+1350:
+1351:
+1352:
+1353:
+1354:
+1355:
+1356:
+1357:
+1358:
+1359:
+1360:
+1361:
+1362:
+1363:
+1364:
+1365:
+1366:
+1367:
+1368:
+1369:
+1370:
+1371:
+1372:
+1373:
+1374:
+1375:
+1376:
+1377:
+1378:
+1379:
+1380:
+1381:
+1382:
+1383:
+1384:
+1385:
+1386:
+1387:
+1388:
+1389:
+1390:
+1391:
+1392:
+1393:
+1394:
+1395:
+1396:
+1397:
+1398:
+1399:
+1400:
+1401:
+1402:
+1403:
+1404:
+1405:
+1406:
+1407:
+1408:
+1409:
+1410:
+1411:
+1412:
+1413:
+1414:
+1415:
+1416:
+1417:
+1418:
+1419:
+1420:
+1421:
+1422:
+1423:
+1424:
+1425:
+1426:
+1427:
+1428:
+1429:
+1430:
+1431:
+1432:
+1433:
+1434:
+1435:
+1436:
+1437:
+1438:
+1439:
+1440:
+1441:
+1442:
+1443:
+1444:
+1445:
+1446:
+1447:
+1448:
+1449:
+1450:
+1451:
+1452:
+1453:
+1454:
+1455:
+1456:
+1457:
+1458:
+1459:
+1460:
+1461:
+1462:
+1463:
+1464:
+1465:
+1466:
+1467: Right
+1468: Right
+1469: Right
+1470: Right
+1471: Right
+1472: Right Jump
+1473: Right Jump
+1474: Right Jump
+1475: Right Jump
+1476: Right Jump
+1477: Right Jump
+1478: Right Jump
+1479: Right Jump
+1480: Right Jump
+1481: Right Jump
+1482: Right Jump
+1483: Right Jump
+1484: Right
+1485: Right
+1486: Right
+1487: Right Jump
+1488: Right Jump
+1489: Right Jump
+1490: Right Jump
+1491: Right Jump
+1492: Right Jump
+1493: Right Jump
+1494: Right Jump
+1495: Right Jump
+1496: Right Jump
+1497: Right Jump
+1498: Jump
+1499: Jump
+1500:
+1501:
+1502:
+1503:
+1504:
+1505:
+1506:
+1507:
+1508:
+1509:
+1510:
+1511:
+1512: Left
+1513: Left
+1514:
+1515:
+1516:
+1517:
+1518:
+1519:
+1520:
+1521:
+1522:
+1523:
+1524:
+1525:
+1526:
+1527: Right
+1528: Right
+1529: Right Jump
+1530: Right Jump
+1531: Right Jump
+1532: Right Jump
+1533: Right Jump
+1534: Right Jump
+1535: Right Jump
+1536: Right Jump
+1537: Right Jump
+1538: Right
+1539:
+1540:
+1541:
+1542:
+1543:
+1544:
+1545:
+1546:
+1547:
+1548:
+1549:
+1550:
+1551:
+1552:
+1553:
+1554:
+1555:
+1556:
+1557:
+1558:
+1559:
+1560:
+1561:
+1562:
+1563:
+1564:
+1565:
+1566: Right
+1567: Right Jump
+1568: Right Jump
+1569: Right Jump
+1570: Right Jump
+1571: Right Jump
+1572: Right Jump
+1573: Right Jump
+1574: Right Jump
+1575: Right Jump
+1576: Right Jump
+1577: Right Jump
+1578: Right Jump
+1579:
+1580:
+1581:
+1582:
+1583:
+1584:
+1585:
+1586: Left
+1587: Left
+1588: Left
+1589:
+1590:
+1591:
+1592:
+1593:
+1594:
+1595:
+1596:
+1597:
+1598:
+1599:
+1600:
+1601:
+1602:
+1603:
+1604: Right
+1605: Right
+1606: Right Jump
+1607: Right Jump
+1608: Right Jump
+1609: Right Jump
+1610: Right Jump
+1611: Right Jump
+1612: Right Jump
+1613: Right Jump
+1614: Right Jump
+1615: Right Jump
+1616: Right Jump
+1617: Right Jump
+1618: Right Jump
+1619: Right Jump
+1620: Right Jump
+1621: Right Jump
+1622: Right Jump
+1623: Right
+1624: Right
+1625: Right
+1626: Right
+1627: Right
+1628: Right
+1629: Right
+1630: Right
+1631: Right
+1632: Right
+1633: Right
+1634: Right
+1635: Right
+1636: Right
+1637: Right
+1638: Right
+1639: Right
+1640: Right
+1641: Right
+1642: Right
+1643: Right
+1644: Right
+1645: Right
+1646: Right
+1647:
+1648: Jump
+1649: Left Jump
+1650: Left Jump
+1651: Left Jump
+1652: Left Jump
+1653: Left Jump
+1654: Left Jump
+1655: Left Jump
+1656: Left Jump
+1657: Left Jump
+1658: Jump
+1659: Jump
+1660:
+1661:
+1662:
+1663:
+1664:
+1665:
+1666:
+1667: Right
+1668: Right
+1669: Right Jump
+1670: Right Jump
+1671: Right Jump
+1672: Right Jump
+1673: Right Jump
+1674: Right Jump
+1675: Right Jump
+1676: Right Jump
+1677: Right Jump
+1678: Right
+1679: Right
+1680: Right
+1681: Right
+1682: Right
+1683: Right
+1684:
+1685:
+1686:
+1687:
+1688:
+1689:
+1690: Jump
+1691: Jump
+1692: Jump
+1693: Jump
+1694: Right Jump
+1695: Right Jump
+1696: Right
+1697: Right
+1698: Right
+1699: Right
+1700: Right
+1701: Right Jump
+1702: Right Jump
+1703: Right Jump
+1704: Right Jump
+1705: Right Jump
+1706: Right Jump
+1707: Right
+1708: Right
+1709: Right
+1710: Right
+1711: Right
+1712: Right
+1713: Right Jump
+1714: Right Jump
+1715: Right Jump
+1716: Right Jump
+1717: Right Jump
+1718: Right Jump
+1719: Right
+1720: Right
+1721: Right
+1722: Right
+1723: Right Jump
+1724: Right Jump
+1725: Right Jump
+1726: Right Jump
+1727: Right Jump
+1728: Right Jump
+1729: Right Jump
+1730: Right Jump
+1731: Right Jump
